@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   NV Power — theming system
+   Light theme is the default; dark theme via [data-theme='dark'] on <html>.
+   Palette: teal accent #007B88 + deep charcoal, clean corporate look.
+   ========================================================================== */
+
+:root {
+  /* --- Light theme defaults --- */
+  --accent: #007b88;
+  --accent-hover: #006670;
+  --accent-soft: rgba(0, 123, 136, 0.08);
+
+  --bg-color: #ffffff;
+  --bg-color-alt: #f8f9fa;
+  --text-color: #212121;
+  --text-color-muted: #555555;
+  --header-bg: #ffffff;
+  --line-color: #e5e7eb;
+  --card-bg: #ffffff;
+  --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --input-bg: #f8f9fa;
+
+  /* Dark band sections (footer / CTA) — dark in both themes */
+  --band-bg: #212121;
+  --band-bg-deep: #18181b;
+}
+
+[data-theme="dark"] {
+  /* Dark theme in the brand's own deep pine — the NV letter colour (#14474b) */
+  --accent: #0d9aaa;
+  --accent-hover: #10b3c5;
+  --accent-soft: rgba(16, 179, 197, 0.14);
+
+  --bg-color: #14474b;
+  --bg-color-alt: #1a5257;
+  --text-color: #eef5f5;
+  --text-color-muted: #a9c7c9;
+  --header-bg: rgba(16, 58, 62, 0.92);
+  --line-color: #2a6167;
+  --card-bg: #1a5257;
+  --card-shadow: 0 4px 14px rgba(0, 20, 22, 0.35);
+  --input-bg: #113d41;
+
+  --band-bg: #0e3438;
+  --band-bg-deep: #0a282b;
+}
+
+/* Map theme variables into Tailwind utilities (resolved at use-time) */
+@theme inline {
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-surface: var(--bg-color);
+  --color-surface-alt: var(--bg-color-alt);
+  --color-body: var(--text-color);
+  --color-muted: var(--text-color-muted);
+  --color-line: var(--line-color);
+  --color-band: var(--band-bg);
+  --color-band-deep: var(--band-bg-deep);
+  --color-charcoal: #212121;
+
+  --font-display: "Montserrat Variable", "Montserrat", system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
+
+  --ease-out-soft: cubic-bezier(0.21, 0.47, 0.32, 0.98);
+}
+
+/* ---------- Base ---------- */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--text-color);
+    background: var(--bg-color);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 25%, transparent);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ---------- Reusable component classes ---------- */
+
+@utility container-site {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 75rem;
+  padding-inline: 1.25rem;
+  @media (width >= 40rem) { padding-inline: 1.75rem; }
+  @media (width >= 64rem) { padding-inline: 2rem; }
+}
+
+@utility section {
+  scroll-margin-top: 6rem;
+  padding-block: 4rem;
+  @media (width >= 48rem) { padding-block: 6rem; }
+}
+
+@utility eyebrow {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Card — lifts from the page background in both themes */
+@utility card {
+  border-radius: 0.875rem;
+  border: 1px solid var(--line-color);
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+/* Card on dark band sections */
+@utility band-card {
+  border-radius: 0.875rem;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background: rgb(255 255 255 / 0.05);
+}
+
+/* Buttons — teal accent, smooth transitions */
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.625rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1;
+  padding: 0.875rem 1.5rem;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+@utility btn-primary {
+  background: var(--accent);
+  color: #ffffff;
+  &:hover { background: var(--accent-hover); }
+  &:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent); outline-offset: 2px; }
+}
+@utility btn-outline {
+  border: 1.5px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  &:hover { background: var(--accent-soft); }
+  &:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 35%, transparent); outline-offset: 2px; }
+}
+@utility btn-ghost-band {
+  /* secondary button on dark band sections */
+  border: 1.5px solid rgb(255 255 255 / 0.35);
+  color: #fff;
+  background: transparent;
+  &:hover { background: rgb(255 255 255 / 0.1); }
+  &:focus-visible { outline: 3px solid rgb(255 255 255 / 0.35); outline-offset: 2px; }
+}
+
+/* Form controls — solid + light border in light theme, darker in dark theme */
+@utility field {
+  display: flex;
+  width: 100%;
+  border-radius: 0.625rem;
+  border: 1px solid var(--line-color);
+  background: var(--input-bg);
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  color: var(--text-color);
+  transition: border-color 0.15s, box-shadow 0.15s, background-color 0.4s ease;
+  &::placeholder { color: color-mix(in srgb, var(--text-color-muted) 80%, transparent); }
+  &:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent); }
+  &[aria-invalid="true"] { border-color: #dc2626; }
+}
+
+/* ---------- Scroll reveal ---------- */
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.55s var(--ease-out-soft), transform 0.55s var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; }
+  }
+
+  /* native <details> accordion */
+  .faq-item > summary { list-style: none; cursor: pointer; }
+  .faq-item > summary::-webkit-details-marker { display: none; }
+  .faq-item .chev { transition: transform 0.25s var(--ease-out-soft); }
+  .faq-item[open] .chev { transform: rotate(180deg); }
+
+  /* theme toggle icons */
+  [data-theme="dark"] .icon-sun { display: inline-block; }
+  [data-theme="dark"] .icon-moon { display: none; }
+  .icon-sun { display: none; }
+  .icon-moon { display: inline-block; }
+
+  /* Logo chip — invisible on light surfaces, fluid white pill on dark ones */
+  .logo-pill {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.4rem 0.85rem;
+    background: transparent;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  [data-theme="dark"] .logo-pill,
+  .logo-pill-band {
+    background: #ffffff;
+    box-shadow: 0 2px 18px rgba(0, 12, 14, 0.28);
+  }
+}

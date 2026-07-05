@@ -1,0 +1,355 @@
+---
+import {
+  ArrowRight,
+  Check,
+  Sun,
+  Warehouse,
+  Gauge,
+  PiggyBank,
+  BadgePercent,
+  Coins,
+  LineChart,
+  ClipboardList,
+  FileText,
+  Wrench,
+  Zap,
+} from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CtaBand from "../components/CtaBand.astro";
+import FaqAccordion from "../components/FaqAccordion.astro";
+import type { Locale } from "../config/site";
+import { site } from "../config/site";
+import { r } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const c = {
+  bg: {
+    title: "Соларна система за бизнеса — от 30 kWp до 1 MWp+ | NV Power",
+    description:
+      "Фотоволтаични централи за бизнес, индустрия и земеделие: плоски покриви, конструкции, навеси и земя. Лизинг, който пази паричния поток, и изкупуване на излишъците.",
+    hero: {
+      h1: "Покривът ти може да работи за бизнеса",
+      sub: "Проектираме и изграждаме централи от 30 kWp до 1 MWp+ — върху плоски покриви, метални конструкции, навеси и терен. Режеш цената на дневната енергия и пиковите такси, без да блокираш паричен поток.",
+      ctaPrimary: "Вземи оферта за 2 минути",
+      ctaSecondary: "Виж примерните числа",
+      checks: [`Отговор до 1 работен ден`, "Без скрити такси", "Лизинг и разсрочено плащане"],
+    },
+    facts: {
+      eyebrow: "Мащабът",
+      title: "Оразмеряваме по потреблението ти",
+      lead: "Бизнесът харчи енергия точно когато слънцето я произвежда — в работните часове. Затова добре оразмерената покривна централа се изплаща по-бързо от почти всяка друга инвестиция в обекта.",
+      items: [
+        { icon: Zap, value: "30 kWp – 1 MWp+", label: "диапазон на системите" },
+        { icon: Warehouse, value: "4 типа площи", label: "покриви, конструкции, навеси, земя" },
+        { icon: Sun, value: "≈ 1 150 kWh", label: "годишно от всеки инсталиран kWp" },
+      ],
+    },
+    example: {
+      eyebrow: "Примерни числа",
+      title: "Какво дава 100 kWp на покрива",
+      rows: [
+        { label: "Годишно производство", value: "≈ 115 000 kWh" },
+        { label: "Стойност на енергията при 0.194 лв./кВтч (0.099 €/кВтч)", value: "≈ 22 300 лв./год. (≈ 11 400 €)" },
+        { label: "Нужна площ при плосък покрив", value: "≈ 550 – 650 м²" },
+        { label: "Производството съвпада с", value: "работните часове — най-скъпата ти енергия" },
+      ],
+      note: "Ориентировъчни стойности за добре изложен обект в България. Точните числа за твоя обект — в офертата, заедно с финансов модел.",
+      cta: "Вземи оферта за 2 минути",
+    },
+    benefits: {
+      eyebrow: "Ползите",
+      title: "Защо се изплаща",
+      cards: [
+        {
+          icon: Gauge,
+          title: "Режеш пиковете",
+          text: "Производството съвпада с работния ден — точно когато потреблението, цените и пиковите такси са най-високи.",
+        },
+        {
+          icon: PiggyBank,
+          title: "Лизингът пази паричния поток",
+          text: "Вноската се покрива от икономията — централата се изплаща сама, без да блокира оборотни средства.",
+        },
+        {
+          icon: BadgePercent,
+          title: "Данъчно признат разход",
+          text: "Инвестицията се амортизира, а лизинговите вноски са признат разход — говорим на езика на счетоводството ти.",
+        },
+        {
+          icon: Coins,
+          title: "Изкупуваме излишъците",
+          text: "Произведеното през уикендите и празниците не се губи — уреждаме договор за изкупуване на излишната енергия.",
+        },
+        {
+          icon: Warehouse,
+          title: "Всякакви площи",
+          text: "Плоски покриви с баластни конструкции, ламаринени скатове, навеси, паркинги и свободен терен.",
+        },
+        {
+          icon: LineChart,
+          title: "Мониторинг и отчетност",
+          text: "Виждаш производството и икономията в реално време — с месечни отчети, готови за счетоводството.",
+        },
+      ],
+    },
+    process: {
+      eyebrow: "Как протича",
+      title: "От анализ до пускане — 3 стъпки",
+      steps: [
+        {
+          icon: ClipboardList,
+          title: "Анализ и оглед",
+          text: "Разглеждаме товаровия ти профил и обекта — оразмеряваме така, че произведеното да се потребява, а не да се губи.",
+        },
+        {
+          icon: FileText,
+          title: "Оферта и финансов модел",
+          text: `Мощност, производство, икономия, откупуване и лизингов вариант — числа, готови за финансовия ти директор. Отговор до 1 работен ден.`,
+        },
+        {
+          icon: Wrench,
+          title: "Изграждане и присъединяване",
+          text: "Собствени монтажни екипи, координация с мрежовия оператор и пускане — без да спираме работата на обекта.",
+        },
+      ],
+    },
+    faq: {
+      eyebrow: "Въпроси",
+      title: "Често питате от бизнеса",
+      items: [
+        {
+          q: "Колко покривна площ е нужна?",
+          a: "Ориентировъчно 5.5–6.5 м² на инсталиран kWp при плосък покрив — т.е. около 550–650 м² за 100 kWp. При скатни ламаринени покриви площта е по-малка. При огледа проверяваме и статиката на конструкцията, преди да обещаем каквото и да е.",
+        },
+        {
+          q: "Можем ли да започнем без собствена инвестиция?",
+          a: "Да — с лизинг или разсрочено плащане, при които вноската се покрива от икономията, която централата произвежда. Паричният ти поток остава за бизнеса, а разходът е данъчно признат.",
+        },
+        {
+          q: "Какво става с енергията през уикенда?",
+          a: "Излишъците се отдават в мрежата и уреждаме изкупуването им, а с батерия част от тях изчакват понеделник сутрин. При оразмеряването обаче гоним максимално собствено потребление — там е най-голямата стойност.",
+        },
+      ],
+    },
+  },
+  en: {
+    title: "Commercial solar — from 30 kWp to 1 MWp+ | NV Power",
+    description:
+      "Photovoltaic plants for business, industry and agriculture: flat roofs, steel structures, canopies and land. Leasing that protects your cash flow, plus surplus energy buy-back.",
+    hero: {
+      h1: "Your roof can work for the business",
+      sub: "We design and build plants from 30 kWp to 1 MWp+ — on flat roofs, steel structures, canopies and land. Cut the cost of daytime energy and peak charges without locking up cash flow.",
+      ctaPrimary: "Get a quote in 2 minutes",
+      ctaSecondary: "See the example numbers",
+      checks: [`Reply within 1 business day`, "No hidden fees", "Leasing & instalment plans"],
+    },
+    facts: {
+      eyebrow: "The scale",
+      title: "We size for your consumption",
+      lead: "Businesses consume energy exactly when the sun produces it — during working hours. That's why a well-sized rooftop plant pays back faster than almost any other investment in the site.",
+      items: [
+        { icon: Zap, value: "30 kWp – 1 MWp+", label: "system range" },
+        { icon: Warehouse, value: "4 surface types", label: "roofs, structures, canopies, land" },
+        { icon: Sun, value: "≈ 1,150 kWh", label: "per year from every installed kWp" },
+      ],
+    },
+    example: {
+      eyebrow: "Example numbers",
+      title: "What 100 kWp on the roof delivers",
+      rows: [
+        { label: "Annual production", value: "≈ 115,000 kWh" },
+        { label: "Energy value at 0.194 BGN/kWh (€0.099/kWh)", value: "≈ BGN 22,300/yr (≈ €11,400)" },
+        { label: "Area needed on a flat roof", value: "≈ 550 – 650 m²" },
+        { label: "Production coincides with", value: "working hours — your most expensive energy" },
+      ],
+      note: "Indicative values for a well-exposed site in Bulgaria. The exact numbers for your site come with the quote — together with a financial model.",
+      cta: "Get a quote in 2 minutes",
+    },
+    benefits: {
+      eyebrow: "The benefits",
+      title: "Why it pays off",
+      cards: [
+        {
+          icon: Gauge,
+          title: "Cut the peaks",
+          text: "Production coincides with the working day — exactly when consumption, prices and peak charges are highest.",
+        },
+        {
+          icon: PiggyBank,
+          title: "Leasing protects cash flow",
+          text: "The payment is covered by the savings — the plant pays for itself without locking up working capital.",
+        },
+        {
+          icon: BadgePercent,
+          title: "Tax-deductible expense",
+          text: "The investment depreciates and lease payments are a recognised expense — we speak your accountant's language.",
+        },
+        {
+          icon: Coins,
+          title: "We buy back the surplus",
+          text: "Energy produced on weekends and holidays isn't wasted — we arrange a buy-back contract for the surplus.",
+        },
+        {
+          icon: Warehouse,
+          title: "Any surface",
+          text: "Flat roofs with ballasted structures, metal-sheet slopes, canopies, car parks and open land.",
+        },
+        {
+          icon: LineChart,
+          title: "Monitoring & reporting",
+          text: "See production and savings in real time — with monthly reports ready for your accounting.",
+        },
+      ],
+    },
+    process: {
+      eyebrow: "How it goes",
+      title: "From analysis to launch — 3 steps",
+      steps: [
+        {
+          icon: ClipboardList,
+          title: "Analysis & survey",
+          text: "We study your load profile and your site — and size the system so the production gets consumed, not wasted.",
+        },
+        {
+          icon: FileText,
+          title: "Quote & financial model",
+          text: `Capacity, production, savings, payback and a leasing option — numbers ready for your CFO. A reply within 1 business day.`,
+        },
+        {
+          icon: Wrench,
+          title: "Construction & grid connection",
+          text: "Our own installation crews, coordination with the grid operator and launch — without stopping your site's operations.",
+        },
+      ],
+    },
+    faq: {
+      eyebrow: "Questions",
+      title: "What businesses ask",
+      items: [
+        {
+          q: "How much roof area is needed?",
+          a: "Roughly 5.5–6.5 m² per installed kWp on a flat roof — i.e. around 550–650 m² for 100 kWp. On sloped metal-sheet roofs the area is smaller. During the survey we also check the structural capacity before we promise anything.",
+        },
+        {
+          q: "Can we start without our own investment?",
+          a: "Yes — with leasing or instalment plans, where the payment is covered by the savings the plant generates. Your cash flow stays in the business, and the cost is tax-deductible.",
+        },
+        {
+          q: "What happens to the energy on weekends?",
+          a: "The surplus is fed into the grid and we arrange its buy-back, and with a battery part of it waits for Monday morning. When sizing, though, we aim for maximum self-consumption — that's where the biggest value is.",
+        },
+      ],
+    },
+  },
+}[locale];
+---
+
+<BaseLayout locale={locale} title={c.title} description={c.description} path="/solar/za-biznesa/">
+  <!-- 1 ▸ HERO (light) -->
+  <section class="border-b border-line bg-surface-alt">
+    <div class="container-site pt-12 pb-12 text-center md:pt-16 md:pb-14">
+      <h1 class="mx-auto max-w-3xl text-3xl font-bold text-body md:text-5xl md:leading-[1.1]">{c.hero.h1}</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-muted md:text-lg">{c.hero.sub}</p>
+
+      <div class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href={r(locale, "oferta")} class="btn btn-primary !px-7 !py-4 text-base">
+          {c.hero.ctaPrimary}
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </a>
+        <a href="#primer" class="btn btn-outline !px-7 !py-4 text-base">{c.hero.ctaSecondary}</a>
+      </div>
+
+      <ul class="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5">
+        {c.hero.checks.map((check) => (
+          <li class="flex items-center gap-2 text-sm font-medium text-body">
+            <Check class="size-4 text-accent" aria-hidden="true" />
+            {check}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2 ▸ SCALE FACTS -->
+  <section class="section container-site">
+    <SectionHeading eyebrow={c.facts.eyebrow} title={c.facts.title} lead={c.facts.lead} />
+    <ul class="mx-auto mt-12 grid max-w-4xl gap-5 sm:grid-cols-3">
+      {c.facts.items.map((f, i) => (
+        <li class="reveal card flex flex-col items-center gap-2 p-7 text-center" style={`--reveal-delay:${i * 80}ms`}>
+          <span class="flex size-12 items-center justify-center rounded-xl bg-accent/10 text-accent"><f.icon class="size-6" aria-hidden="true" /></span>
+          <p class="mt-2 font-[family-name:var(--font-display)] text-2xl font-bold text-accent">{f.value}</p>
+          <p class="text-sm text-muted">{f.label}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- 3 ▸ EXAMPLE: 100 kWp (dark band) -->
+  <section id="primer" class="bg-band">
+    <div class="container-site section">
+      <SectionHeading eyebrow={c.example.eyebrow} title={c.example.title} on="band" />
+      <dl class="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-2">
+        {c.example.rows.map((row, i) => (
+          <div class="reveal band-card px-6 py-5" style={`--reveal-delay:${i * 80}ms`}>
+            <dt class="text-sm text-white/70">{row.label}</dt>
+            <dd class="mt-1.5 font-[family-name:var(--font-display)] text-xl font-bold text-[#6fd0da]">{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <div class="reveal mx-auto mt-8 max-w-2xl text-center">
+        <p class="text-sm leading-relaxed text-white/70">{c.example.note}</p>
+        <a href={r(locale, "oferta")} class="btn btn-primary mt-6 !px-8 !py-4 text-base">
+          {c.example.cta}
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 ▸ BENEFITS -->
+  <section class="section container-site">
+    <SectionHeading eyebrow={c.benefits.eyebrow} title={c.benefits.title} />
+    <ul class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {c.benefits.cards.map((card, i) => (
+        <li class="reveal card p-6" style={`--reveal-delay:${(i % 3) * 80}ms`}>
+          <span class="flex size-11 items-center justify-center rounded-xl bg-accent/10 text-accent"><card.icon class="size-5.5" aria-hidden="true" /></span>
+          <h3 class="mt-3.5 font-[family-name:var(--font-display)] text-base font-bold text-body">{card.title}</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-muted">{card.text}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- 5 ▸ MINI PROCESS -->
+  <section class="bg-surface-alt">
+    <div class="container-site section">
+      <SectionHeading eyebrow={c.process.eyebrow} title={c.process.title} />
+      <ol class="mt-12 grid gap-6 md:grid-cols-3">
+        {c.process.steps.map((s, i) => (
+          <li class="reveal card relative p-7" style={`--reveal-delay:${i * 90}ms`}>
+            <span class="absolute top-6 right-6 font-[family-name:var(--font-display)] text-5xl font-bold text-line">{String(i + 1).padStart(2, "0")}</span>
+            <span class="flex size-12 items-center justify-center rounded-xl bg-accent/10 text-accent"><s.icon class="size-6" aria-hidden="true" /></span>
+            <h3 class="mt-4 text-lg font-bold text-body">{s.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6 ▸ FAQ -->
+  <section class="section container-site">
+    <SectionHeading eyebrow={c.faq.eyebrow} title={c.faq.title} />
+    <div class="reveal mx-auto mt-10 max-w-3xl">
+      <FaqAccordion items={c.faq.items} />
+    </div>
+  </section>
+
+  <!-- 7 ▸ FINAL CTA BAND -->
+  <CtaBand locale={locale} />
+</BaseLayout>

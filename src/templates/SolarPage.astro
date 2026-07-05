@@ -1,0 +1,472 @@
+---
+import {
+  ArrowRight,
+  Check,
+  Home,
+  Warehouse,
+  Factory,
+  Tractor,
+  ClipboardList,
+  Clock,
+  Landmark,
+  Wrench,
+  LineChart,
+  Sun,
+  Cpu,
+  Calculator,
+} from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CtaBand from "../components/CtaBand.astro";
+import FaqAccordion from "../components/FaqAccordion.astro";
+import type { Locale } from "../config/site";
+import { site } from "../config/site";
+import { r } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const c = {
+  bg: {
+    title: "Соларни системи с батерии — проектиране и изграждане до ключ | NV Power",
+    description:
+      "Фотоволтаични централи с батерии за дом, бизнес, индустрия и земеделие — от огледа до мониторинга, с лизинг и разсрочено плащане. Оферта за 2 минути.",
+    hero: {
+      h1a: "От слънцето",
+      h1b: "до твоята сметка",
+      sub: "Проектираме и изграждаме фотоволтаични централи с батерии — до ключ. От огледа и документите до мониторинга след пускане, всичко минава през един екип.",
+      ctaPrimary: "Вземи оферта за 2 минути",
+      ctaSecondary: "Виж процеса",
+      checks: [`Отговор до 1 работен ден`, "Без скрити такси", "Възможност за финансиране"],
+    },
+    segments: {
+      eyebrow: "За кого",
+      title: "Решения за всеки покрив и всеки мащаб",
+      lead: "От къща с батерия до индустриална централа над мегават — оразмеряваме според потреблението ти, не според каталога.",
+      hintLabel: "Типична система",
+      more: "Разгледай",
+      items: [
+        {
+          icon: Home,
+          title: "Дом",
+          pitch: "По-ниска сметка и ток вечер — направо от твоя покрив.",
+          hint: "5–10 kWp + батерия",
+          href: r(locale, "solarHome"),
+        },
+        {
+          icon: Warehouse,
+          title: "Бизнес и складове",
+          pitch: "Плоски покриви, които режат разхода точно в работните часове.",
+          hint: "30–200 kWp",
+          href: r(locale, "solarBiz"),
+        },
+        {
+          icon: Factory,
+          title: "Индустрия",
+          pitch: "Големи мощности срещу пикови такси и скъпа дневна енергия.",
+          hint: "200 kWp – 1 MWp+",
+          href: r(locale, "solarBiz"),
+        },
+        {
+          icon: Tractor,
+          title: "Земеделие",
+          pitch: "Навеси и стопански сгради захранват помпи, хладилни камери и сушилни.",
+          hint: "30–500 kWp",
+          href: r(locale, "solarBiz"),
+        },
+      ],
+    },
+    process: {
+      eyebrow: "Как работим",
+      title: "Процесът: 5 стъпки",
+      lead: "Един договор, един екип, една отговорност — от първия оглед до последната проверка на мониторинга.",
+      steps: [
+        {
+          icon: ClipboardList,
+          title: "Оглед и проектиране",
+          text: "Идваме на място, гледаме покрива и потреблението и проектираме система по твоя профил — не по-голяма, не по-малка.",
+        },
+        {
+          icon: Clock,
+          title: `Оферта до 1 работен ден`,
+          text: "Конкретни числа: мощност, годишно производство, икономия и срок на откупуване. Без ангажимент.",
+        },
+        {
+          icon: Landmark,
+          title: "Финансиране / лизинг",
+          text: "Наведнъж, разсрочено или на лизинг — с вноска приблизително колкото сметката, която спираш да плащаш.",
+        },
+        {
+          icon: Wrench,
+          title: "Изграждане и присъединяване",
+          text: "Монтаж от собствен екип и всички документи към мрежовия оператор — до ключ.",
+        },
+        {
+          icon: LineChart,
+          title: "Мониторинг и поддръжка",
+          text: "Ти следиш производството от телефона си, ние следим системата — и реагираме, преди да усетиш проблем.",
+        },
+      ],
+    },
+    tech: {
+      eyebrow: "Технологии",
+      title: "Оборудване, зад което заставаме",
+      lead: "Работим само с доказани производители — защото гаранцията е толкова добра, колкото е компанията зад нея.",
+      blocks: [
+        {
+          icon: Sun,
+          title: "Панели",
+          text: "Tier-1 производители с 25 години гаранция на производителността. Подбираме модела според покрива ти, а не според наличностите на склад.",
+        },
+        {
+          icon: Cpu,
+          title: "Инвертори",
+          text: "Хибридни инвертори със smart мониторинг — виждаш производството и потреблението в реално време и си готов за батерия от първия ден.",
+        },
+      ],
+      battery: {
+        eyebrow: "Батерии — нашата специалност",
+        title: "Батерията прави разликата",
+        text: "Слънцето свети денем, а ти харчиш вечер. Батерията съхранява дневното производство, за да го ползваш точно когато ти трябва — и те държи включен, когато мрежата изключи.",
+        points: [
+          "LiFePO4 химия — безопасна и дълговечна, 6000+ цикъла",
+          "Покриваш вечерното потребление със слънце от деня",
+          "Резервно захранване при спиране на тока",
+          "Модулен капацитет — разширяваш, когато ти потрябва",
+        ],
+      },
+    },
+    financing: {
+      eyebrow: "Финансиране",
+      title: "Вноската ≈ сметката, която спираш да плащаш",
+      lead: "Лизинг и разсрочено плащане за дома и бизнеса — започваш без голяма първоначална инвестиция, а централата се изплаща от икономията, която сама произвежда.",
+      checks: ["Лизинг и разсрочено плащане", "За дома и за бизнеса", "Данъчно признат разход за фирми"],
+      cta: "Вземи оферта за 2 минути",
+    },
+    calc: {
+      title: "Колко ще спестиш със слънце?",
+      text: "Въведи месечната си сметка и виж препоръчана система, годишна икономия и срок на откупуване — за 30 секунди, без данни за контакт.",
+      cta: "Отвори калкулатора",
+    },
+    faq: {
+      eyebrow: "Въпроси",
+      title: "Често питате за соларните системи",
+      items: [
+        {
+          q: "Колко трае монтажът?",
+          a: "За домашна система 5–10 kWp самият монтаж отнема 2–3 дни. Целият процес — от огледа през документите до присъединяването — обикновено е 4–8 седмици. За бизнес обекти срокът зависи от мащаба и го фиксираме в офертата.",
+        },
+        {
+          q: "Трябва ли разрешително за строеж?",
+          a: "За системи до 10.8 kWp за собствено потребление действа облекчен режим — без разрешително за строеж, само уведомление и становище от мрежовия оператор. Всички документи ги подготвяме и подаваме ние.",
+        },
+        {
+          q: "Какво става при спиране на тока?",
+          a: "Ако имаш хибриден инвертор с батерия, системата автоматично минава в резервен режим и продължава да захранва важните товари. Система без батерия спира по стандарт за безопасност — затова препоръчваме хибридна конфигурация.",
+        },
+        {
+          q: "Какво покрива поддръжката?",
+          a: "Дистанционен мониторинг на производството, профилактични огледи, реакция при аларми и съдействие по гаранциите на панели, инвертор и батерия. Виждаш всичко и сам — в приложението на телефона си.",
+        },
+      ],
+    },
+  },
+  en: {
+    title: "Solar systems with batteries — turnkey design & build | NV Power",
+    description:
+      "Photovoltaic plants with batteries for homes, business, industry and agriculture — from site survey to monitoring, with leasing and instalment plans. A quote in 2 minutes.",
+    hero: {
+      h1a: "From the sun",
+      h1b: "to your bill",
+      sub: "We design and build photovoltaic plants with batteries — turnkey. From the site survey and paperwork to post-launch monitoring, everything runs through one team.",
+      ctaPrimary: "Get a quote in 2 minutes",
+      ctaSecondary: "See the process",
+      checks: [`Reply within 1 business day`, "No hidden fees", "Financing available"],
+    },
+    segments: {
+      eyebrow: "Who it's for",
+      title: "Solutions for every roof and every scale",
+      lead: "From a house with a battery to an industrial plant beyond a megawatt — we size for your consumption, not for the catalogue.",
+      hintLabel: "Typical system",
+      more: "Explore",
+      items: [
+        {
+          icon: Home,
+          title: "Home",
+          pitch: "A lower bill and power in the evening — straight from your roof.",
+          hint: "5–10 kWp + battery",
+          href: r(locale, "solarHome"),
+        },
+        {
+          icon: Warehouse,
+          title: "Business & warehouses",
+          pitch: "Flat roofs that cut your costs exactly during working hours.",
+          hint: "30–200 kWp",
+          href: r(locale, "solarBiz"),
+        },
+        {
+          icon: Factory,
+          title: "Industry",
+          pitch: "Serious capacity against peak charges and expensive daytime energy.",
+          hint: "200 kWp – 1 MWp+",
+          href: r(locale, "solarBiz"),
+        },
+        {
+          icon: Tractor,
+          title: "Agriculture",
+          pitch: "Canopies and farm buildings power pumps, cold rooms and dryers.",
+          hint: "30–500 kWp",
+          href: r(locale, "solarBiz"),
+        },
+      ],
+    },
+    process: {
+      eyebrow: "How we work",
+      title: "The process: 5 steps",
+      lead: "One contract, one team, one point of responsibility — from the first survey to the last monitoring check.",
+      steps: [
+        {
+          icon: ClipboardList,
+          title: "Survey & design",
+          text: "We visit your site, study the roof and your consumption, and design a system that fits your profile — no bigger, no smaller.",
+        },
+        {
+          icon: Clock,
+          title: `A quote within 1 business day`,
+          text: "Real numbers: capacity, annual production, savings and payback period. No commitment.",
+        },
+        {
+          icon: Landmark,
+          title: "Financing / leasing",
+          text: "Pay upfront, in instalments or on leasing — with a payment roughly equal to the bill you stop paying.",
+        },
+        {
+          icon: Wrench,
+          title: "Construction & grid connection",
+          text: "Installation by our own crew and all the paperwork with the grid operator — turnkey.",
+        },
+        {
+          icon: LineChart,
+          title: "Monitoring & maintenance",
+          text: "You watch production from your phone, we watch the system — and react before you notice a problem.",
+        },
+      ],
+    },
+    tech: {
+      eyebrow: "Technology",
+      title: "Equipment we stand behind",
+      lead: "We work only with proven manufacturers — because a warranty is only as good as the company behind it.",
+      blocks: [
+        {
+          icon: Sun,
+          title: "Panels",
+          text: "Tier-1 manufacturers with a 25-year performance warranty. We pick the model for your roof, not for what's sitting in a warehouse.",
+        },
+        {
+          icon: Cpu,
+          title: "Inverters",
+          text: "Hybrid inverters with smart monitoring — you see production and consumption in real time and you're battery-ready from day one.",
+        },
+      ],
+      battery: {
+        eyebrow: "Batteries — our specialty",
+        title: "The battery makes the difference",
+        text: "The sun shines during the day, but you consume in the evening. The battery stores the daytime production so you use it exactly when you need it — and keeps you running when the grid goes down.",
+        points: [
+          "LiFePO4 chemistry — safe and durable, 6000+ cycles",
+          "Cover your evening consumption with daytime sun",
+          "Backup power during grid outages",
+          "Modular capacity — expand whenever you need to",
+        ],
+      },
+    },
+    financing: {
+      eyebrow: "Financing",
+      title: "The payment ≈ the bill you stop paying",
+      lead: "Leasing and instalment plans for homes and business — start without a big upfront investment, while the plant pays for itself with the savings it generates.",
+      checks: ["Leasing & instalment plans", "For homes and business", "Tax-deductible expense for companies"],
+      cta: "Get a quote in 2 minutes",
+    },
+    calc: {
+      title: "How much can the sun save you?",
+      text: "Enter your monthly bill and see a recommended system, annual savings and payback period — in 30 seconds, no contact details.",
+      cta: "Open the calculator",
+    },
+    faq: {
+      eyebrow: "Questions",
+      title: "What people ask about solar",
+      items: [
+        {
+          q: "How long does installation take?",
+          a: "For a 5–10 kWp home system the installation itself takes 2–3 days. The whole process — from survey through paperwork to grid connection — is typically 4–8 weeks. For business sites the timeline depends on scale and we fix it in the quote.",
+        },
+        {
+          q: "Do I need a building permit?",
+          a: "Systems up to 10.8 kWp for self-consumption fall under a simplified regime — no building permit, just a notification and an opinion from the grid operator. We prepare and file all the documents for you.",
+        },
+        {
+          q: "What happens during a power outage?",
+          a: "With a hybrid inverter and a battery, the system automatically switches to backup mode and keeps powering your essential loads. A system without a battery shuts down as a safety standard — which is why we recommend a hybrid configuration.",
+        },
+        {
+          q: "What does maintenance cover?",
+          a: "Remote production monitoring, preventive inspections, response to alarms and support with the panel, inverter and battery warranties. You can see everything yourself too — in the app on your phone.",
+        },
+      ],
+    },
+  },
+}[locale];
+---
+
+<BaseLayout locale={locale} title={c.title} description={c.description} path="/solar/">
+  <!-- 1 ▸ HERO (dark band) -->
+  <section class="bg-band">
+    <div class="container-site py-16 text-center md:py-24">
+      <h1 class="mx-auto max-w-3xl text-4xl font-bold text-white sm:text-5xl md:text-6xl md:leading-[1.05]">
+        {c.hero.h1a}{" "}<span class="text-[#6fd0da]">{c.hero.h1b}</span>
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/75 md:text-lg">{c.hero.sub}</p>
+
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href={r(locale, "oferta")} class="btn btn-primary !px-7 !py-4 text-base">
+          {c.hero.ctaPrimary}
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </a>
+        <a href="#protsesat" class="btn btn-ghost-band !px-7 !py-4 text-base">{c.hero.ctaSecondary}</a>
+      </div>
+
+      <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5">
+        {c.hero.checks.map((check) => (
+          <li class="flex items-center gap-2 text-sm font-medium text-white/80">
+            <Check class="size-4 text-[#6fd0da]" aria-hidden="true" />
+            {check}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2 ▸ SEGMENTS -->
+  <section class="section container-site">
+    <SectionHeading eyebrow={c.segments.eyebrow} title={c.segments.title} lead={c.segments.lead} />
+
+    <ul class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {c.segments.items.map((s, i) => (
+        <li class="reveal" style={`--reveal-delay:${i * 80}ms`}>
+          <a href={s.href} class="card group flex h-full flex-col gap-3.5 p-6 transition-transform hover:-translate-y-1">
+            <span class="flex size-12 items-center justify-center rounded-xl bg-accent/10 text-accent">
+              <s.icon class="size-6" aria-hidden="true" />
+            </span>
+            <h3 class="font-[family-name:var(--font-display)] text-lg font-bold text-body transition-colors group-hover:text-accent">{s.title}</h3>
+            <p class="text-sm leading-relaxed text-muted">{s.pitch}</p>
+            <p class="mt-auto border-t border-line pt-3.5 text-xs text-muted">
+              <span class="font-semibold tracking-wide text-accent uppercase">{c.segments.hintLabel}:</span>
+              <span class="ml-1 font-semibold text-body">{s.hint}</span>
+            </p>
+            <span class="text-sm font-bold text-accent">{c.segments.more} →</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- 3 ▸ PROCESS: 5 STEPS -->
+  <section id="protsesat" class="bg-surface-alt">
+    <div class="container-site section">
+      <SectionHeading eyebrow={c.process.eyebrow} title={c.process.title} lead={c.process.lead} />
+      <ol class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+        {c.process.steps.map((s, i) => (
+          <li class="reveal card relative p-6" style={`--reveal-delay:${i * 80}ms`}>
+            <span class="absolute top-5 right-5 font-[family-name:var(--font-display)] text-4xl font-bold text-line">{String(i + 1).padStart(2, "0")}</span>
+            <span class="flex size-11 items-center justify-center rounded-xl bg-accent/10 text-accent"><s.icon class="size-5.5" aria-hidden="true" /></span>
+            <h3 class="mt-4 font-[family-name:var(--font-display)] text-base font-bold text-body">{s.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4 ▸ TECHNOLOGY (panels, inverters + big battery block) -->
+  <section class="section container-site">
+    <SectionHeading eyebrow={c.tech.eyebrow} title={c.tech.title} lead={c.tech.lead} />
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2">
+      {c.tech.blocks.map((b, i) => (
+        <article class="reveal card p-7 md:p-8" style={`--reveal-delay:${i * 90}ms`}>
+          <span class="flex size-12 items-center justify-center rounded-xl bg-accent/10 text-accent"><b.icon class="size-6" aria-hidden="true" /></span>
+          <h3 class="mt-4 text-xl font-bold text-body">{b.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{b.text}</p>
+        </article>
+      ))}
+    </div>
+
+    <!-- Batteries — the differentiator, full-width dark card -->
+    <article class="reveal mt-6 overflow-hidden rounded-2xl bg-band p-8 md:p-10" style="--reveal-delay:120ms">
+      <div class="grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+        <div>
+          <span class="eyebrow text-[#4db8c4]">{c.tech.battery.eyebrow}</span>
+          <h3 class="mt-2.5 text-2xl font-bold text-white md:text-3xl">{c.tech.battery.title}</h3>
+          <p class="mt-3 text-base leading-relaxed text-white/70">{c.tech.battery.text}</p>
+        </div>
+        <ul class="flex flex-col gap-3">
+          {c.tech.battery.points.map((p) => (
+            <li class="band-card flex items-start gap-2.5 px-4 py-3 text-sm font-medium text-white/90">
+              <Check class="mt-0.5 size-4 shrink-0 text-[#6fd0da]" aria-hidden="true" />
+              {p}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <!-- 5 ▸ FINANCING (dark band) -->
+  <section class="bg-band">
+    <div class="container-site section">
+      <SectionHeading eyebrow={c.financing.eyebrow} title={c.financing.title} lead={c.financing.lead} on="band" />
+      <ul class="mt-7 flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5">
+        {c.financing.checks.map((check) => (
+          <li class="flex items-center gap-2 text-sm font-medium text-white/80">
+            <Check class="size-4 text-[#6fd0da]" aria-hidden="true" />
+            {check}
+          </li>
+        ))}
+      </ul>
+      <div class="reveal mt-9 text-center">
+        <a href={r(locale, "oferta")} class="btn btn-primary !px-8 !py-4 text-base">
+          {c.financing.cta}
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 ▸ CALCULATOR TEASER -->
+  <section class="bg-surface-alt">
+    <div class="container-site section">
+      <div class="reveal card mx-auto flex max-w-3xl flex-col items-center gap-4 p-8 text-center md:p-10">
+        <span class="flex size-14 items-center justify-center rounded-2xl bg-accent/10 text-accent"><Calculator class="size-7" aria-hidden="true" /></span>
+        <h2 class="text-2xl font-bold text-body md:text-3xl">{c.calc.title}</h2>
+        <p class="max-w-xl text-muted">{c.calc.text}</p>
+        <a href={r(locale, "kalkulator")} class="btn btn-primary mt-2">
+          {c.calc.cta}
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 ▸ FAQ -->
+  <section class="section container-site">
+    <SectionHeading eyebrow={c.faq.eyebrow} title={c.faq.title} />
+    <div class="reveal mx-auto mt-10 max-w-3xl">
+      <FaqAccordion items={c.faq.items} />
+    </div>
+  </section>
+
+  <!-- 8 ▸ FINAL CTA BAND -->
+  <CtaBand locale={locale} />
+</BaseLayout>

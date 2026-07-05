@@ -1,0 +1,116 @@
+---
+import { FileText, ScrollText, ShieldCheck, ChevronDown, ArrowRight, Clock } from "@lucide/astro";
+import type { Locale } from "../config/site";
+import { site } from "../config/site";
+import { r } from "../i18n/ui";
+
+/**
+ * Shared "Документи" card list — used on /za-nas and in the /info "Документи" tab.
+ * The КЕВР licence PDF is a placeholder ("/documents/licenz-kevr.pdf" not yet
+ * published), so its card renders an honest explanatory note instead of an
+ * <iframe> viewer. Terms & privacy link to their live legal pages.
+ */
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const c = {
+  bg: {
+    license: {
+      title: "Лицензия от КЕВР за търговия с електроенергия",
+      note: "Документът ще бъде публикуван тук.",
+      text: `Подготвяме публикуването на пълния документ (PDF) на тази страница. Дотогава можеш да провериш лицензията ни директно в публичния регистър на КЕВР: ${site.license.bg}.`,
+    },
+    terms: {
+      title: "Общи условия",
+      text: "Пълните условия, при които доставяме електроенергия и изграждаме соларни системи — на разбираем български, без дребен шрифт с изненади.",
+      cta: "Прочети общите условия",
+    },
+    privacy: {
+      title: "Политика за поверителност",
+      text: "Как събираме, съхраняваме и защитаваме личните ти данни — и какви права имаш по GDPR. Кратко и по същество.",
+      cta: "Прочети политиката",
+    },
+  },
+  en: {
+    license: {
+      title: "EWRC electricity trading licence",
+      note: "The document will be published here.",
+      text: `We are preparing the full document (PDF) for publication on this page. Until then you can verify our licence directly in the EWRC public register: ${site.license.en}.`,
+    },
+    terms: {
+      title: "Terms & conditions",
+      text: "The full terms under which we supply electricity and build solar systems — in plain language, with no small-print surprises.",
+      cta: "Read the terms",
+    },
+    privacy: {
+      title: "Privacy policy",
+      text: "How we collect, store and protect your personal data — and your rights under the GDPR. Short and to the point.",
+      cta: "Read the policy",
+    },
+  },
+}[locale];
+---
+
+<ul class="grid gap-4">
+  <!-- КЕВР licence — placeholder PDF, honest note instead of an iframe viewer -->
+  <li class="reveal">
+    <details class="faq-item card overflow-hidden">
+      <summary class="flex items-center gap-3.5 px-5 py-4.5 md:px-6">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+          <FileText class="size-5" aria-hidden="true" />
+        </span>
+        <span class="flex-1 font-[family-name:var(--font-display)] text-[0.95rem] font-bold text-body">{c.license.title}</span>
+        <ChevronDown class="chev size-5 shrink-0 text-accent" aria-hidden="true" />
+      </summary>
+      <div class="border-t border-line px-5 pt-4 pb-5 md:px-6">
+        <p class="flex items-center gap-2 rounded-lg bg-accent/10 px-3.5 py-2.5 text-sm font-semibold text-accent">
+          <Clock class="size-4 shrink-0" aria-hidden="true" />
+          {c.license.note}
+        </p>
+        <p class="mt-3 text-sm leading-relaxed text-muted">{c.license.text}</p>
+      </div>
+    </details>
+  </li>
+
+  <!-- Terms — live legal page -->
+  <li class="reveal" style="--reveal-delay:80ms">
+    <details class="faq-item card overflow-hidden">
+      <summary class="flex items-center gap-3.5 px-5 py-4.5 md:px-6">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+          <ScrollText class="size-5" aria-hidden="true" />
+        </span>
+        <span class="flex-1 font-[family-name:var(--font-display)] text-[0.95rem] font-bold text-body">{c.terms.title}</span>
+        <ChevronDown class="chev size-5 shrink-0 text-accent" aria-hidden="true" />
+      </summary>
+      <div class="border-t border-line px-5 pt-4 pb-5 md:px-6">
+        <p class="text-sm leading-relaxed text-muted">{c.terms.text}</p>
+        <a href={r(locale, "terms")} class="btn btn-outline mt-4 !px-5 !py-2.5 text-sm">
+          {c.terms.cta}
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </a>
+      </div>
+    </details>
+  </li>
+
+  <!-- Privacy — live legal page -->
+  <li class="reveal" style="--reveal-delay:160ms">
+    <details class="faq-item card overflow-hidden">
+      <summary class="flex items-center gap-3.5 px-5 py-4.5 md:px-6">
+        <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+          <ShieldCheck class="size-5" aria-hidden="true" />
+        </span>
+        <span class="flex-1 font-[family-name:var(--font-display)] text-[0.95rem] font-bold text-body">{c.privacy.title}</span>
+        <ChevronDown class="chev size-5 shrink-0 text-accent" aria-hidden="true" />
+      </summary>
+      <div class="border-t border-line px-5 pt-4 pb-5 md:px-6">
+        <p class="text-sm leading-relaxed text-muted">{c.privacy.text}</p>
+        <a href={r(locale, "privacy")} class="btn btn-outline mt-4 !px-5 !py-2.5 text-sm">
+          {c.privacy.cta}
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </a>
+      </div>
+    </details>
+  </li>
+</ul>

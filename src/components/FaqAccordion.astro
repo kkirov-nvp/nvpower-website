@@ -1,0 +1,33 @@
+---
+import { ChevronDown } from "@lucide/astro";
+
+/**
+ * Native <details> accordion — zero JS, accessible, animated chevron.
+ * Optional `category` on items enables filter pills (used on /info).
+ */
+export interface FaqItem {
+  q: string;
+  a: string;
+  category?: string;
+}
+
+interface Props {
+  items: FaqItem[];
+  class?: string;
+}
+const { items, class: className = "" } = Astro.props;
+---
+
+<div class:list={["card divide-y divide-line overflow-hidden", className]}>
+  {
+    items.map((item, i) => (
+      <details class="faq-item group" data-category={item.category} open={i === 0}>
+        <summary class="flex items-center justify-between gap-4 px-5 py-4.5 font-[family-name:var(--font-display)] text-[0.95rem] font-bold text-body transition-colors hover:text-accent md:px-6">
+          {item.q}
+          <ChevronDown class="chev size-5 shrink-0 text-accent" aria-hidden="true" />
+        </summary>
+        <div class="px-5 pb-5 text-sm leading-relaxed text-muted md:px-6" set:html={item.a} />
+      </details>
+    ))
+  }
+</div>

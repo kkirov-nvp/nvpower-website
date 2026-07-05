@@ -1,0 +1,25 @@
+---
+/**
+ * NV Power logo — the original brand wordmark (public/images/logo.jpeg,
+ * white background). In the light theme it blends straight into the white
+ * header; on dark surfaces it sits in a fluid white pill.
+ *
+ * `on="band"` (footer / always-dark sections) forces the pill in both themes.
+ */
+interface Props {
+  on?: "auto" | "band";
+  class?: string;
+}
+const { on = "auto", class: className = "" } = Astro.props;
+---
+
+<span class:list={["logo-pill", on === "band" && "logo-pill-band", className]}>
+  <img
+    src="/images/logo.jpeg"
+    alt="NV Power"
+    width="844"
+    height="129"
+    class="h-6 w-auto md:h-7"
+    decoding="async"
+  />
+</span>

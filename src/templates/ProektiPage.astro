@@ -1,0 +1,193 @@
+---
+import { Sun, Zap, Battery, MapPin, CalendarDays, PiggyBank, BadgeInfo } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CtaBand from "../components/CtaBand.astro";
+import type { Locale } from "../config/site";
+import { projects, segmentLabels } from "../data/projects";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const segments = ["home", "business", "industry", "agri"] as const;
+
+const c = {
+  bg: {
+    title: "Проекти — реални соларни системи и икономии | NV Power",
+    description:
+      "Разгледай изградени от NV Power соларни системи с батерии — за дома, бизнеса, индустрията и земеделието. Мощност, локация и реална годишна икономия за всеки проект.",
+    hero: {
+      eyebrow: "Проекти",
+      h1: "Реални системи. Реални икономии.",
+      sub: "Разгледай изградени системи по сегмент — с мощност, батерия, локация и годишна икономия. Без разкрасяване.",
+    },
+    filterLabel: "Филтрирай проектите по сегмент",
+    all: "Всички",
+    sampleBadge: "Примерен проект",
+    specs: {
+      power: "Мощност",
+      battery: "Батерия",
+      location: "Локация",
+      status: "Статус",
+      savings: "Икономия",
+    },
+    emptyFilter: "В тази категория още няма публикувани проекти. Питай ни какво изграждаме в момента.",
+    honest: "Публикуваме всеки завършен проект с реални числа и снимки — с разрешение на клиента.",
+    ctaTitle: "Искаш подобна система?",
+  },
+  en: {
+    title: "Projects — real solar systems and savings | NV Power",
+    description:
+      "Browse solar systems with batteries built by NV Power — for homes, businesses, industry and agriculture. Capacity, location and real annual savings for every project.",
+    hero: {
+      eyebrow: "Projects",
+      h1: "Real systems. Real savings.",
+      sub: "Browse completed systems by segment — with capacity, battery, location and annual savings. No embellishment.",
+    },
+    filterLabel: "Filter projects by segment",
+    all: "All",
+    sampleBadge: "Sample project",
+    specs: {
+      power: "Capacity",
+      battery: "Battery",
+      location: "Location",
+      status: "Status",
+      savings: "Savings",
+    },
+    emptyFilter: "No published projects in this category yet. Ask us what we're building right now.",
+    honest: "We publish every completed project with real numbers and photos — with the client's permission.",
+    ctaTitle: "Want a system like these?",
+  },
+}[locale];
+---
+
+<BaseLayout locale={locale} title={c.title} description={c.description} path="/proekti/">
+  <!-- 1 ▸ HERO (light) -->
+  <section class="border-b border-line bg-surface-alt">
+    <div class="container-site pt-12 pb-12 text-center md:pt-16">
+      <span class="eyebrow">{c.hero.eyebrow}</span>
+      <h1 class="mx-auto mt-3 max-w-3xl text-3xl font-bold text-body md:text-5xl">{c.hero.h1}</h1>
+      <p class="mx-auto mt-4 max-w-xl text-muted md:text-lg">{c.hero.sub}</p>
+    </div>
+  </section>
+
+  <!-- 2 ▸ FILTER + PROJECT GRID -->
+  <section class="section container-site">
+    <!-- Filter pills -->
+    <div class="flex flex-wrap items-center justify-center gap-2" role="group" aria-label={c.filterLabel}>
+      <button
+        type="button"
+        data-filter="all"
+        aria-pressed="true"
+        class="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-body transition-colors hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white"
+      >
+        {c.all}
+      </button>
+      {
+        segments.map((seg) => (
+          <button
+            type="button"
+            data-filter={seg}
+            aria-pressed="false"
+            class="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-body transition-colors hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white"
+          >
+            {segmentLabels[seg][locale]}
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- Cards -->
+    <ul id="project-grid" class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        projects.map((p, i) => (
+          <li class="reveal card flex flex-col overflow-hidden" data-segment={p.segment} style={`--reveal-delay:${(i % 3) * 90}ms`}>
+            {p.image ? (
+              <img src={p.image} alt={p.title[locale]} loading="lazy" class="h-40 w-full object-cover" />
+            ) : (
+              <div class="flex h-40 items-center justify-center bg-linear-to-br from-[#00505c] to-[#007b88]">
+                <Sun class="size-10 text-white/70" aria-hidden="true" />
+              </div>
+            )}
+
+            <div class="flex flex-1 flex-col p-6">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="inline-flex rounded-full bg-accent/10 px-3 py-1 text-xs font-bold text-accent">{segmentLabels[p.segment][locale]}</span>
+                {p.sample && (
+                  <span class="inline-flex rounded-full border border-accent px-3 py-1 text-xs font-bold text-accent">{c.sampleBadge}</span>
+                )}
+              </div>
+
+              <h2 class="mt-3.5 font-[family-name:var(--font-display)] text-lg font-bold text-body">{p.title[locale]}</h2>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{p.story[locale]}</p>
+
+              <dl class="mt-5 flex flex-col gap-2.5 border-t border-line pt-5 text-sm">
+                <div class="flex items-center gap-2.5">
+                  <Zap class="size-4 shrink-0 text-accent" aria-hidden="true" />
+                  <dt class="text-muted">{c.specs.power}</dt>
+                  <dd class="ml-auto font-semibold text-body">{p.kwp} kWp</dd>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <Battery class="size-4 shrink-0 text-accent" aria-hidden="true" />
+                  <dt class="text-muted">{c.specs.battery}</dt>
+                  <dd class="ml-auto font-semibold text-body">{p.batteryKwh ? `${p.batteryKwh} kWh` : "—"}</dd>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <MapPin class="size-4 shrink-0 text-accent" aria-hidden="true" />
+                  <dt class="text-muted">{c.specs.location}</dt>
+                  <dd class="ml-auto font-semibold text-body">{p.location[locale]}</dd>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <CalendarDays class="size-4 shrink-0 text-accent" aria-hidden="true" />
+                  <dt class="text-muted">{c.specs.status}</dt>
+                  <dd class="ml-auto font-semibold text-body">
+                    {p.status[locale]} · {p.year}
+                  </dd>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <PiggyBank class="size-4 shrink-0 text-accent" aria-hidden="true" />
+                  <dt class="text-muted">{c.specs.savings}</dt>
+                  <dd class="ml-auto font-semibold text-body">{p.annualSavings[locale]}</dd>
+                </div>
+              </dl>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Empty-filter state (hidden until a filter matches nothing) -->
+    <p id="no-projects" class="mx-auto mt-12 hidden max-w-md text-center text-muted">{c.emptyFilter}</p>
+
+    <!-- Honest note -->
+    <p class="reveal mx-auto mt-12 flex max-w-2xl items-start justify-center gap-2.5 text-center text-sm leading-relaxed text-muted">
+      <BadgeInfo class="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
+      {c.honest}
+    </p>
+  </section>
+
+  <!-- 3 ▸ FINAL CTA BAND -->
+  <CtaBand locale={locale} title={c.ctaTitle} />
+
+  <script>
+    const pills = document.querySelectorAll<HTMLButtonElement>("[data-filter]");
+    const cards = document.querySelectorAll<HTMLElement>("#project-grid [data-segment]");
+    const empty = document.getElementById("no-projects");
+
+    pills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        const seg = pill.dataset.filter;
+        pills.forEach((p) => p.setAttribute("aria-pressed", String(p === pill)));
+
+        let visible = 0;
+        cards.forEach((card) => {
+          const show = seg === "all" || card.dataset.segment === seg;
+          card.classList.toggle("hidden", !show);
+          if (show) visible++;
+        });
+        empty?.classList.toggle("hidden", visible > 0);
+      });
+    });
+  </script>
+</BaseLayout>

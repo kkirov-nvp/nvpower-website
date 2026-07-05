@@ -1,0 +1,293 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CtaBand from "../components/CtaBand.astro";
+import type { Locale } from "../config/site";
+import { site } from "../config/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+type Block = { p: string } | { ul: string[] };
+interface Section {
+  h2: string;
+  blocks: Block[];
+}
+
+const c = {
+  bg: {
+    title: "Политика за поверителност | NV Power",
+    description:
+      "Как NV Power събира, използва и защитава личните ти данни: какви данни обработваме, на какво основание, колко време ги пазим и какви са правата ти по GDPR.",
+    h1: "Политика за поверителност",
+    updated: "Последна актуализация: юли 2026",
+    intro:
+      "Тук обясняваме ясно и без юридически жаргон какви лични данни събираме чрез сайта nvpower.bg, защо ги събираме и какви права имаш. Ако нещо не ти е ясно — пиши ни, отговаряме с удоволствие.",
+    sections: [
+      {
+        h2: "Кой обработва данните ти (администратор)",
+        blocks: [
+          {
+            p: `Администратор на личните данни е ${site.legal.bg}, с адрес ${site.address.bg}. За всички въпроси, свързани с личните данни, можеш да се свържеш с нас на <a href="mailto:${site.email}">${site.email}</a> или на телефон <a href="tel:${site.phoneHref}">${site.phone}</a>.`,
+          },
+        ],
+      },
+      {
+        h2: "Какви данни събираме",
+        blocks: [
+          { p: "Събираме само данните, които са ни необходими, за да ти отговорим и да подготвим оферта:" },
+          {
+            ul: [
+              "<strong>Данни от формите за запитване и оферта</strong> — име, телефон, имейл и данни за обекта (адрес, тип обект, месечна консумация или сметка);",
+              "<strong>Файлове, които ни изпращаш</strong> — например копие на фактура за ток, снимки на покрива или на електрическото табло;",
+              "<strong>Бисквитки и данни за посещението</strong> — аналитични бисквитки (Google Analytics) използваме <strong>само след твоето изрично съгласие</strong> чрез банера за бисквитки. Работим с Google Consent Mode v2 — без съгласие не се зареждат аналитични инструменти и не се създава профил на поведението ти.",
+            ],
+          },
+          { p: "Соларният калкулатор и мини конфигураторът работят изцяло в браузъра ти — въведените там числа не се изпращат към нас." },
+        ],
+      },
+      {
+        h2: "Защо и на какво основание ги обработваме",
+        blocks: [
+          {
+            ul: [
+              "<strong>За да ти отговорим и изготвим оферта</strong> — основанието са преддоговорни отношения по твое искане (чл. 6, ал. 1, б. „б“ от GDPR);",
+              "<strong>За да изпълним договор</strong>, ако станеш наш клиент — същото основание;",
+              "<strong>За да спазим законови задължения</strong> — счетоводни и данъчни изисквания (чл. 6, ал. 1, б. „в“);",
+              "<strong>За аналитика на сайта</strong> — единствено въз основа на твоето съгласие (чл. 6, ал. 1, б. „а“), което можеш да оттеглиш по всяко време от настройките за бисквитки.",
+            ],
+          },
+        ],
+      },
+      {
+        h2: "Колко време пазим данните",
+        blocks: [
+          {
+            ul: [
+              "<strong>Запитвания без последващ договор</strong> — до 12 месеца след последния контакт, след което ги изтриваме;",
+              "<strong>Данни по договори и фактури</strong> — в законоустановените срокове за счетоводна документация (до 10 години);",
+              "<strong>Аналитични данни</strong> — според настройките на Google Analytics, в агрегиран вид.",
+            ],
+          },
+        ],
+      },
+      {
+        h2: "С кого споделяме данни",
+        blocks: [
+          { p: "<strong>Не продаваме личните ти данни на никого.</strong> Споделяме ги само доколкото е необходимо за услугата:" },
+          {
+            ul: [
+              "с мрежовия оператор и електроразпределителното дружество — при процедура по смяна на доставчик, от твое име и с твое пълномощно;",
+              "с финансови и лизингови партньори — само ако кандидатстваш за финансиране и само с твое знание;",
+              "с доставчици на технически услуги (хостинг, имейл), които обработват данни по наше указание и с договор за поверителност;",
+              "с държавни органи — само когато законът ни задължава.",
+            ],
+          },
+        ],
+      },
+      {
+        h2: "Твоите права по GDPR",
+        blocks: [
+          { p: "По всяко време имаш право да поискаш от нас:" },
+          {
+            ul: [
+              "<strong>достъп</strong> — да разбереш какви твои данни обработваме;",
+              "<strong>коригиране</strong> — да поправим неточни или непълни данни;",
+              "<strong>изтриване</strong> („правото да бъдеш забравен“) — когато данните вече не са необходими;",
+              "<strong>ограничаване на обработването</strong> — докато проверяваме твое възражение;",
+              "<strong>преносимост</strong> — да получиш данните си в структуриран, машинно четим формат;",
+              "<strong>възражение</strong> — срещу обработване, основано на легитимен интерес.",
+            ],
+          },
+          {
+            p: `За да упражниш което и да е от правата си, пиши ни на <a href="mailto:${site.email}">${site.email}</a> — отговаряме без излишно забавяне и най-късно до един месец. Ако смяташ, че обработваме данните ти неправомерно, имаш право на жалба до Комисията за защита на личните данни (КЗЛД): гр. София 1592, бул. „Проф. Цветан Лазаров“ № 2, <a href="https://www.cpdp.bg" rel="noopener" target="_blank">www.cpdp.bg</a>.`,
+          },
+        ],
+      },
+      {
+        h2: "Контакт",
+        blocks: [
+          {
+            p: `${site.legal.bg} · ${site.address.bg} · <a href="mailto:${site.email}">${site.email}</a> · <a href="tel:${site.phoneHref}">${site.phone}</a>`,
+          },
+        ],
+      },
+    ] satisfies Section[],
+  },
+  en: {
+    title: "Privacy policy | NV Power",
+    description:
+      "How NV Power collects, uses and protects your personal data: what data we process, on what legal basis, how long we keep it and your rights under the GDPR.",
+    h1: "Privacy policy",
+    updated: "Last updated: July 2026",
+    intro:
+      "Here we explain clearly, without legal jargon, what personal data we collect through nvpower.bg, why we collect it and what rights you have. If anything is unclear — write to us, we're happy to answer.",
+    sections: [
+      {
+        h2: "Who processes your data (controller)",
+        blocks: [
+          {
+            p: `The data controller is ${site.legal.en}, registered at ${site.address.en}. For any questions related to personal data, you can reach us at <a href="mailto:${site.email}">${site.email}</a> or by phone at <a href="tel:${site.phoneHref}">${site.phone}</a>.`,
+          },
+        ],
+      },
+      {
+        h2: "What data we collect",
+        blocks: [
+          { p: "We only collect the data we need to reply to you and prepare a quote:" },
+          {
+            ul: [
+              "<strong>Data from the enquiry and quote forms</strong> — name, phone, email and details about your site (address, type of site, monthly consumption or bill);",
+              "<strong>Files you send us</strong> — for example a copy of an electricity invoice, photos of the roof or of the switchboard;",
+              "<strong>Cookies and visit data</strong> — we use analytics cookies (Google Analytics) <strong>only after your explicit consent</strong> via the cookie banner. We operate Google Consent Mode v2 — without consent, no analytics tools are loaded and no behavioural profile is created.",
+            ],
+          },
+          { p: "The solar calculator and the mini configurator run entirely in your browser — the numbers you enter there are not sent to us." },
+        ],
+      },
+      {
+        h2: "Why and on what legal basis we process it",
+        blocks: [
+          {
+            ul: [
+              "<strong>To reply to you and prepare a quote</strong> — the basis is pre-contractual steps taken at your request (Art. 6(1)(b) GDPR);",
+              "<strong>To perform a contract</strong>, if you become our client — the same basis;",
+              "<strong>To comply with legal obligations</strong> — accounting and tax requirements (Art. 6(1)(c));",
+              "<strong>For site analytics</strong> — solely based on your consent (Art. 6(1)(a)), which you can withdraw at any time from the cookie settings.",
+            ],
+          },
+        ],
+      },
+      {
+        h2: "How long we keep the data",
+        blocks: [
+          {
+            ul: [
+              "<strong>Enquiries without a subsequent contract</strong> — up to 12 months after the last contact, after which we delete them;",
+              "<strong>Contract and invoice data</strong> — for the statutory retention periods for accounting records (up to 10 years);",
+              "<strong>Analytics data</strong> — per the Google Analytics settings, in aggregated form.",
+            ],
+          },
+        ],
+      },
+      {
+        h2: "Who we share data with",
+        blocks: [
+          { p: "<strong>We do not sell your personal data to anyone.</strong> We share it only to the extent necessary for the service:" },
+          {
+            ul: [
+              "with the grid operator and the distribution company — during a supplier switching procedure, on your behalf and with your power of attorney;",
+              "with finance and leasing partners — only if you apply for financing, and only with your knowledge;",
+              "with technical service providers (hosting, email) that process data on our instructions and under a confidentiality agreement;",
+              "with public authorities — only when the law obliges us to.",
+            ],
+          },
+        ],
+      },
+      {
+        h2: "Your rights under the GDPR",
+        blocks: [
+          { p: "At any time you have the right to request from us:" },
+          {
+            ul: [
+              "<strong>access</strong> — to find out what data of yours we process;",
+              "<strong>rectification</strong> — to correct inaccurate or incomplete data;",
+              "<strong>erasure</strong> (“the right to be forgotten”) — when the data is no longer needed;",
+              "<strong>restriction of processing</strong> — while we review an objection of yours;",
+              "<strong>data portability</strong> — to receive your data in a structured, machine-readable format;",
+              "<strong>objection</strong> — to processing based on legitimate interest.",
+            ],
+          },
+          {
+            p: `To exercise any of your rights, write to us at <a href="mailto:${site.email}">${site.email}</a> — we respond without undue delay and within one month at the latest. If you believe we process your data unlawfully, you have the right to lodge a complaint with the Bulgarian Commission for Personal Data Protection (CPDP): 2 Prof. Tsvetan Lazarov Blvd, 1592 Sofia, <a href="https://www.cpdp.bg" rel="noopener" target="_blank">www.cpdp.bg</a>.`,
+          },
+        ],
+      },
+      {
+        h2: "Contact",
+        blocks: [
+          {
+            p: `${site.legal.en} · ${site.address.en} · <a href="mailto:${site.email}">${site.email}</a> · <a href="tel:${site.phoneHref}">${site.phone}</a>`,
+          },
+        ],
+      },
+    ] satisfies Section[],
+  },
+}[locale];
+---
+
+<BaseLayout locale={locale} title={c.title} description={c.description} path="/politika-poveritelnost/">
+  <section class="border-b border-line bg-surface-alt">
+    <div class="container-site pt-12 pb-12 md:pt-16">
+      <div class="mx-auto max-w-3xl">
+        <h1 class="text-3xl font-bold text-body md:text-4xl">{c.h1}</h1>
+        <p class="mt-3 inline-flex rounded-full bg-accent/10 px-3.5 py-1.5 text-sm font-semibold text-accent">
+          {c.updated}
+        </p>
+        <p class="mt-4 leading-relaxed text-muted">{c.intro}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-site section !pt-10">
+    <div class="prose-legal mx-auto max-w-3xl">
+      {c.sections.map((section) => (
+        <section>
+          <h2>{section.h2}</h2>
+          {section.blocks.map((block) =>
+            "p" in block ? (
+              <p set:html={block.p} />
+            ) : (
+              <ul>
+                {block.ul.map((item) => (
+                  <li set:html={item} />
+                ))}
+              </ul>
+            ),
+          )}
+        </section>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand locale={locale} />
+</BaseLayout>
+
+<style is:global>
+  .prose-legal h2 {
+    font-size: 1.375rem;
+    line-height: 1.3;
+    margin-top: 2.5rem;
+    margin-bottom: 0.875rem;
+    color: var(--text-color);
+  }
+  .prose-legal section:first-child h2 {
+    margin-top: 0;
+  }
+  .prose-legal p {
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+  .prose-legal ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .prose-legal li {
+    line-height: 1.7;
+    color: var(--text-color);
+  }
+  .prose-legal a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-legal a:hover {
+    color: var(--accent-hover);
+  }
+</style>

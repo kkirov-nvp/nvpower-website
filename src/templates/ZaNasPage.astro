@@ -1,0 +1,255 @@
+---
+import { Flag, FileCheck, Sun, BatteryCharging, Award, Quote } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CtaBand from "../components/CtaBand.astro";
+import DocumentsList from "../components/DocumentsList.astro";
+import type { Locale } from "../config/site";
+import { site } from "../config/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+/** Initials for team members without a photo (e.g. „Име Фамилия" → „ИФ") */
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .map((w) => w.charAt(0))
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+const c = {
+  bg: {
+    title: "За нас — лицензиран търговец и соларен изпълнител | NV Power",
+    description:
+      "Запознай се с NV Power: българска компания, лицензиран търговец на електроенергия и изпълнител на соларни системи с батерии. Мисия, път, екип и документи.",
+    hero: {
+      eyebrow: "За нас",
+      h1: "Партньор, който мисли за твоята дългосрочна независимост",
+      sub: "NV Power е лицензиран търговец на електроенергия и изпълнител на соларни системи с батерии. Ето кои сме, откъде тръгнахме и защо работим по този начин.",
+    },
+    mission: {
+      eyebrow: "Мисия",
+      title: "Защо правим това",
+      before:
+        "Вярваме, че енергията не бива да е сложна — нито скъпа изненада в края на месеца. Затова говорим с числа, пишем договори на разбираем език и стоим до теб дълго след подписа.",
+      statement:
+        "NV Power е българска компания с фокус върху устойчивото бъдеще чрез иновации в енергийния сектор. Нашата мисия е да направим зеления преход достъпен за повече бизнеси и домакинства — не просто доставчик, а партньор, който мисли за вашата дългосрочна независимост.",
+      after:
+        "Това не е лозунг за стената — така взимаме всяко решение: от цената, която публикуваме, до батерията, която ти препоръчваме.",
+    },
+    timeline: {
+      eyebrow: "Пътят дотук",
+      title: "Четири стъпки, една посока",
+      lead: "От идея за по-честна енергия до цялостни решения за независимост — стъпка по стъпка.",
+      items: [
+        {
+          icon: Flag,
+          title: "Основаване",
+          text: "NV Power стартира с ясна идея: енергията да е разбираема, цените — публични, а условията — честни. Без дребен шрифт от първия ден.",
+        },
+        {
+          icon: FileCheck,
+          title: "Лиценз за търговия с електроенергия",
+          text: "КЕВР ни издава лицензия за търговия с електрическа енергия. Ставаме лицензиран доставчик със собствена балансираща група — за бизнеса и дома.",
+        },
+        {
+          icon: Sun,
+          title: "Първи соларни проекти",
+          text: "Разширяваме дейността с проектиране и изграждане на фотоволтаични системи до ключ — от огледа на покрива до пускането в експлоатация.",
+        },
+        {
+          icon: BatteryCharging,
+          title: "Батерии и финансиране",
+          text: "Добавяме батерийни системи за истинска независимост и гъвкаво финансиране — за да не е голямата първоначална инвестиция причина да отложиш прехода.",
+        },
+      ],
+    },
+    team: {
+      eyebrow: "Екип",
+      title: "Хората зад NV Power",
+      lead: "Малък екип с много опит в енергетиката — и един общ принцип: вдигаме телефона.",
+    },
+    documents: {
+      eyebrow: "Прозрачност",
+      title: "Документи",
+      lead: "Лицензия и условия — публични и достъпни. Нямаме какво да крием.",
+    },
+    partners: {
+      eyebrow: "Партньори",
+      title: "Партньорски сертификати — очаквайте скоро",
+      text: "Работим по официални партньорства с водещи производители на панели, инвертори и батерии. Ще ги публикуваме тук веднага щом станат факт — без лога „за украса“.",
+    },
+  },
+  en: {
+    title: "About us — licensed trader & solar EPC | NV Power",
+    description:
+      "Meet NV Power: a Bulgarian company, licensed electricity trader and builder of solar systems with batteries. Our mission, journey, team and documents.",
+    hero: {
+      eyebrow: "About us",
+      h1: "A partner focused on your long-term independence",
+      sub: "NV Power is a licensed electricity trader and a builder of solar systems with batteries. Here is who we are, where we started and why we work the way we do.",
+    },
+    mission: {
+      eyebrow: "Mission",
+      title: "Why we do this",
+      before:
+        "We believe energy shouldn't be complicated — or an expensive surprise at the end of the month. So we talk in numbers, write contracts in plain language and stay by your side long after the signature.",
+      statement:
+        "NV Power is a Bulgarian company focused on a sustainable future through innovation in the energy sector. Our mission is to make the green transition accessible to more businesses and households — not just a supplier, but a partner who thinks about your long-term independence.",
+      after:
+        "This is not a slogan on a wall — it's how we make every decision: from the price we publish to the battery we recommend.",
+    },
+    timeline: {
+      eyebrow: "The journey",
+      title: "Four steps, one direction",
+      lead: "From an idea about fairer energy to complete independence solutions — step by step.",
+      items: [
+        {
+          icon: Flag,
+          title: "Foundation",
+          text: "NV Power started with a clear idea: energy should be understandable, prices public and terms fair. No small print from day one.",
+        },
+        {
+          icon: FileCheck,
+          title: "Electricity trading licence",
+          text: "EWRC granted us a licence to trade electricity. We became a licensed supplier with our own balancing group — for business and home.",
+        },
+        {
+          icon: Sun,
+          title: "First solar projects",
+          text: "We expanded into designing and building turnkey photovoltaic systems — from the roof survey to commissioning.",
+        },
+        {
+          icon: BatteryCharging,
+          title: "Batteries & financing",
+          text: "We added battery systems for true independence and flexible financing — so a big upfront investment is never the reason to postpone the transition.",
+        },
+      ],
+    },
+    team: {
+      eyebrow: "Team",
+      title: "The people behind NV Power",
+      lead: "A small team with deep energy-sector experience — and one shared principle: we pick up the phone.",
+    },
+    documents: {
+      eyebrow: "Transparency",
+      title: "Documents",
+      lead: "Licence and terms — public and accessible. We have nothing to hide.",
+    },
+    partners: {
+      eyebrow: "Partners",
+      title: "Partner certificates — coming soon",
+      text: "We are working on official partnerships with leading manufacturers of panels, inverters and batteries. We'll publish them here as soon as they are a fact — no logos for decoration.",
+    },
+  },
+}[locale];
+---
+
+<BaseLayout locale={locale} title={c.title} description={c.description} path="/za-nas/">
+  <!-- 1 ▸ HERO (light) -->
+  <section class="border-b border-line bg-surface-alt">
+    <div class="container-site pt-12 pb-12 text-center md:pt-16">
+      <span class="eyebrow">{c.hero.eyebrow}</span>
+      <h1 class="mx-auto mt-3 max-w-3xl text-3xl font-bold text-body md:text-5xl md:leading-[1.1]">{c.hero.h1}</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-muted md:text-lg">{c.hero.sub}</p>
+    </div>
+  </section>
+
+  <!-- 2 ▸ MISSION -->
+  <section class="section container-site">
+    <SectionHeading eyebrow={c.mission.eyebrow} title={c.mission.title} />
+    <div class="mx-auto mt-10 max-w-3xl">
+      <p class="reveal text-base leading-relaxed text-muted md:text-lg">{c.mission.before}</p>
+      <blockquote class="reveal card mt-8 border-l-4 border-l-accent p-7 md:p-9" style="--reveal-delay:90ms">
+        <Quote class="size-7 text-accent/40" aria-hidden="true" />
+        <p class="mt-4 text-lg leading-relaxed font-medium text-body md:text-xl">{c.mission.statement}</p>
+        <footer class="mt-5 font-[family-name:var(--font-display)] text-sm font-bold text-accent">
+          {site.name} — {site.tagline[locale]}
+        </footer>
+      </blockquote>
+      <p class="reveal mt-8 text-base leading-relaxed text-muted md:text-lg" style="--reveal-delay:160ms">{c.mission.after}</p>
+    </div>
+  </section>
+
+  <!-- 3 ▸ TIMELINE -->
+  <section class="bg-surface-alt">
+    <div class="container-site section">
+      <SectionHeading eyebrow={c.timeline.eyebrow} title={c.timeline.title} lead={c.timeline.lead} />
+      <ol class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          c.timeline.items.map((item, i) => (
+            <li class="reveal card relative p-7" style={`--reveal-delay:${i * 90}ms`}>
+              <span class="absolute top-6 right-6 font-[family-name:var(--font-display)] text-5xl font-bold text-line">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span class="flex size-12 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                <item.icon class="size-6" aria-hidden="true" />
+              </span>
+              <h3 class="mt-4 text-lg font-bold text-body">{item.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{item.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4 ▸ TEAM -->
+  <section class="section container-site">
+    <SectionHeading eyebrow={c.team.eyebrow} title={c.team.title} lead={c.team.lead} />
+    <ul class="mx-auto mt-12 grid max-w-4xl justify-center gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        site.team.map((member, i) => (
+          <li class="reveal card flex flex-col items-center p-8 text-center" style={`--reveal-delay:${i * 90}ms`}>
+            {member.photo ? (
+              <img
+                src={member.photo}
+                alt={member.name[locale]}
+                width="96"
+                height="96"
+                loading="lazy"
+                class="size-24 rounded-full object-cover"
+              />
+            ) : (
+              <span
+                class="flex size-24 items-center justify-center rounded-full bg-accent/10 font-[family-name:var(--font-display)] text-2xl font-bold text-accent"
+                aria-hidden="true"
+              >
+                {initials(member.name[locale])}
+              </span>
+            )}
+            <h3 class="mt-5 text-lg font-bold text-body">{member.name[locale]}</h3>
+            <p class="mt-1 text-sm font-medium text-accent">{member.role[locale]}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- DOCUMENTS -->
+  <section class="section container-site">
+    <SectionHeading eyebrow={c.documents.eyebrow} title={c.documents.title} lead={c.documents.lead} />
+    <div class="mx-auto mt-10 max-w-3xl">
+      <DocumentsList locale={locale} />
+    </div>
+  </section>
+
+  <!-- 7 ▸ PARTNERS (honest strip) -->
+  <section class="container-site pb-16 md:pb-24">
+    <div class="reveal mx-auto flex max-w-3xl flex-col items-center gap-4 rounded-[0.875rem] border border-dashed border-line bg-surface-alt p-8 text-center md:p-10">
+      <span class="flex size-12 items-center justify-center rounded-xl bg-accent/10 text-accent">
+        <Award class="size-6" aria-hidden="true" />
+      </span>
+      <span class="eyebrow">{c.partners.eyebrow}</span>
+      <h2 class="text-xl font-bold text-body md:text-2xl">{c.partners.title}</h2>
+      <p class="max-w-xl text-sm leading-relaxed text-muted md:text-base">{c.partners.text}</p>
+    </div>
+  </section>
+
+  <!-- 8 ▸ FINAL CTA BAND -->
+  <CtaBand locale={locale} />
+</BaseLayout>

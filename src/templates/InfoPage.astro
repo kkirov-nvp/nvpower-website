@@ -1,0 +1,517 @@
+---
+import { MessagesSquare, BookOpen, FileText, ExternalLink } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CtaBand from "../components/CtaBand.astro";
+import FaqAccordion from "../components/FaqAccordion.astro";
+import DocumentsList from "../components/DocumentsList.astro";
+import type { Locale } from "../config/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const c = {
+  bg: {
+    title: "Информационен център — въпроси и отговори, речник, документи | NV Power",
+    description:
+      "Отговори на най-честите въпроси за смяна на доставчика на ток, соларни системи, батерии и финансиране — плюс речник на енергийните термини, документи и полезни връзки.",
+    hero: {
+      eyebrow: "Информационен център",
+      h1: "Всичко, което искаш да знаеш — на едно място",
+      sub: "Отговори без заобикалки, речник на термините, документите ни и полезни връзки. Ако не намериш отговора си тук — питай ни директно.",
+    },
+    tabsLabel: "Раздели на информационния център",
+    tabs: {
+      faq: "Въпроси и отговори",
+      glossary: "Речник",
+      documents: "Документи",
+      links: "Полезни връзки",
+    },
+    faq: {
+      filterLabel: "Филтрирай въпросите по тема",
+      categories: [
+        { id: "all", label: "Всички" },
+        { id: "switch", label: "Смяна на доставчика" },
+        { id: "solar", label: "Соларни системи" },
+        { id: "battery", label: "Батерии" },
+        { id: "finance", label: "Финансиране" },
+        { id: "invoice", label: "Фактури" },
+      ],
+      items: [
+        {
+          category: "switch",
+          q: "Колко време отнема смяната на доставчика на ток?",
+          a: "Обикновено около месец. Подаваме документите до 10-о число на текущия месец и от 1-во число на следващия вече купуваш тока си от нас. Цялата процедура е административна и я движим ние — от теб се иска само подписан договор. Не е нужно дори да уведомяваш стария си доставчик — правим го ние.",
+        },
+        {
+          category: "switch",
+          q: "Ще ми прекъсне ли токът при смяната?",
+          a: "Не, нито за секунда. Жиците, електромерът и мрежовият оператор остават същите — сменя се единствено компанията, която ти издава фактурата. От гледна точка на мрежата смяната е чисто счетоводна операция. Ако имаше техническо прекъсване, никой нямаше да сменя доставчика си.",
+        },
+        {
+          category: "switch",
+          q: "Какво е балансираща група и какво е небаланс?",
+          a: "Всеки доставчик прогнозира колко ток ще потребят клиентите му, а реалното потребление винаги се отклонява — това отклонение се нарича небаланс и има цена. Балансиращата група обединява много потребители, чиито отклонения взаимно се компенсират, и така общият небаланс намалява. При нас включването в групата става автоматично с договора, а разходът за балансиране е включен в цената — без отделни редове изненади.",
+        },
+        {
+          category: "switch",
+          q: "Искате ли депозит или такса за включване?",
+          a: "Не. Не искаме депозити, такси за включване или каквито и да е еднократни плащания — смяната е напълно безплатна. Плащаш само тока, който реално си потребил, по договорената цена. Ако друг доставчик ти иска депозит — питай го защо.",
+        },
+        {
+          category: "switch",
+          q: "Мога ли да комуникирам с вас по Viber или WhatsApp?",
+          a: "Да. Личният ти консултант е достъпен по телефон, имейл, Viber и WhatsApp — избираш канала, който ти е удобен. Можеш да пращаш фактури, снимки на покрива или въпроси директно в чата. Отговаряме в рамките на работния ден, а по спешни теми — веднага.",
+        },
+        {
+          category: "invoice",
+          q: "Как да чета фактурата си за ток?",
+          a: "Фактурата има две основни части: енергия — количеството кВтч по договорената с доставчика цена — и мрежови услуги (пренос и достъп), които са регулирани от КЕВР и са еднакви при всички доставчици. Върху тях се начисляват ЗкО, акциз и ДДС. Нашата фактура е една страница с ясни редове — а ако нещо не ти е ясно, консултантът ти я обяснява ред по ред.",
+        },
+        {
+          category: "invoice",
+          q: "Какво са ЗкО и акциз във фактурата?",
+          a: "„Задължения към обществото“ (ЗкО) е регулирана компонента в цената на тока, с която се финансират изкупуването на зелена енергия по преференциални цени и други обществени задължения — определя я КЕВР и е еднаква при всички доставчици. Акцизът е държавен данък върху електроенергията. Нито едното, нито другото остава при доставчика — ние само ги събираме и превеждаме.",
+        },
+        {
+          category: "solar",
+          q: "Трябва ли ми разрешително за соларна система?",
+          a: "За системи до 10.8 kW за собствено потребление действа облекчен режим — без разрешение за строеж, само уведомление до мрежовия оператор по опростена процедура. За по-големи системи или при продажба на излишъци процедурата е по-дълга и включва становище от ЕРП. И в двата случая администрацията я поемаме ние — от заявлението до пускането в експлоатация.",
+        },
+        {
+          category: "solar",
+          q: "Каква е разликата между хибридна и мрежова система?",
+          a: "Мрежовата система работи само заедно с електрическата мрежа — произвежда, докато има слънце, а вечер ползваш ток от мрежата. Хибридната добавя батерия и може да работи и при спряла мрежа — денем зарежда, вечер ползваш собствената си енергия. Ако целта ти е максимална независимост и защита от прекъсвания, хибридната е правилният избор. Ако търсиш най-кратък срок на откупуване, мрежовата често печели.",
+        },
+        {
+          category: "solar",
+          q: "Колко време отнема монтажът?",
+          a: "Самият монтаж на домашна система обикновено отнема 2–4 работни дни, а на по-голяма бизнес система — от една до няколко седмици според мощността. Повечето време в един проект отива за администрация и съгласуване с мрежовия оператор, не за работа на покрива. Даваме ти реалистичен график още с офертата — и го спазваме.",
+        },
+        {
+          category: "solar",
+          q: "Мога ли да продавам излишната енергия?",
+          a: "Да. Излишъците, които системата произвежда и не потребяваш, могат да се продават — включително на нас, като лицензиран търговец. За целта е нужен договор за изкупуване и съответната процедура при мрежовия оператор. Имай предвид, че собственото потребление винаги е по-изгодно от продажбата — цената, на която спестяваш, е по-висока от цената, на която продаваш.",
+        },
+        {
+          category: "solar",
+          q: "Колко произвежда системата през зимата?",
+          a: "През зимните месеци производството е около 15–20% от годишното — дните са къси, а слънцето стои ниско. Това е нормално и е заложено във всяко коректно изчисление на откупуването. Затова оразмеряваме системата спрямо годишния ти профил на потребление, а не спрямо най-добрия летен месец. Снегът по панелите обикновено се свлича сам заради наклона и гладката им повърхност.",
+        },
+        {
+          category: "solar",
+          q: "Каква поддръжка изисква соларната система?",
+          a: "Минимална. Панелите нямат движещи се части и в повечето случаи дъждът ги почиства достатъчно — при видимо запрашаване едно измиване годишно стига. Веднъж годишно е добре да се направи профилактичен преглед на връзките и инвертора. Ние следим системата ти дистанционно и те уведомяваме, ако нещо се отклони от нормалното.",
+        },
+        {
+          category: "solar",
+          q: "Как следя колко произвежда системата ми?",
+          a: "Всяка система, която изграждаме, идва с безплатно мобилно приложение за мониторинг. В него виждаш производството в реално време, историята по дни и месеци, потреблението и състоянието на батерията. Същите данни виждаме и ние — така реагираме на проблем, често преди ти да си го забелязал.",
+        },
+        {
+          category: "solar",
+          q: "Какви гаранции получавам?",
+          a: "Панелите идват с гаранция за производителност от 25 години — производителят гарантира, че и след този срок панелът работи с определен процент от началната си мощност. Инверторите имат гаранция 5–10 години според производителя и модела. Отделно даваме гаранция и за монтажните работи. Всички гаранционни условия са записани в договора, а не в устни обещания.",
+        },
+        {
+          category: "battery",
+          q: "Колко издържа една батерия?",
+          a: "Съвременните LiFePO4 батерии са проектирани за 6000+ цикъла на зареждане и разреждане — при ежедневна употреба това означава над 15 години работа. След това батерията не спира, а постепенно губи капацитет. LiFePO4 химията е и значително по-безопасна и по-издръжлива от по-старите литиеви технологии.",
+        },
+        {
+          category: "battery",
+          q: "Ще имам ли ток, ако мрежата спре?",
+          a: "С хибридна система с батерия — да. При отпадане на мрежата системата автоматично превключва и захранва определените вериги от батерията — хладилник, осветление, интернет, отопление. Колко дълго — зависи от капацитета на батерията и от това какво захранваш. Обикновената мрежова система без батерия се изключва при спряла мрежа от съображения за безопасност.",
+        },
+        {
+          category: "finance",
+          q: "Кой може да кандидатства за лизинг и какво покрива той?",
+          a: "И домакинства, и фирми. Лизингът покрива цялата система — панели, инвертор, батерия, конструкция и монтаж — така че започваш без голяма първоначална инвестиция. Кандидатстването е с минимални документи, а ние съдействаме по цялата процедура. При много клиенти месечната вноска е близка до досегашната сметка за ток — плащаш горе-долу същото, но изплащаш собствен актив.",
+        },
+        {
+          category: "finance",
+          q: "Мога ли да плащам разсрочено без банков лизинг?",
+          a: "Да, предлагаме и схеми на разсрочено плащане, обвързани с етапите на проекта — обикновено част при договора, част при доставката на оборудването и остатък при пускането на системата. За бизнес клиенти сме гъвкави спрямо касовия поток. В офертата получаваш конкретните варианти с числа, за да сравниш спокойно.",
+        },
+      ],
+    },
+    glossary: {
+      lead: "Енергетиката е пълна с абревиатури. Ето най-важните — обяснени на човешки език.",
+      terms: [
+        { t: "кВтч (киловатчас)", d: "Мярка за енергия: 1 кВтч е работата на уред с мощност 1 киловат за един час. Всичко във фактурата ти за ток се измерва в кВтч." },
+        { t: "kWp (киловат пик)", d: "Максималната мощност на соларна система при стандартни изпитателни условия. С нея се описва „размерът“ на една централа." },
+        { t: "БНЕБ", d: "Българската независима енергийна борса, на която се търгува електроенергия на едро. Борсовите планове следват нейните цени." },
+        { t: "КЕВР", d: "Комисията за енергийно и водно регулиране — държавният регулатор, който лицензира търговците и определя регулираните цени и мрежови такси." },
+        { t: "ЕРП", d: "Електроразпределително предприятие — компанията, която поддържа мрежата и електромерите в твоя регион (Електрохолд, EVN или Енерго-Про)." },
+        { t: "ЕСО", d: "Електроенергийният системен оператор — управлява преносната мрежа на България и балансира системата в реално време." },
+        { t: "Инвертор", d: "Устройството, което превръща постоянния ток от панелите в променлив ток за дома и мрежата. „Мозъкът“ на всяка соларна система." },
+        { t: "Хибриден инвертор", d: "Инвертор, който освен панелите управлява и батерия — насочва енергията към потребление, съхранение или мрежата според нуждите." },
+        { t: "Мрежова система (on-grid)", d: "Соларна система, свързана към електрическата мрежа, без батерия. Най-простото решение с най-кратък срок на откупуване." },
+        { t: "Автономна система (off-grid)", d: "Система, независима от мрежата — цялата енергия идва от панелите и батериите. Използва се за отдалечени обекти без достъп до ток." },
+        { t: "BESS", d: "Battery Energy Storage System — батерийна система за съхранение на енергия: от домашни батерии до промишлени контейнерни решения." },
+        { t: "LiFePO4", d: "Литиево-желязо-фосфатна батерийна химия — стандартът при домашни и бизнес батерии заради безопасността и дългия живот (6000+ цикъла)." },
+        { t: "Балансираща група", d: "Обединение на потребители при един координатор. Отклоненията им взаимно се компенсират и разходите за небаланс намаляват." },
+        { t: "Небаланс", d: "Разликата между прогнозираното и реално потребената енергия. Има цена, която някой плаща — затова има значение в чия балансираща група си." },
+        { t: "ЗкО", d: "„Задължения към обществото“ — регулирана компонента в цената на тока, с която се финансират зелена енергия по преференциални цени и други обществени задължения." },
+        { t: "Акциз", d: "Държавен данък върху електроенергията, който доставчикът събира и превежда към бюджета. Еднакъв при всички доставчици." },
+        { t: "Монокристален панел", d: "Панел от монокристален силиций — днешният стандарт с най-висок КПД и най-добра работа при слаба светлина." },
+        { t: "Стринг", d: "Група панели, свързани последователно към един вход на инвертора. Правилното оразмеряване на стринговете е ключова част от проектирането." },
+        { t: "Зарядна станция", d: "Устройство за зареждане на електромобил. В комбинация със соларна система зареждаш колата си със собствена енергия." },
+        { t: "Собствено потребление", d: "Частта от произведената енергия, която потребяваш директно, вместо да я подаваш към мрежата. Колкото по-високо е, толкова по-бърза е откупваемостта." },
+        { t: "PPA", d: "Power Purchase Agreement — дългосрочен договор за изкупуване на енергия на предварително договорена цена, често използван при бизнес централи." },
+      ],
+    },
+    documents: {
+      lead: "Лицензия и условия — публични и достъпни, както трябва да бъде.",
+    },
+    links: {
+      lead: "Официалните източници, които си струва да имаш подръка.",
+      items: [
+        { name: "КЕВР", href: "https://www.dker.bg", domain: "dker.bg", why: "Провери лицензията на всеки търговец и виж регулираните цени и решенията на регулатора." },
+        { name: "БНЕБ", href: "https://www.ibex.bg", domain: "ibex.bg", why: "Актуалните борсови цени на тока — полезно, ако си на борсов план или обмисляш такъв." },
+        { name: "ЕСО", href: "https://www.eso.bg", domain: "eso.bg", why: "Данни за електроенергийната система в реално време — производство, потребление, обмени." },
+        { name: "Електрохолд", href: "https://www.electrohold.bg", domain: "electrohold.bg", why: "Мрежовият оператор за Западна България — аварии, планови прекъсвания и самоотчет." },
+        { name: "EVN България", href: "https://www.evn.bg", domain: "evn.bg", why: "Мрежовият оператор за Югоизточна България — аварии, прекъсвания и услуги по мрежата." },
+        { name: "Енерго-Про", href: "https://www.energo-pro.bg", domain: "energo-pro.bg", why: "Мрежовият оператор за Североизточна България — аварии, прекъсвания и услуги по мрежата." },
+        { name: "Министерство на енергетиката", href: "https://www.me.government.bg", domain: "me.government.bg", why: "Официална информация за енергийната политика, програмите за финансиране и нормативните промени." },
+      ],
+    },
+  },
+  en: {
+    title: "Info centre — Q&A, glossary, documents | NV Power",
+    description:
+      "Answers to the most common questions about switching electricity supplier, solar systems, batteries and financing — plus a glossary of energy terms, documents and useful links.",
+    hero: {
+      eyebrow: "Info centre",
+      h1: "Everything you want to know — in one place",
+      sub: "Straight answers, a glossary of the jargon, our documents and useful links. If your answer isn't here — just ask us.",
+    },
+    tabsLabel: "Info centre sections",
+    tabs: {
+      faq: "Questions & answers",
+      glossary: "Glossary",
+      documents: "Documents",
+      links: "Useful links",
+    },
+    faq: {
+      filterLabel: "Filter questions by topic",
+      categories: [
+        { id: "all", label: "All" },
+        { id: "switch", label: "Switching supplier" },
+        { id: "solar", label: "Solar systems" },
+        { id: "battery", label: "Batteries" },
+        { id: "finance", label: "Financing" },
+        { id: "invoice", label: "Invoices" },
+      ],
+      items: [
+        {
+          category: "switch",
+          q: "How long does switching electricity supplier take?",
+          a: "Usually about a month. We file the documents by the 10th of the current month and from the 1st of the next month you're buying your power from us. The whole procedure is administrative and we drive it — all you do is sign the contract. You don't even need to notify your old supplier — we do it for you.",
+        },
+        {
+          category: "switch",
+          q: "Will my power be interrupted during the switch?",
+          a: "No, not for a second. The wires, the meter and the grid operator all stay the same — only the company issuing your invoice changes. From the grid's point of view, the switch is purely an accounting operation. If there were a technical interruption, nobody would ever switch supplier.",
+        },
+        {
+          category: "switch",
+          q: "What is a balancing group and what is an imbalance?",
+          a: "Every supplier forecasts how much power its clients will consume, and real consumption always deviates — that deviation is called an imbalance, and it has a price. A balancing group pools many consumers whose deviations offset each other, so the total imbalance shrinks. With us, joining the group is automatic with your contract and the balancing cost is included in the price — no surprise line items.",
+        },
+        {
+          category: "switch",
+          q: "Do you require a deposit or a connection fee?",
+          a: "No. We ask for no deposits, no connection fees and no one-off payments of any kind — switching is completely free. You pay only for the electricity you actually consume, at the agreed price. If another supplier asks you for a deposit — ask them why.",
+        },
+        {
+          category: "switch",
+          q: "Can I communicate with you via Viber or WhatsApp?",
+          a: "Yes. Your personal consultant is reachable by phone, email, Viber and WhatsApp — you pick the channel that suits you. You can send invoices, photos of your roof or questions straight into the chat. We reply within the working day, and immediately on urgent matters.",
+        },
+        {
+          category: "invoice",
+          q: "How do I read my electricity invoice?",
+          a: "The invoice has two main parts: energy — the kWh you consumed at the price agreed with your supplier — and network services (transmission and access), which are regulated by EWRC and identical with every supplier. On top of those come the public obligations charge, excise duty and VAT. Our invoice is one page with clear lines — and if anything is unclear, your consultant explains it line by line.",
+        },
+        {
+          category: "invoice",
+          q: "What are the public obligations charge and excise duty on my invoice?",
+          a: "The 'obligations to society' charge is a regulated component of the electricity price that funds the purchase of green energy at preferential prices and other public obligations — it is set by EWRC and is identical with every supplier. Excise duty is a state tax on electricity. Neither stays with the supplier — we simply collect and remit them.",
+        },
+        {
+          category: "solar",
+          q: "Do I need a permit for a solar system?",
+          a: "For systems up to 10.8 kW for self-consumption a simplified regime applies — no construction permit, just a notification to the grid operator under a streamlined procedure. For larger systems, or if you sell surplus energy, the procedure is longer and involves an opinion from the distribution company. In both cases we handle the administration — from the application to commissioning.",
+        },
+        {
+          category: "solar",
+          q: "What's the difference between a hybrid and a grid-tied system?",
+          a: "A grid-tied system works only together with the electricity grid — it produces while the sun shines, and in the evening you use grid power. A hybrid system adds a battery and keeps working even when the grid is down — it charges by day and powers you with your own energy in the evening. If your goal is maximum independence and outage protection, hybrid is the right choice. If you want the shortest payback, grid-tied often wins.",
+        },
+        {
+          category: "solar",
+          q: "How long does the installation take?",
+          a: "The installation itself usually takes 2–4 working days for a home system, and one to several weeks for a larger business system depending on capacity. Most of a project's time goes into administration and coordination with the grid operator, not work on the roof. You get a realistic schedule with your quote — and we keep to it.",
+        },
+        {
+          category: "solar",
+          q: "Can I sell my surplus energy?",
+          a: "Yes. The surplus your system produces and you don't consume can be sold — including to us, as a licensed trader. That requires a purchase agreement and the corresponding procedure with the grid operator. Keep in mind that self-consumption always beats selling — the price you save is higher than the price you sell at.",
+        },
+        {
+          category: "solar",
+          q: "How much does the system produce in winter?",
+          a: "In the winter months production is around 15–20% of the annual total — the days are short and the sun sits low. That's normal and it's built into every honest payback calculation. That's why we size the system against your annual consumption profile, not against the best summer month. Snow usually slides off the panels by itself thanks to their tilt and smooth surface.",
+        },
+        {
+          category: "solar",
+          q: "What maintenance does a solar system need?",
+          a: "Minimal. Panels have no moving parts and in most cases rain cleans them well enough — with visible dust build-up, one wash a year is plenty. Once a year it's good practice to inspect the connections and the inverter. We monitor your system remotely and let you know if anything drifts from normal.",
+        },
+        {
+          category: "solar",
+          q: "How do I track what my system produces?",
+          a: "Every system we build comes with a free mobile monitoring app. You see real-time production, day-by-day and month-by-month history, your consumption and the battery status. We see the same data — so we react to a problem, often before you've noticed it.",
+        },
+        {
+          category: "solar",
+          q: "What warranties do I get?",
+          a: "Panels come with a 25-year performance warranty — the manufacturer guarantees that even after that period the panel still delivers a defined percentage of its original output. Inverters carry a 5–10 year warranty depending on the manufacturer and model. On top of that, we warrant the installation work itself. All warranty terms are written into the contract, not into verbal promises.",
+        },
+        {
+          category: "battery",
+          q: "How long does a battery last?",
+          a: "Modern LiFePO4 batteries are designed for 6,000+ charge–discharge cycles — with daily use that means over 15 years of operation. After that the battery doesn't stop, it gradually loses capacity. LiFePO4 chemistry is also significantly safer and more durable than older lithium technologies.",
+        },
+        {
+          category: "battery",
+          q: "Will I have power if the grid goes down?",
+          a: "With a hybrid system and a battery — yes. When the grid drops, the system switches over automatically and powers the designated circuits from the battery — fridge, lighting, internet, heating. For how long depends on the battery capacity and what you're powering. A plain grid-tied system without a battery shuts down during an outage for safety reasons.",
+        },
+        {
+          category: "finance",
+          q: "Who can apply for leasing and what does it cover?",
+          a: "Both households and companies. The lease covers the entire system — panels, inverter, battery, mounting and installation — so you start without a large upfront investment. The application needs minimal paperwork and we assist through the whole procedure. For many clients the monthly instalment is close to their current electricity bill — you pay roughly the same, but you're paying off an asset you own.",
+        },
+        {
+          category: "finance",
+          q: "Can I pay in instalments without bank leasing?",
+          a: "Yes, we also offer instalment schemes tied to the project stages — typically a part at contract, a part on equipment delivery and the balance at commissioning. For business clients we're flexible around cash flow. Your quote includes the specific options with numbers, so you can compare calmly.",
+        },
+      ],
+    },
+    glossary: {
+      lead: "The energy sector is full of abbreviations. Here are the important ones — explained in plain language.",
+      terms: [
+        { t: "kWh (kilowatt-hour)", d: "A unit of energy: 1 kWh is the work of a 1-kilowatt appliance running for one hour. Everything on your electricity invoice is measured in kWh." },
+        { t: "kWp (kilowatt peak)", d: "The maximum output of a solar system under standard test conditions. It's how the 'size' of a plant is described." },
+        { t: "IBEX (БНЕБ)", d: "The Bulgarian Independent Energy Exchange, where wholesale electricity is traded. Exchange-indexed plans follow its prices." },
+        { t: "EWRC (КЕВР)", d: "The Energy and Water Regulatory Commission — the state regulator that licenses traders and sets regulated prices and network charges." },
+        { t: "DSO (ЕРП)", d: "The distribution system operator — the company maintaining the grid and meters in your region (Electrohold, EVN or Energo-Pro)." },
+        { t: "ESO (ЕСО)", d: "The Electricity System Operator — it runs Bulgaria's transmission grid and balances the system in real time." },
+        { t: "Inverter", d: "The device that converts the direct current from the panels into alternating current for your home and the grid. The 'brain' of every solar system." },
+        { t: "Hybrid inverter", d: "An inverter that manages a battery in addition to the panels — routing energy to consumption, storage or the grid as needed." },
+        { t: "Grid-tied system (on-grid)", d: "A solar system connected to the electricity grid, without a battery. The simplest solution with the shortest payback." },
+        { t: "Off-grid system", d: "A system independent of the grid — all energy comes from the panels and batteries. Used for remote sites with no grid access." },
+        { t: "BESS", d: "Battery Energy Storage System — from home batteries to industrial containerised solutions." },
+        { t: "LiFePO4", d: "Lithium iron phosphate battery chemistry — the standard for home and business batteries thanks to its safety and long life (6,000+ cycles)." },
+        { t: "Balancing group", d: "A pool of consumers under one coordinator. Their deviations offset each other and imbalance costs go down." },
+        { t: "Imbalance", d: "The difference between forecast and actually consumed energy. It has a price someone pays — which is why whose balancing group you're in matters." },
+        { t: "Public obligations charge (ЗкО)", d: "'Obligations to society' — a regulated component of the electricity price that funds green energy at preferential prices and other public obligations." },
+        { t: "Excise duty", d: "A state tax on electricity that the supplier collects and remits to the budget. Identical with every supplier." },
+        { t: "Monocrystalline panel", d: "A panel made of monocrystalline silicon — today's standard, with the highest efficiency and the best low-light performance." },
+        { t: "String", d: "A group of panels connected in series to one inverter input. Correct string sizing is a key part of the design." },
+        { t: "EV charger", d: "A charging station for an electric vehicle. Combined with a solar system, you charge your car with your own energy." },
+        { t: "Self-consumption", d: "The share of produced energy you consume directly instead of feeding into the grid. The higher it is, the faster the payback." },
+        { t: "PPA", d: "Power Purchase Agreement — a long-term contract to buy energy at a pre-agreed price, often used with commercial plants." },
+      ],
+    },
+    documents: {
+      lead: "Licence and terms — public and accessible, the way it should be.",
+    },
+    links: {
+      lead: "The official sources worth keeping at hand.",
+      items: [
+        { name: "EWRC (КЕВР)", href: "https://www.dker.bg", domain: "dker.bg", why: "Verify any trader's licence and see the regulated prices and the regulator's decisions." },
+        { name: "IBEX (БНЕБ)", href: "https://www.ibex.bg", domain: "ibex.bg", why: "The current exchange prices for electricity — useful if you're on an exchange plan or considering one." },
+        { name: "ESO (ЕСО)", href: "https://www.eso.bg", domain: "eso.bg", why: "Real-time data on the power system — generation, consumption, cross-border exchange." },
+        { name: "Electrohold", href: "https://www.electrohold.bg", domain: "electrohold.bg", why: "The grid operator for Western Bulgaria — outages, planned interruptions and self-readings." },
+        { name: "EVN Bulgaria", href: "https://www.evn.bg", domain: "evn.bg", why: "The grid operator for South-East Bulgaria — outages, interruptions and network services." },
+        { name: "Energo-Pro", href: "https://www.energo-pro.bg", domain: "energo-pro.bg", why: "The grid operator for North-East Bulgaria — outages, interruptions and network services." },
+        { name: "Ministry of Energy", href: "https://www.me.government.bg", domain: "me.government.bg", why: "Official information on energy policy, financing programmes and regulatory changes." },
+      ],
+    },
+  },
+}[locale];
+
+const tabs = [
+  { id: "faq", label: c.tabs.faq, icon: MessagesSquare },
+  { id: "glossary", label: c.tabs.glossary, icon: BookOpen },
+  { id: "documents", label: c.tabs.documents, icon: FileText },
+  { id: "links", label: c.tabs.links, icon: ExternalLink },
+] as const;
+
+/** FAQPage JSON-LD from the first 10 FAQ items */
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: c.faq.items.slice(0, 10).map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+---
+
+<BaseLayout locale={locale} title={c.title} description={c.description} path="/info/" jsonLd={[faqLd]}>
+  <!-- 1 ▸ HERO (light) -->
+  <section class="border-b border-line bg-surface-alt">
+    <div class="container-site pt-12 pb-12 text-center md:pt-16">
+      <span class="eyebrow">{c.hero.eyebrow}</span>
+      <h1 class="mx-auto mt-3 max-w-3xl text-3xl font-bold text-body md:text-5xl">{c.hero.h1}</h1>
+      <p class="mx-auto mt-4 max-w-2xl text-muted md:text-lg">{c.hero.sub}</p>
+    </div>
+  </section>
+
+  <!-- 2 ▸ TABS -->
+  <section id="info-tabs" class="section container-site">
+    <div class="flex flex-wrap items-center justify-center gap-2" role="tablist" aria-label={c.tabsLabel}>
+      {
+        tabs.map((tab, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`tab-${tab.id}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            aria-controls={`panel-${tab.id}`}
+            tabindex={i === 0 ? 0 : -1}
+            class="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 font-[family-name:var(--font-display)] text-sm font-semibold text-body transition-colors hover:border-accent aria-selected:border-accent aria-selected:bg-accent aria-selected:text-white"
+          >
+            <tab.icon class="size-4" aria-hidden="true" />
+            {tab.label}
+          </button>
+        ))
+      }
+    </div>
+
+    <!-- 2a ▸ FAQ panel -->
+    <div id="panel-faq" role="tabpanel" aria-labelledby="tab-faq" tabindex="0" class="mt-10">
+      <div class="flex flex-wrap items-center justify-center gap-2" role="group" aria-label={c.faq.filterLabel}>
+        {
+          c.faq.categories.map((cat) => (
+            <button
+              type="button"
+              data-faq-filter={cat.id}
+              aria-pressed={cat.id === "all" ? "true" : "false"}
+              class="rounded-full border border-line px-4 py-2 text-xs font-semibold text-muted transition-colors hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent/10 aria-pressed:text-accent"
+            >
+              {cat.label}
+            </button>
+          ))
+        }
+      </div>
+      <div class="reveal mx-auto mt-8 max-w-3xl">
+        <FaqAccordion items={c.faq.items} />
+      </div>
+    </div>
+
+    <!-- 2b ▸ Glossary panel -->
+    <div id="panel-glossary" role="tabpanel" aria-labelledby="tab-glossary" tabindex="0" hidden class="mt-10">
+      <p class="mx-auto max-w-2xl text-center text-muted">{c.glossary.lead}</p>
+      <dl class="mt-8 grid gap-4 sm:grid-cols-2">
+        {
+          c.glossary.terms.map((term) => (
+            <div class="card p-5">
+              <dt class="font-[family-name:var(--font-display)] text-[0.95rem] font-bold text-body">{term.t}</dt>
+              <dd class="mt-1.5 text-sm leading-relaxed text-muted">{term.d}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <!-- 2c ▸ Documents panel -->
+    <div id="panel-documents" role="tabpanel" aria-labelledby="tab-documents" tabindex="0" hidden class="mt-10">
+      <p class="mx-auto max-w-2xl text-center text-muted">{c.documents.lead}</p>
+      <div class="mx-auto mt-8 max-w-3xl">
+        <DocumentsList locale={locale} />
+      </div>
+    </div>
+
+    <!-- 2d ▸ Links panel -->
+    <div id="panel-links" role="tabpanel" aria-labelledby="tab-links" tabindex="0" hidden class="mt-10">
+      <p class="mx-auto max-w-2xl text-center text-muted">{c.links.lead}</p>
+      <ul class="mx-auto mt-8 grid max-w-4xl gap-4 sm:grid-cols-2">
+        {
+          c.links.items.map((link) => (
+            <li class="card p-5">
+              <a href={link.href} target="_blank" rel="noopener" class="group flex items-start gap-3.5">
+                <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                  <ExternalLink class="size-5" aria-hidden="true" />
+                </span>
+                <span>
+                  <span class="block font-[family-name:var(--font-display)] text-[0.95rem] font-bold text-body transition-colors group-hover:text-accent">
+                    {link.name}
+                  </span>
+                  <span class="mt-1 block text-sm leading-relaxed text-muted">{link.why}</span>
+                  <span class="mt-1.5 block text-xs font-semibold text-accent">{link.domain} ↗</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3 ▸ FINAL CTA BAND -->
+  <CtaBand locale={locale} />
+
+  <script>
+    // ---- Tabs (aria-selected + hidden panels, arrow-key navigation) ----
+    const tablist = document.querySelector<HTMLElement>('#info-tabs [role="tablist"]')!;
+    const tabBtns = Array.from(tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = tabBtns.map((t) => document.getElementById(t.getAttribute("aria-controls")!));
+
+    function selectTab(tab: HTMLButtonElement) {
+      tabBtns.forEach((t, i) => {
+        const selected = t === tab;
+        t.setAttribute("aria-selected", String(selected));
+        t.tabIndex = selected ? 0 : -1;
+        panels[i]?.toggleAttribute("hidden", !selected);
+      });
+    }
+
+    tabBtns.forEach((tab, i) => {
+      tab.addEventListener("click", () => selectTab(tab));
+      tab.addEventListener("keydown", (e) => {
+        let next: number | null = null;
+        if (e.key === "ArrowRight") next = (i + 1) % tabBtns.length;
+        if (e.key === "ArrowLeft") next = (i - 1 + tabBtns.length) % tabBtns.length;
+        if (e.key === "Home") next = 0;
+        if (e.key === "End") next = tabBtns.length - 1;
+        if (next !== null) {
+          e.preventDefault();
+          selectTab(tabBtns[next]);
+          tabBtns[next].focus();
+        }
+      });
+    });
+
+    // ---- FAQ category filter ----
+    const filterBtns = document.querySelectorAll<HTMLButtonElement>("[data-faq-filter]");
+    const faqItems = document.querySelectorAll<HTMLElement>("#panel-faq details[data-category]");
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const cat = btn.dataset.faqFilter;
+        filterBtns.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+        faqItems.forEach((d) => {
+          d.classList.toggle("hidden", cat !== "all" && d.dataset.category !== cat);
+        });
+      });
+    });
+  </script>
+</BaseLayout>

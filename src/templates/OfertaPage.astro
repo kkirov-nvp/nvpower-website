@@ -1,0 +1,58 @@
+---
+import { ShieldCheck, Clock, BadgePercent } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import OfferWizard from "../islands/OfferWizard";
+import type { Locale } from "../config/site";
+import { site } from "../config/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const c = {
+  bg: {
+    title: "Вземи оферта — NV Power",
+    description: `Персонална оферта за ток или соларна система за 2 минути. Отговор от консултант до 1 работен ден, без ангажимент.`,
+    h1: "Вземи своята оферта",
+    sub: "Отговори на няколко въпроса за обекта си и ще подготвим конкретни числа — цена, икономия и срок на откупуване. Отнема около 90 секунди.",
+    badges: [
+      { icon: Clock, text: `Отговор до 1 работен ден` },
+      { icon: BadgePercent, text: "Без скрити такси" },
+      { icon: ShieldCheck, text: "Без ангажимент и без депозити" },
+    ],
+  },
+  en: {
+    title: "Get a quote — NV Power",
+    description: `A personal quote for electricity or a solar system in 2 minutes. A consultant replies within 1 business day, no commitment.`,
+    h1: "Get your quote",
+    sub: "Answer a few questions about your site and we'll prepare real numbers — price, savings and payback period. Takes about 90 seconds.",
+    badges: [
+      { icon: Clock, text: `Reply within 1 business day` },
+      { icon: BadgePercent, text: "No hidden fees" },
+      { icon: ShieldCheck, text: "No commitment, no deposits" },
+    ],
+  },
+}[locale];
+---
+
+<BaseLayout locale={locale} title={c.title} description={c.description} path="/oferta/">
+  <section class="bg-surface-alt border-b border-line">
+    <div class="container-site pt-12 pb-28 text-center md:pt-16">
+      <h1 class="text-3xl font-bold text-body md:text-5xl">{c.h1}</h1>
+      <p class="mx-auto mt-4 max-w-xl text-muted md:text-lg">{c.sub}</p>
+      <ul class="mt-6 flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5">
+        {c.badges.map((b) => (
+          <li class="flex items-center gap-2 text-sm font-medium text-body">
+            <b.icon class="size-4 text-accent" aria-hidden="true" />
+            {b.text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="container-site -mt-20 pb-20 md:pb-24">
+    <OfferWizard locale={locale} client:load />
+  </section>
+</BaseLayout>

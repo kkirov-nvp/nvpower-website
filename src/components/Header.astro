@@ -1,0 +1,150 @@
+---
+import { Phone, Menu, X, Sun, Moon } from "@lucide/astro";
+import type { Locale } from "../config/site";
+import { site } from "../config/site";
+import { useUI, r, alternates } from "../i18n/ui";
+import Logo from "./Logo.astro";
+
+interface Props {
+  locale: Locale;
+  /** BG-canonical path — used for the language switcher */
+  path: string;
+}
+const { locale, path } = Astro.props;
+const t = useUI(locale);
+const alt = alternates(path);
+const otherHref = locale === "bg" ? alt.en : alt.bg;
+const otherLabel = locale === "bg" ? "EN" : "БГ";
+
+const links = [
+  { href: r(locale, "tok"), label: t.nav.tok },
+  { href: r(locale, "solar"), label: t.nav.solar },
+  { href: r(locale, "proekti"), label: t.nav.proekti },
+  { href: r(locale, "info"), label: t.nav.info },
+  { href: r(locale, "kontakti"), label: t.nav.kontakti },
+];
+const current = Astro.url.pathname;
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-50 border-b border-transparent backdrop-blur-md transition-shadow duration-300 data-scrolled:border-line data-scrolled:shadow-[0_4px_12px_rgba(0,0,0,0.05)]"
+  style="background: var(--header-bg);"
+>
+  <nav class="container-site flex h-16 items-center justify-between gap-3 md:h-20" aria-label={t.a11y.primaryNav}>
+    <a href={r(locale, "home")} aria-label={`${site.name} — ${locale === "bg" ? "начало" : "home"}`}>
+      <Logo />
+    </a>
+
+    <ul class="hidden items-center gap-0.5 lg:flex">
+      {
+        links.map((l) => (
+          <li>
+            <a
+              href={l.href}
+              aria-current={current === l.href ? "page" : undefined}
+              class="rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-body aria-[current=page]:text-accent"
+            >
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <a
+        href={`tel:${site.phoneHref}`}
+        class="hidden items-center gap-2 rounded-lg px-2 py-2 text-sm font-semibold text-body transition-colors hover:text-accent xl:inline-flex"
+      >
+        <Phone class="size-4 text-accent" aria-hidden="true" />
+        {site.phone}
+      </a>
+
+      <!-- Theme toggle (sun/moon) -->
+      <button
+        id="theme-toggle"
+        type="button"
+        class="inline-flex size-10 items-center justify-center rounded-lg border border-line text-body transition-colors hover:border-accent hover:text-accent"
+        aria-label={locale === "bg" ? "Смяна на тема" : "Toggle theme"}
+      >
+        <Sun class="icon-sun size-[18px]" aria-hidden="true" />
+        <Moon class="icon-moon size-[18px]" aria-hidden="true" />
+      </button>
+
+      <a
+        href={otherHref}
+        aria-label={t.a11y.langSwitch}
+        class="rounded-lg border border-line px-2.5 py-2.5 text-xs font-bold tracking-wide text-body transition-colors hover:border-accent hover:text-accent"
+      >
+        {otherLabel}
+      </a>
+
+      <a href={r(locale, "oferta")} class="btn btn-primary hidden !px-5 !py-2.5 lg:inline-flex">
+        {t.nav.oferta}
+      </a>
+
+      <button
+        id="menu-btn"
+        type="button"
+        class="inline-flex size-10 items-center justify-center rounded-lg border border-line text-body lg:hidden"
+        aria-label={t.a11y.openMenu}
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <Menu class="size-5 menu-open-icon" aria-hidden="true" />
+        <X class="size-5 menu-close-icon hidden" aria-hidden="true" />
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="hidden border-t border-line lg:hidden" style="background: var(--header-bg);">
+    <ul class="container-site flex flex-col gap-1 py-4">
+      {
+        links.map((l) => (
+          <li>
+            <a href={l.href} class="block rounded-lg px-3 py-3 text-base font-medium text-body hover:bg-surface-alt">
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="mt-2">
+        <a href={r(locale, "oferta")} class="btn btn-primary w-full">{t.nav.oferta}</a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<!-- spacer so content clears the fixed header -->
+<div class="h-16 md:h-20" aria-hidden="true"></div>
+
+<script>
+  const header = document.getElementById("site-header")!;
+  const onScroll = () => header.toggleAttribute("data-scrolled", window.scrollY > 12);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  const btn = document.getElementById("menu-btn")!;
+  const menu = document.getElementById("mobile-menu")!;
+  btn.addEventListener("click", () => {
+    const open = menu.classList.toggle("hidden") === false;
+    btn.setAttribute("aria-expanded", String(open));
+    btn.querySelector(".menu-open-icon")?.classList.toggle("hidden", open);
+    btn.querySelector(".menu-close-icon")?.classList.toggle("hidden", !open);
+  });
+
+  // Theme switch — persists to localStorage, applied via [data-theme] on <html>
+  const themeBtn = document.getElementById("theme-toggle")!;
+  themeBtn.addEventListener("click", () => {
+    const root = document.documentElement;
+    const dark = root.getAttribute("data-theme") === "dark";
+    if (dark) {
+      root.removeAttribute("data-theme");
+      localStorage.setItem("theme", "light");
+    } else {
+      root.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    }
+  });
+</script>

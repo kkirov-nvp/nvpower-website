@@ -1,0 +1,24 @@
+---
+import { Phone } from "@lucide/astro";
+import type { Locale } from "../config/site";
+import { site } from "../config/site";
+import { useUI, r } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useUI(locale);
+---
+
+<!-- Persistent mobile bottom CTA bar (§5): phone + оферта -->
+<div
+  class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-white/10 bg-band/95 p-2.5 backdrop-blur-md md:hidden"
+  style="padding-bottom: calc(0.625rem + env(safe-area-inset-bottom));"
+>
+  <a href={`tel:${site.phoneHref}`} class="btn btn-ghost-band !py-3 text-sm">
+    <Phone class="size-4 text-[#4db8c4]" aria-hidden="true" />
+    {t.a11y.call}
+  </a>
+  <a href={r(locale, "oferta")} class="btn btn-primary !py-3 text-sm">{t.nav.oferta}</a>
+</div>

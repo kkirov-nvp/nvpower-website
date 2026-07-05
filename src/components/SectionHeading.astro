@@ -1,0 +1,23 @@
+---
+/**
+ * Eyebrow + H2 + optional lead. `on="band"` for dark band sections.
+ */
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  align?: "left" | "center";
+  on?: "light" | "band";
+}
+const { eyebrow, title, lead, align = "center", on = "light" } = Astro.props;
+const alignCls = align === "center" ? "mx-auto items-center text-center" : "items-start text-left";
+const eyebrowCls = on === "band" ? "text-[#4db8c4]" : "text-accent";
+const titleCls = on === "band" ? "text-white" : "text-body";
+const leadCls = on === "band" ? "text-white/70" : "text-muted";
+---
+
+<div class:list={["reveal flex max-w-2xl flex-col gap-3", alignCls]}>
+  <span class:list={["eyebrow", eyebrowCls]}>{eyebrow}</span>
+  <h2 class:list={["text-3xl font-bold md:text-4xl", titleCls]}>{title}</h2>
+  {lead && <p class:list={["text-base leading-relaxed md:text-lg", leadCls]}>{lead}</p>}
+</div>

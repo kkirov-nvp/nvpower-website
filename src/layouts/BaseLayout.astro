@@ -1,0 +1,143 @@
+---
+import "@fontsource-variable/montserrat";
+import "@fontsource-variable/inter";
+import "../styles/global.css";
+
+import type { Locale } from "../config/site";
+import { site, SITE_URL } from "../config/site";
+import { alternates, useUI } from "../i18n/ui";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import MobileCtaBar from "../components/MobileCtaBar.astro";
+import CookieConsent from "../components/CookieConsent.astro";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  /** BG-canonical path of this page, e.g. "/tok/" — used for canonical + hreflang */
+  path: string;
+  /** Extra JSON-LD blocks (already-serializable objects) */
+  jsonLd?: object[];
+  ogImage?: string;
+}
+
+const { locale, title, description, path, jsonLd = [], ogImage = "/og-default.png" } = Astro.props;
+const t = useUI(locale);
+const alt = alternates(path);
+const canonical = `${SITE_URL}${locale === "en" ? alt.en : alt.bg}`;
+
+const orgLd = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "LocalBusiness"],
+  name: site.name,
+  url: SITE_URL,
+  email: site.email,
+  telephone: site.phone,
+  slogan: site.tagline[locale],
+  address: { "@type": "PostalAddress", streetAddress: site.address.bg, addressCountry: "BG" },
+  sameAs: Object.values(site.socials).filter(Boolean),
+};
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#007b88" />
+
+    <!-- Apply stored theme before paint (light is default) -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark") document.documentElement.setAttribute("data-theme", "dark");
+        } catch (e) {}
+      })();
+    </script>
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <link rel="alternate" hreflang="bg" href={`${SITE_URL}${alt.bg}`} />
+    <link rel="alternate" hreflang="en" href={`${SITE_URL}${alt.en}`} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE_URL}${alt.bg}`} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={locale === "bg" ? "bg_BG" : "en_US"} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${SITE_URL}${ogImage}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+    {jsonLd.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
+  </head>
+  <body class="min-h-svh">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:font-bold focus:text-white"
+    >
+      {t.a11y.skip}
+    </a>
+
+    <Header locale={locale} path={path} />
+
+    <main id="main" class="pb-16 md:pb-0">
+      <slot />
+    </main>
+
+    <Footer locale={locale} />
+    <MobileCtaBar locale={locale} />
+    <CookieConsent locale={locale} />
+
+    <!-- Scroll reveals + animated counters (respects reduced motion) -->
+    <script>
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            e.target.classList.add("is-visible");
+            const counter = e.target.querySelector<HTMLElement>("[data-count]") ??
+              (e.target instanceof HTMLElement && e.target.dataset.count !== undefined ? e.target : null);
+            if (counter) runCounter(counter);
+            io.unobserve(e.target);
+          }
+        },
+        { rootMargin: "0px 0px -60px 0px", threshold: 0.15 },
+      );
+
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+      function runCounter(el: HTMLElement) {
+        const target = Number(el.dataset.count ?? "0");
+        if (reduced || !Number.isFinite(target)) {
+          el.textContent = String(target);
+          return;
+        }
+        const dur = 1400;
+        const start = performance.now();
+        const step = (now: number) => {
+          const p = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = String(Math.round(target * eased));
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+    </script>
+  </body>
+</html>

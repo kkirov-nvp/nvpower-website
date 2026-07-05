@@ -1,0 +1,385 @@
+---
+import { ArrowRight, Check, X, Zap, LineChart, Building2, FileSearch, PenLine, Repeat, Clock, BadgePercent, ShieldCheck } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CtaBand from "../components/CtaBand.astro";
+import FaqAccordion from "../components/FaqAccordion.astro";
+import InvoiceUpload from "../islands/InvoiceUpload";
+import type { Locale } from "../config/site";
+import { site } from "../config/site";
+import { r } from "../i18n/ui";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const c = {
+  bg: {
+    title: "Ток за бизнеса и дома — ясна цена, без изненади | NV Power",
+    description: `Лицензирана доставка на електроенергия: фиксиран план на ${site.price.display.bg}, борсов план и индивидуални условия. Смяната е безплатна, без прекъсване и без депозити.`,
+    hero: {
+      h1: "Ток на ясна цена. Без изненади.",
+      sub: "Лицензиран търговец на електроенергия за бизнеса и дома. Публикуваме цената си, спазваме я и ти оставяме един телефонен номер — на личния ти консултант.",
+      ctaPrimary: "Вземи оферта за 2 минути",
+      ctaSecondary: "Виж плановете",
+      checks: [`Отговор до 1 работен ден`, "Без скрити такси", "Без депозити"],
+    },
+    plans: {
+      eyebrow: "Планове",
+      title: "Избери как да купуваш тока си",
+      lead: "Три плана, една философия: ясна цена, ясен договор и човек, който вдига телефона. Всички включват участие в балансиращата ни група.",
+      cta: "Вземи оферта",
+      items: [
+        {
+          icon: Zap,
+          badge: "Най-предвидим",
+          name: "Фиксиран",
+          priceMain: "0.099 €/кВтч",
+          priceSub: "0.194 лв./кВтч",
+          term: "фиксирана цена за 12 месеца",
+          features: [
+            "Една и съща цена всеки месец — планираш бюджета си спокойно",
+            "Пазарът скача? Твоята цена — не",
+            "Балансирането е включено в цената",
+            "Идеален за дом и малък бизнес",
+          ],
+        },
+        {
+          icon: LineChart,
+          badge: "Най-гъвкав",
+          name: "Борсов",
+          priceMain: "Цена БНЕБ",
+          priceSub: "+ фиксирана надбавка",
+          term: "безсрочен, следваш пазара",
+          features: [
+            "Плащаш реалната борсова цена + прозрачна надбавка",
+            "Без лимит на потребление",
+            "Печелиш, когато пазарът пада",
+            "Месечен отчет с пълна разбивка",
+          ],
+        },
+        {
+          icon: Building2,
+          badge: "За големи обекти",
+          name: "Индивидуален",
+          priceMain: "По договаряне",
+          priceSub: "спрямо профила ти на потребление",
+          term: "за големи консуматори",
+          features: [
+            "Анализ на товаровия ти профил преди офертата",
+            "Личен мениджър на договора",
+            "Стратегия фиксирано / борсово по избор",
+            "Условия за няколко обекта в един договор",
+          ],
+        },
+      ],
+    },
+    compare: {
+      eyebrow: "Сравнение",
+      title: "Плановете един до друг",
+      lead: "Без звездички и дребен шрифт — това са условията.",
+      colLabel: "Условие",
+      rows: [
+        { label: "Цена", values: ["0.099 €/кВтч (0.194 лв./кВтч)", "БНЕБ + фиксирана надбавка", "По договаряне"] },
+        { label: "Срок", values: ["12 месеца", "Безсрочен", "По договаряне"] },
+        { label: "Депозит", values: ["НЕ", "НЕ", "НЕ"] },
+        { label: "Скрити такси", values: ["0%", "0%", "0%"] },
+        { label: "Предизвестие", values: ["1 месец", "1 месец", "1 месец"] },
+        { label: "Личен консултант", values: ["Да", "Да", "Личен мениджър"] },
+      ],
+      plans: ["Фиксиран", "Борсов", "Индивидуален"],
+    },
+    switch: {
+      eyebrow: "Смяна на доставчик",
+      title: "Как сменяш доставчика",
+      lead: "Цялата процедура я движим ние — на теб ти остава да подпишеш.",
+      steps: [
+        { icon: FileSearch, title: "Изпращаш ни фактура", text: "Или просто данните на обекта. Сравняваме условията и ти показваме конкретната разлика в лева. Безплатно е." },
+        { icon: PenLine, title: "Подписваш дистанционно", text: "Договор на разбираем български, подписан онлайн. Ние подаваме всички документи към мрежовия оператор." },
+        { icon: Repeat, title: "От 1-во число си при нас", text: "Смяната става без прекъсване на тока — жиците са същите, сменя се само фактурата. Изцяло дистанционно." },
+      ],
+    },
+    invoice: {
+      eyebrow: "Провери сам",
+      title: "Изпрати ни фактура — ще ти покажем разликата",
+      lead: `Прикачи последната си фактура за ток и ще получиш сравнителна оферта до 1 работен ден — с конкретни числа, не с обещания.`,
+    },
+    faq: {
+      eyebrow: "Въпроси",
+      title: "Често питате за смяната",
+      items: [
+        { q: "Ще ми спре ли токът при смяна на доставчика?", a: "Не, нито за секунда. Смяната е чисто административна — електричеството тече по същата мрежа, поддържана от същия мрежов оператор. Променя се само компанията, която ти издава фактурата." },
+        { q: "Колко струва смяната и колко време отнема?", a: "Смяната е напълно безплатна — без такси, без депозити. Подаваме документите до 10-о число на месеца и от 1-во число на следващия вече си наш клиент. Цялата администрация я поемаме ние." },
+        { q: "Какво е балансиране и защо го споменавате?", a: "Всеки потребител се отклонява от прогнозираното си потребление и някой плаща тези небаланси. Като член на нашата балансираща група отклоненията се компенсират взаимно между членовете — при нас балансирането е включено в цената, без отделни редове изненади." },
+        { q: "Как изглежда фактурата и какво включва цената?", a: "Една страница, ясни редове: консумирана енергия по договорената цена плюс регулираните мрежови такси (пренос и достъп), които са еднакви при всички доставчици и отиват към мрежовия оператор. Нула добавени редове от нас — без скрити такси." },
+        { q: "Мога ли да се откажа, ако не съм доволен?", a: "Да, с 1 месец предизвестие — без неустойки и без обвързващи клаузи. Вярваме, че клиентите остават заради условията, а не заради договора." },
+      ],
+    },
+  },
+  en: {
+    title: "Electricity for business & home — a clear price, no surprises | NV Power",
+    description: `Licensed electricity supply: a fixed plan at ${site.price.display.en}, an exchange-indexed plan and individual terms. Switching is free, uninterrupted and deposit-free.`,
+    hero: {
+      h1: "Electricity at a clear price. No surprises.",
+      sub: "A licensed electricity trader for business and home. We publish our price, we honour it, and we leave you one phone number — your personal consultant's.",
+      ctaPrimary: "Get a quote in 2 minutes",
+      ctaSecondary: "See the plans",
+      checks: [`Reply within 1 business day`, "No hidden fees", "No deposits"],
+    },
+    plans: {
+      eyebrow: "Plans",
+      title: "Choose how you buy your power",
+      lead: "Three plans, one philosophy: a clear price, a clear contract and a person who picks up the phone. All include membership in our balancing group.",
+      cta: "Get a quote",
+      items: [
+        {
+          icon: Zap,
+          badge: "Most predictable",
+          name: "Fixed",
+          priceMain: "€0.099/kWh",
+          priceSub: "0.194 BGN/kWh",
+          term: "fixed price for 12 months",
+          features: [
+            "The same price every month — budget with confidence",
+            "Market spikes? Not your problem",
+            "Balancing is included in the price",
+            "Ideal for homes and small business",
+          ],
+        },
+        {
+          icon: LineChart,
+          badge: "Most flexible",
+          name: "Exchange",
+          priceMain: "IBEX price",
+          priceSub: "+ a fixed margin",
+          term: "open-ended, you follow the market",
+          features: [
+            "You pay the real exchange price + a transparent margin",
+            "No consumption limit",
+            "You win when the market drops",
+            "Monthly report with a full breakdown",
+          ],
+        },
+        {
+          icon: Building2,
+          badge: "For large sites",
+          name: "Individual",
+          priceMain: "Negotiated",
+          priceSub: "based on your consumption profile",
+          term: "for large consumers",
+          features: [
+            "Load-profile analysis before the offer",
+            "A personal contract manager",
+            "Fixed / exchange strategy — your choice",
+            "Multiple sites under one contract",
+          ],
+        },
+      ],
+    },
+    compare: {
+      eyebrow: "Comparison",
+      title: "The plans side by side",
+      lead: "No asterisks, no small print — these are the terms.",
+      colLabel: "Term",
+      rows: [
+        { label: "Price", values: ["€0.099/kWh (0.194 BGN/kWh)", "IBEX + fixed margin", "Negotiated"] },
+        { label: "Contract term", values: ["12 months", "Open-ended", "Negotiated"] },
+        { label: "Deposit", values: ["NO", "NO", "NO"] },
+        { label: "Hidden fees", values: ["0%", "0%", "0%"] },
+        { label: "Notice period", values: ["1 month", "1 month", "1 month"] },
+        { label: "Personal consultant", values: ["Yes", "Yes", "Dedicated manager"] },
+      ],
+      plans: ["Fixed", "Exchange", "Individual"],
+    },
+    switch: {
+      eyebrow: "Switching supplier",
+      title: "How you switch supplier",
+      lead: "We drive the whole procedure — all you do is sign.",
+      steps: [
+        { icon: FileSearch, title: "Send us an invoice", text: "Or just your site details. We compare the terms and show you the exact difference in money. It's free." },
+        { icon: PenLine, title: "Sign remotely", text: "A plain-language contract, signed online. We file all the paperwork with the grid operator." },
+        { icon: Repeat, title: "From the 1st, you're with us", text: "The switch happens with zero power interruption — same wires, only the invoice changes. Fully remote." },
+      ],
+    },
+    invoice: {
+      eyebrow: "Check for yourself",
+      title: "Send us an invoice — we'll show you the difference",
+      lead: `Attach your latest electricity invoice and you'll get a comparative quote within 1 business day — with real numbers, not promises.`,
+    },
+    faq: {
+      eyebrow: "Questions",
+      title: "What people ask about switching",
+      items: [
+        { q: "Will my power go out when I switch supplier?", a: "No, not for a second. Switching is purely administrative — electricity flows through the same grid, maintained by the same grid operator. Only the company issuing your invoice changes." },
+        { q: "How much does switching cost and how long does it take?", a: "Switching is completely free — no fees, no deposits. We file the documents by the 10th of the month and from the 1st of the next month you're our client. We handle all the administration." },
+        { q: "What is balancing and why do you mention it?", a: "Every consumer deviates from their forecast consumption, and someone pays for those imbalances. As a member of our balancing group, deviations offset each other between members — with us, balancing is included in the price, with no surprise line items." },
+        { q: "What does the invoice look like and what does the price include?", a: "One page, clear lines: the energy you consumed at the agreed price plus the regulated network charges (transmission and access), which are identical with every supplier and go to the grid operator. Zero lines added by us — no hidden fees, guaranteed." },
+        { q: "Can I leave if I'm not happy?", a: "Yes, with 1 month's notice — no penalties, no lock-in clauses. We believe clients stay for the terms, not for the contract." },
+      ],
+    },
+  },
+}[locale];
+---
+
+<BaseLayout locale={locale} title={c.title} description={c.description} path="/tok/">
+  <!-- 1 ▸ HERO (dark band) -->
+  <section class="bg-band">
+    <div class="container-site py-16 text-center md:py-24">
+      <h1 class="mx-auto max-w-3xl text-4xl font-bold text-white sm:text-5xl md:text-6xl md:leading-[1.05]">
+        {c.hero.h1.split(".")[0]}.{" "}<span class="text-[#6fd0da]">{c.hero.h1.split(".").slice(1).join(".").trim()}</span>
+      </h1>
+      <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/75 md:text-lg">{c.hero.sub}</p>
+
+      <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href={r(locale, "oferta")} class="btn btn-primary !px-7 !py-4 text-base">
+          {c.hero.ctaPrimary}
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </a>
+        <a href="#planove" class="btn btn-ghost-band !px-7 !py-4 text-base">{c.hero.ctaSecondary}</a>
+      </div>
+
+      <ul class="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5">
+        {c.hero.checks.map((check) => (
+          <li class="flex items-center gap-2 text-sm font-medium text-white/80">
+            <Check class="size-4 text-[#6fd0da]" aria-hidden="true" />
+            {check}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2 ▸ PLANS -->
+  <section id="planove" class="section container-site">
+    <SectionHeading eyebrow={c.plans.eyebrow} title={c.plans.title} lead={c.plans.lead} />
+
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {c.plans.items.map((plan, i) => (
+        <article
+          class:list={["reveal card relative flex flex-col gap-5 p-7 md:p-8", i === 0 && "border-accent ring-1 ring-accent"]}
+          style={`--reveal-delay:${i * 90}ms`}
+        >
+          <span
+            class:list={[
+              "absolute -top-3.5 left-6 rounded-full px-3.5 py-1.5 text-xs font-bold",
+              i === 0 ? "bg-accent text-[#6fd0da]" : "bg-accent/10 text-accent",
+            ]}
+          >
+            {plan.badge}
+          </span>
+
+          <span class="mt-2 flex size-12 items-center justify-center rounded-xl bg-accent/10 text-accent">
+            <plan.icon class="size-6" aria-hidden="true" />
+          </span>
+          <h3 class="text-xl font-bold text-body">{plan.name}</h3>
+
+          <p class="font-[family-name:var(--font-display)]">
+            <span class:list={["font-bold text-accent", i === 0 ? "text-4xl" : "text-2xl"]}>{plan.priceMain}</span>
+            <span class="mt-1 block text-sm font-bold text-muted">{plan.priceSub}</span>
+            <span class="mt-1 block text-sm font-medium text-accent">{plan.term}</span>
+          </p>
+
+          <ul class="flex flex-col gap-2.5">
+            {plan.features.map((f) => (
+              <li class="flex items-start gap-2.5 text-sm text-body">
+                <Check class="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
+                {f}
+              </li>
+            ))}
+          </ul>
+
+          <a href={r(locale, "oferta")} class:list={["btn mt-auto self-start", i === 0 ? "btn-primary" : "btn-outline"]}>
+            {c.plans.cta}
+            <ArrowRight class="size-4" aria-hidden="true" />
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- 3 ▸ COMPARISON TABLE -->
+  <section class="bg-surface-alt">
+    <div class="container-site section">
+      <SectionHeading eyebrow={c.compare.eyebrow} title={c.compare.title} lead={c.compare.lead} />
+
+      <div class="reveal card mt-10 overflow-x-auto">
+        <table class="w-full min-w-[40rem] border-collapse text-sm">
+          <thead>
+            <tr class="bg-band text-left text-white">
+              <th scope="col" class="px-5 py-4 font-[family-name:var(--font-display)] font-bold md:px-6">{c.compare.colLabel}</th>
+              {c.compare.plans.map((p) => (
+                <th scope="col" class="px-5 py-4 font-[family-name:var(--font-display)] font-bold md:px-6">{p}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-line">
+            {c.compare.rows.map((row) => (
+              <tr class="odd:bg-white even:bg-surface-alt/60">
+                <th scope="row" class="px-5 py-3.5 text-left font-semibold text-body md:px-6">{row.label}</th>
+                {row.values.map((v) => (
+                  <td class="px-5 py-3.5 text-muted md:px-6">
+                    {v === "НЕ" || v === "NO" ? (
+                      <span class="inline-flex items-center gap-1.5 font-bold text-accent">
+                        <X class="size-4" aria-hidden="true" />
+                        {v}
+                      </span>
+                    ) : v === "0%" ? (
+                      <span class="inline-flex items-center gap-1.5 font-bold text-accent">
+                        <Check class="size-4" aria-hidden="true" />
+                        {v}
+                      </span>
+                    ) : (
+                      v
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 ▸ HOW TO SWITCH -->
+  <section class="section container-site">
+    <SectionHeading eyebrow={c.switch.eyebrow} title={c.switch.title} lead={c.switch.lead} />
+    <ol class="mt-12 grid gap-6 md:grid-cols-3">
+      {c.switch.steps.map((s, i) => (
+        <li class="reveal card relative p-7" style={`--reveal-delay:${i * 90}ms`}>
+          <span class="absolute top-6 right-6 font-[family-name:var(--font-display)] text-5xl font-bold text-line">{String(i + 1).padStart(2, "0")}</span>
+          <span class="flex size-12 items-center justify-center rounded-xl bg-accent/10 text-accent"><s.icon class="size-6" aria-hidden="true" /></span>
+          <h3 class="mt-4 text-lg font-bold text-body">{s.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-muted">{s.text}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- 5 ▸ INVOICE UPLOAD (dark) -->
+  <section class="bg-accent">
+    <div class="container-site section">
+      <SectionHeading eyebrow={c.invoice.eyebrow} title={c.invoice.title} lead={c.invoice.lead} on="dark" />
+      <ul class="mt-7 flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5" aria-hidden="true">
+        <li class="flex items-center gap-2 text-sm font-medium text-white/85"><Clock class="size-4 text-accent" /> {locale === "bg" ? `Отговор до 1 работен ден` : `Reply within 1 business day`}</li>
+        <li class="flex items-center gap-2 text-sm font-medium text-white/85"><BadgePercent class="size-4 text-accent" /> {locale === "bg" ? "Без скрити такси" : "No hidden fees"}</li>
+        <li class="flex items-center gap-2 text-sm font-medium text-white/85"><ShieldCheck class="size-4 text-accent" /> {locale === "bg" ? "Без ангажимент" : "No commitment"}</li>
+      </ul>
+      <div class="reveal mx-auto mt-10 max-w-2xl">
+        <InvoiceUpload locale={locale} client:visible />
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 ▸ FAQ -->
+  <section class="section container-site">
+    <SectionHeading eyebrow={c.faq.eyebrow} title={c.faq.title} />
+    <div class="reveal mx-auto mt-10 max-w-3xl">
+      <FaqAccordion items={c.faq.items} />
+    </div>
+  </section>
+
+  <!-- 7 ▸ FINAL CTA BAND -->
+  <CtaBand locale={locale} />
+</BaseLayout>

@@ -1,0 +1,251 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CtaBand from "../components/CtaBand.astro";
+import type { Locale } from "../config/site";
+import { site } from "../config/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+type Block = { p: string } | { ul: string[] };
+interface Section {
+  h2: string;
+  blocks: Block[];
+}
+
+const c = {
+  bg: {
+    title: "Общи условия | NV Power",
+    description:
+      "Общи условия за ползване на сайта nvpower.bg: предмет, характер на публикуваната информация и цените, интелектуална собственост, отговорност и приложимо право.",
+    h1: "Общи условия за ползване на сайта",
+    updated: "Последна актуализация: юли 2026",
+    intro:
+      "Тези общи условия уреждат ползването на сайта nvpower.bg. Като разглеждаш сайта, ти се съгласяваш с тях — затова сме ги написали кратко и на разбираем език.",
+    sections: [
+      {
+        h2: "Предмет",
+        blocks: [
+          {
+            p: `Сайтът nvpower.bg е информационен сайт на ${site.legal.bg} („NV Power“, „ние“). Чрез него представяме услугите си — търговия с електрическа енергия и проектиране и изграждане на фотоволтаични системи с батерии — и ти даваме възможност да ни изпратиш запитване за оферта. Самите услуги се предоставят въз основа на индивидуален договор, а не чрез сайта.`,
+          },
+        ],
+      },
+      {
+        h2: "Цени и оферти",
+        blocks: [
+          {
+            p: "Публикуваните на сайта стойности за соларни системи — цени, срокове на откупуване, изчисления на калкулатора — са <strong>ориентировъчни</strong> и не представляват публична оферта по смисъла на Закона за задълженията и договорите. Конкретните условия се определят в индивидуална оферта след оглед на обекта.",
+          },
+          {
+            p: `Изключение прави публикуваната цена за електрическа енергия — ${site.price.display.bg} — която е реалната ни търговска цена и се прилага съгласно условията на договора за доставка. Всички останали компоненти на крайната фактура (мрежови такси, акциз, задължения към обществото) се определят от регулатора и мрежовите оператори и не зависят от нас.`,
+          },
+        ],
+      },
+      {
+        h2: "Интелектуална собственост",
+        blocks: [
+          {
+            p: "Цялото съдържание на сайта — текстове, изображения, лого, дизайн, изчислителни инструменти — е собственост на NV Power или се ползва с разрешение и е защитено от Закона за авторското право и сродните му права. Можеш да споделяш връзки към сайта свободно; копирането и разпространението на съдържание за търговски цели без наше писмено съгласие не е разрешено.",
+          },
+        ],
+      },
+      {
+        h2: "Ограничение на отговорността",
+        blocks: [
+          {
+            p: "Полагаме разумни усилия информацията на сайта да е точна и актуална, но не гарантираме, че е без грешки или изчерпателна. Съдържанието има информативен характер и не представлява правен, финансов или инженерен съвет. NV Power не носи отговорност за вреди, произтичащи от ползването на сайта или от невъзможност той да бъде ползван, доколкото това е допустимо от закона. Резултатите от калкулатора са прогнозни и зависят от въведените от теб данни.",
+          },
+        ],
+      },
+      {
+        h2: "Външни връзки",
+        blocks: [
+          {
+            p: "Сайтът може да съдържа връзки към външни сайтове (например на регулатора, на мрежови оператори или на партньори). Те са предоставени за твое удобство — не контролираме съдържанието им и не носим отговорност за него.",
+          },
+        ],
+      },
+      {
+        h2: "Промени в условията",
+        blocks: [
+          {
+            p: "Можем да актуализираме тези условия при промяна в услугите или в законодателството. Актуалната версия винаги е публикувана на тази страница, с посочена дата на последна актуализация.",
+          },
+        ],
+      },
+      {
+        h2: "Приложимо право",
+        blocks: [
+          {
+            p: "За тези общи условия и за ползването на сайта се прилага българското право. Спорове се решават по взаимно съгласие, а ако това не е възможно — от компетентния български съд.",
+          },
+        ],
+      },
+      {
+        h2: "Контакт",
+        blocks: [
+          {
+            p: `${site.legal.bg} · ${site.address.bg} · <a href="mailto:${site.email}">${site.email}</a> · <a href="tel:${site.phoneHref}">${site.phone}</a>`,
+          },
+        ],
+      },
+    ] satisfies Section[],
+  },
+  en: {
+    title: "Terms and conditions | NV Power",
+    description:
+      "Terms and conditions for using nvpower.bg: scope, the nature of the published information and prices, intellectual property, liability and governing law.",
+    h1: "Website terms and conditions",
+    updated: "Last updated: July 2026",
+    intro:
+      "These terms govern the use of the website nvpower.bg. By browsing the site, you agree to them — which is why we've kept them short and in plain language.",
+    sections: [
+      {
+        h2: "Scope",
+        blocks: [
+          {
+            p: `The website nvpower.bg is an informational website of ${site.legal.en} (“NV Power”, “we”). Through it we present our services — electricity trading and the design and construction of photovoltaic systems with batteries — and give you the option to send us a quote enquiry. The services themselves are provided under an individual contract, not through the website.`,
+          },
+        ],
+      },
+      {
+        h2: "Prices and quotes",
+        blocks: [
+          {
+            p: "The figures published on the site for solar systems — prices, payback periods, calculator results — are <strong>indicative</strong> and do not constitute a binding public offer within the meaning of Bulgarian contract law. Specific terms are set out in an individual quote after a site survey.",
+          },
+          {
+            p: `The exception is our published electricity price — ${site.price.display.en} — which is our actual trading price and applies under the terms of the supply contract. All other components of the final invoice (network charges, excise duty, public obligations) are set by the regulator and the grid operators and are outside our control.`,
+          },
+        ],
+      },
+      {
+        h2: "Intellectual property",
+        blocks: [
+          {
+            p: "All content on the site — texts, images, logo, design, calculation tools — is owned by NV Power or used with permission and is protected by the Bulgarian Copyright and Related Rights Act. You are free to share links to the site; copying and distributing content for commercial purposes without our written consent is not permitted.",
+          },
+        ],
+      },
+      {
+        h2: "Limitation of liability",
+        blocks: [
+          {
+            p: "We make reasonable efforts to keep the information on the site accurate and up to date, but we do not guarantee that it is error-free or exhaustive. The content is informational and does not constitute legal, financial or engineering advice. To the extent permitted by law, NV Power is not liable for damages arising from the use of the site or the inability to use it. Calculator results are estimates and depend on the data you enter.",
+          },
+        ],
+      },
+      {
+        h2: "External links",
+        blocks: [
+          {
+            p: "The site may contain links to external websites (for example those of the regulator, grid operators or partners). They are provided for your convenience — we do not control their content and are not responsible for it.",
+          },
+        ],
+      },
+      {
+        h2: "Changes to these terms",
+        blocks: [
+          {
+            p: "We may update these terms when our services or the legislation change. The current version is always published on this page, with the date of the last update stated.",
+          },
+        ],
+      },
+      {
+        h2: "Governing law",
+        blocks: [
+          {
+            p: "These terms and the use of the site are governed by Bulgarian law. Disputes are resolved by mutual agreement, and where that is not possible — by the competent Bulgarian court.",
+          },
+        ],
+      },
+      {
+        h2: "Contact",
+        blocks: [
+          {
+            p: `${site.legal.en} · ${site.address.en} · <a href="mailto:${site.email}">${site.email}</a> · <a href="tel:${site.phoneHref}">${site.phone}</a>`,
+          },
+        ],
+      },
+    ] satisfies Section[],
+  },
+}[locale];
+---
+
+<BaseLayout locale={locale} title={c.title} description={c.description} path="/obshti-usloviya/">
+  <section class="border-b border-line bg-surface-alt">
+    <div class="container-site pt-12 pb-12 md:pt-16">
+      <div class="mx-auto max-w-3xl">
+        <h1 class="text-3xl font-bold text-body md:text-4xl">{c.h1}</h1>
+        <p class="mt-3 inline-flex rounded-full bg-accent/10 px-3.5 py-1.5 text-sm font-semibold text-accent">
+          {c.updated}
+        </p>
+        <p class="mt-4 leading-relaxed text-muted">{c.intro}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-site section !pt-10">
+    <div class="prose-legal mx-auto max-w-3xl">
+      {c.sections.map((section) => (
+        <section>
+          <h2>{section.h2}</h2>
+          {section.blocks.map((block) =>
+            "p" in block ? (
+              <p set:html={block.p} />
+            ) : (
+              <ul>
+                {block.ul.map((item) => (
+                  <li set:html={item} />
+                ))}
+              </ul>
+            ),
+          )}
+        </section>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand locale={locale} />
+</BaseLayout>
+
+<style is:global>
+  .prose-legal h2 {
+    font-size: 1.375rem;
+    line-height: 1.3;
+    margin-top: 2.5rem;
+    margin-bottom: 0.875rem;
+    color: var(--text-color);
+  }
+  .prose-legal section:first-child h2 {
+    margin-top: 0;
+  }
+  .prose-legal p {
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+  .prose-legal ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .prose-legal li {
+    line-height: 1.7;
+    color: var(--text-color);
+  }
+  .prose-legal a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-legal a:hover {
+    color: var(--accent-hover);
+  }
+</style>

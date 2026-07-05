@@ -1,0 +1,62 @@
+---
+import { Calculator, ShieldCheck, Sun } from "@lucide/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CtaBand from "../components/CtaBand.astro";
+import SolarCalculator from "../islands/SolarCalculator";
+import type { Locale } from "../config/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+
+const c = {
+  bg: {
+    title: "Соларен калкулатор — изчисли спестяванията си | NV Power",
+    description:
+      "Безплатен соларен калкулатор: въведи месечната си сметка и виж препоръчана система, годишна икономия в лв. и €, срок на откупуване и спестено CO₂.",
+    h1: "Колко ще спестиш със слънце?",
+    sub: "Въведи месечната си сметка или консумация и виж конкретни числа — система, икономия, откупуване. Отнема 30 секунди, без данни за контакт.",
+    badges: [
+      { icon: Calculator, text: "Реални изчисления, прозрачни допускания" },
+      { icon: Sun, text: "Съобразено с производството в България" },
+      { icon: ShieldCheck, text: "Без имейл, без регистрация" },
+    ],
+  },
+  en: {
+    title: "Solar calculator — estimate your savings | NV Power",
+    description:
+      "Free solar calculator: enter your monthly bill and see a recommended system, annual savings in BGN and €, payback period and CO₂ saved.",
+    h1: "How much can the sun save you?",
+    sub: "Enter your monthly bill or consumption and get real numbers — system size, savings, payback. Takes 30 seconds, no contact details.",
+    badges: [
+      { icon: Calculator, text: "Real math, transparent assumptions" },
+      { icon: Sun, text: "Tuned to Bulgarian production data" },
+      { icon: ShieldCheck, text: "No email, no registration" },
+    ],
+  },
+}[locale];
+---
+
+<BaseLayout locale={locale} title={c.title} description={c.description} path="/kalkulator/">
+  <section class="border-b border-line bg-surface-alt">
+    <div class="container-site pt-12 pb-12 text-center md:pt-16">
+      <h1 class="text-3xl font-bold text-body md:text-5xl">{c.h1}</h1>
+      <p class="mx-auto mt-4 max-w-xl text-muted md:text-lg">{c.sub}</p>
+      <ul class="mt-6 flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5">
+        {c.badges.map((b) => (
+          <li class="flex items-center gap-2 text-sm font-medium text-body">
+            <b.icon class="size-4 text-accent" aria-hidden="true" />
+            {b.text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="container-site section !pt-10">
+    <SolarCalculator locale={locale} client:load />
+  </section>
+
+  <CtaBand locale={locale} />
+</BaseLayout>
