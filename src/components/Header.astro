@@ -13,7 +13,9 @@ interface Props {
 const { locale, path } = Astro.props;
 const t = useUI(locale);
 const alt = alternates(path);
-const otherHref = locale === "bg" ? alt.en : alt.bg;
+// Utility pages (404) have no localized twin — switch language via the homepage.
+const hasTwin = path !== "/404/";
+const otherHref = locale === "bg" ? (hasTwin ? alt.en : "/en/") : hasTwin ? alt.bg : "/";
 const otherLabel = locale === "bg" ? "EN" : "БГ";
 
 const links = [

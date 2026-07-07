@@ -20,9 +20,11 @@ interface Props {
   /** Extra JSON-LD blocks (already-serializable objects) */
   jsonLd?: object[];
   ogImage?: string;
+  /** Error/utility pages: adds robots noindex, skips hreflang alternates */
+  noindex?: boolean;
 }
 
-const { locale, title, description, path, jsonLd = [], ogImage = "/og-default.png" } = Astro.props;
+const { locale, title, description, path, jsonLd = [], ogImage = "/og-default.png", noindex = false } = Astro.props;
 const t = useUI(locale);
 const alt = alternates(path);
 const canonical = `${SITE_URL}${locale === "en" ? alt.en : alt.bg}`;
@@ -49,6 +51,7 @@ const orgLd = {
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#007b88" />
 
     <!-- Apply stored theme before paint (light is default) -->
@@ -63,11 +66,16 @@ const orgLd = {
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
 
-    <link rel="alternate" hreflang="bg" href={`${SITE_URL}${alt.bg}`} />
-    <link rel="alternate" hreflang="en" href={`${SITE_URL}${alt.en}`} />
-    <link rel="alternate" hreflang="x-default" href={`${SITE_URL}${alt.bg}`} />
+    {!noindex && (
+      <>
+        <link rel="alternate" hreflang="bg" href={`${SITE_URL}${alt.bg}`} />
+        <link rel="alternate" hreflang="en" href={`${SITE_URL}${alt.en}`} />
+        <link rel="alternate" hreflang="x-default" href={`${SITE_URL}${alt.bg}`} />
+      </>
+    )}
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <meta property="og:type" content="website" />

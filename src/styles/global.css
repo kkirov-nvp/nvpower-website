@@ -49,6 +49,9 @@
 
   --band-bg: #091f22;
   --band-bg-deep: #061618;
+
+  /* 12px uppercase labels need ≥4.5:1 on the dark pine background (WCAG AA) */
+  --eyebrow-color: #3cc1d0;
 }
 
 /* Map theme variables into Tailwind utilities (resolved at use-time) */
@@ -134,7 +137,7 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--eyebrow-color, var(--accent));
 }
 
 /* Card — lifts from the page background in both themes */

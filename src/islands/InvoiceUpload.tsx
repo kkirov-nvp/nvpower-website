@@ -87,7 +87,7 @@ export default function InvoiceUpload({ locale }: { locale: Locale }) {
         <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-[#007b88]" />
         <span>
           {t.gdpr}{" "}
-          <a href={locale === "en" ? "/en/politika-poveritelnost/" : "/politika-poveritelnost/"} className="text-accent underline" target="_blank">→</a>
+          <a href={locale === "en" ? "/en/politika-poveritelnost/" : "/politika-poveritelnost/"} className="text-accent underline" target="_blank" rel="noopener noreferrer">→</a>
         </span>
       </label>
       {state === "err" && (

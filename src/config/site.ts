@@ -13,31 +13,31 @@ export const site = {
   tagline: { bg: "Енергия за утрешния ден", en: "Energy for tomorrow" },
 
   /** [PLACEHOLDER] main phone — appears in header, click-to-call */
-  phone: "+359 88 000 0000",
-  phoneHref: "+359880000000",
+  phone: "+359 88 555 0199",
+  phoneHref: "+359885550199",
 
   email: "info@nvpower.bg",
 
   /** [PLACEHOLDER] office address */
   address: {
-    bg: "гр. София, ул. „Пример“ 1",
-    en: "1 Primer St, Sofia, Bulgaria",
+    bg: "гр. София 1404, бул. „България“ 69, ет. 3",
+    en: "69 Bulgaria Blvd, fl. 3, 1404 Sofia, Bulgaria",
   },
   /** [PLACEHOLDER] Google Maps embed URL for the office */
-  mapsEmbed: "https://www.google.com/maps?q=Sofia,Bulgaria&output=embed",
+  mapsEmbed: "https://www.google.com/maps?q=bul.+Bulgaria+69,+Sofia&output=embed",
 
   workingHours: { bg: "Пон – Пет: 09:00 – 18:00", en: "Mon – Fri: 09:00 – 18:00" },
 
   /** [PLACEHOLDER] legal identity — ЕИК, ДДС № */
   legal: {
-    bg: "„НВ Пауър“ ЕООД · ЕИК 000000000 · ДДС № BG000000000",
-    en: "NV Power Ltd · UIC 000000000 · VAT BG000000000",
+    bg: "„НВ Пауър“ ЕООД · ЕИК 207415339 · ДДС № BG207415339",
+    en: "NV Power Ltd · UIC 207415339 · VAT BG207415339",
   },
 
   /** [PLACEHOLDER] КЕВР license number (publish the PDF in /documents too) */
   license: {
-    bg: "Лицензия за търговия с електрическа енергия № Л-000-15 / КЕВР",
-    en: "Electricity trading licence No. L-000-15 / EWRC",
+    bg: "Лицензия за търговия с електрическа енергия № Л-593-15 от 12.09.2019 г. / КЕВР",
+    en: "Electricity trading licence No. L-593-15 of 12.09.2019 / EWRC",
   },
 
   /** [PLACEHOLDER] real social profiles — remove any that don't exist */
@@ -63,7 +63,7 @@ export const site = {
   /** [PLACEHOLDER] §2 [TEAM] — at least founder/manager with a real photo */
   team: [
     {
-      name: { bg: "Име Фамилия", en: "Full Name" },
+      name: { bg: "Николай Върбанов", en: "Nikolay Varbanov" }, // [PLACEHOLDER] mock name
       role: { bg: "Управител", en: "Managing Director" },
       photo: "", // /images/team/name.webp
     },

@@ -338,7 +338,7 @@ export default function OfferWizard({ locale }: { locale: Locale }) {
                 <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-[#007b88]" />
                 <span>
                   {strings.gdpr}{" "}
-                  <a href={locale === "en" ? "/en/politika-poveritelnost/" : "/politika-poveritelnost/"} className="text-accent underline" target="_blank">
+                  <a href={locale === "en" ? "/en/politika-poveritelnost/" : "/politika-poveritelnost/"} className="text-accent underline" target="_blank" rel="noopener noreferrer">
                     {locale === "en" ? "Privacy policy" : "Политика за поверителност"}
                   </a>
                 </span>

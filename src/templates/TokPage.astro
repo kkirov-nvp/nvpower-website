@@ -17,7 +17,7 @@ const { locale } = Astro.props;
 const c = {
   bg: {
     title: "Ток за бизнеса и дома — ясна цена, без изненади | NV Power",
-    description: `Лицензирана доставка на електроенергия: фиксиран план на ${site.price.display.bg}, борсов план и индивидуални условия. Смяната е безплатна, без прекъсване и без депозити.`,
+    description: `Ток за бизнеса и дома на ${site.price.display.bg} — фиксиран, борсов или индивидуален план. Смяната е безплатна и без прекъсване.`,
     hero: {
       h1: "Ток на ясна цена. Без изненади.",
       sub: "Лицензиран търговец на електроенергия за бизнеса и дома. Публикуваме цената си, спазваме я и ти оставяме един телефонен номер — на личния ти консултант.",
@@ -118,8 +118,8 @@ const c = {
     },
   },
   en: {
-    title: "Electricity for business & home — a clear price, no surprises | NV Power",
-    description: `Licensed electricity supply: a fixed plan at ${site.price.display.en}, an exchange-indexed plan and individual terms. Switching is free, uninterrupted and deposit-free.`,
+    title: "Electricity at a clear price for business & home | NV Power",
+    description: `Electricity at ${site.price.display.en} — fixed, exchange-indexed or individual plans. Switching is free and uninterrupted.`,
     hero: {
       h1: "Electricity at a clear price. No surprises.",
       sub: "A licensed electricity trader for business and home. We publish our price, we honour it, and we leave you one phone number — your personal consultant's.",
@@ -357,14 +357,14 @@ const c = {
     </ol>
   </section>
 
-  <!-- 5 ▸ INVOICE UPLOAD (dark) -->
-  <section class="bg-accent">
+  <!-- 5 ▸ INVOICE UPLOAD (dark band) -->
+  <section class="bg-band">
     <div class="container-site section">
-      <SectionHeading eyebrow={c.invoice.eyebrow} title={c.invoice.title} lead={c.invoice.lead} on="dark" />
-      <ul class="mt-7 flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5" aria-hidden="true">
-        <li class="flex items-center gap-2 text-sm font-medium text-white/85"><Clock class="size-4 text-accent" /> {locale === "bg" ? `Отговор до 1 работен ден` : `Reply within 1 business day`}</li>
-        <li class="flex items-center gap-2 text-sm font-medium text-white/85"><BadgePercent class="size-4 text-accent" /> {locale === "bg" ? "Без скрити такси" : "No hidden fees"}</li>
-        <li class="flex items-center gap-2 text-sm font-medium text-white/85"><ShieldCheck class="size-4 text-accent" /> {locale === "bg" ? "Без ангажимент" : "No commitment"}</li>
+      <SectionHeading eyebrow={c.invoice.eyebrow} title={c.invoice.title} lead={c.invoice.lead} on="band" />
+      <ul class="mt-7 flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5">
+        <li class="flex items-center gap-2 text-sm font-medium text-white/85"><Clock class="size-4 text-[#6fd0da]" aria-hidden="true" /> {locale === "bg" ? `Отговор до 1 работен ден` : `Reply within 1 business day`}</li>
+        <li class="flex items-center gap-2 text-sm font-medium text-white/85"><BadgePercent class="size-4 text-[#6fd0da]" aria-hidden="true" /> {locale === "bg" ? "Без скрити такси" : "No hidden fees"}</li>
+        <li class="flex items-center gap-2 text-sm font-medium text-white/85"><ShieldCheck class="size-4 text-[#6fd0da]" aria-hidden="true" /> {locale === "bg" ? "Без ангажимент" : "No commitment"}</li>
       </ul>
       <div class="reveal mx-auto mt-10 max-w-2xl">
         <InvoiceUpload locale={locale} client:visible />

@@ -193,7 +193,7 @@ const c = {
       {c.sections.map((section) => (
         <section>
           <h2>{section.h2}</h2>
-          {section.blocks.map((block) =>
+          {(section.blocks as Block[]).map((block) =>
             "p" in block ? (
               <p set:html={block.p} />
             ) : (

@@ -13,7 +13,6 @@ export const routes = {
   proekti: "/proekti/",
   zaNas: "/za-nas/",
   info: "/info/",
-  blog: "/blog/",
   kontakti: "/kontakti/",
   privacy: "/politika-poveritelnost/",
   terms: "/obshti-usloviya/",
@@ -46,7 +45,6 @@ export const ui = {
       solar: "Соларни системи",
       proekti: "Проекти",
       info: "Инфо",
-      blog: "Блог",
       kontakti: "Контакти",
       oferta: "Вземи оферта",
     },
@@ -89,7 +87,6 @@ export const ui = {
         oferta: "Вземи оферта",
         zaNas: "За нас",
         proekti: "Проекти",
-        blog: "Блог",
         kontakti: "Контакти",
         info: "Информационен център",
         privacy: "Политика за поверителност",
@@ -125,7 +122,6 @@ export const ui = {
       solar: "Solar systems",
       proekti: "Projects",
       info: "Info",
-      blog: "Blog",
       kontakti: "Contact",
       oferta: "Get a quote",
     },
@@ -168,7 +164,6 @@ export const ui = {
         oferta: "Get a quote",
         zaNas: "About us",
         proekti: "Projects",
-        blog: "Blog",
         kontakti: "Contact",
         info: "Info centre",
         privacy: "Privacy policy",
@@ -203,5 +198,6 @@ export const ui = {
 export type UIDict = (typeof ui)["bg"];
 
 export function useUI(locale: Locale): UIDict {
-  return ui[locale];
+  // EN literals differ from BG literals; both share the exact same shape.
+  return ui[locale] as UIDict;
 }

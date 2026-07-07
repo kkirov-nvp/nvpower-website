@@ -1,0 +1,14 @@
+{
+  "name": "NV Power — Енергия за утрешния ден",
+  "short_name": "NV Power",
+  "description": "Ток на ясна цена и соларни системи с батерии — от един партньор.",
+  "lang": "bg",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#007b88",
+  "icons": [
+    { "src": "/favicon.png", "sizes": "64x64", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
