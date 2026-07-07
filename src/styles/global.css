@@ -28,23 +28,27 @@
 }
 
 [data-theme="dark"] {
-  /* Dark theme in the brand's own deep pine — the NV letter colour (#14474b) */
+  /*
+   * Dark theme — deep pine/forest teal.
+   * Background sits darker than the NV-letter colour (#14474b) so the logo
+   * remains legible when shown without its white pill.
+   */
   --accent: #0d9aaa;
   --accent-hover: #10b3c5;
   --accent-soft: rgba(16, 179, 197, 0.14);
 
-  --bg-color: #14474b;
-  --bg-color-alt: #1a5257;
+  --bg-color: #0c2e31;
+  --bg-color-alt: #113a3e;
   --text-color: #eef5f5;
-  --text-color-muted: #a9c7c9;
-  --header-bg: rgba(16, 58, 62, 0.92);
-  --line-color: #2a6167;
-  --card-bg: #1a5257;
-  --card-shadow: 0 4px 14px rgba(0, 20, 22, 0.35);
-  --input-bg: #113d41;
+  --text-color-muted: #a0c2c5;
+  --header-bg: rgba(10, 38, 41, 0.94);
+  --line-color: #1d4f54;
+  --card-bg: #113a3e;
+  --card-shadow: 0 4px 14px rgba(0, 14, 16, 0.45);
+  --input-bg: #0e3236;
 
-  --band-bg: #0e3438;
-  --band-bg-deep: #0a282b;
+  --band-bg: #091f22;
+  --band-bg-deep: #061618;
 }
 
 /* Map theme variables into Tailwind utilities (resolved at use-time) */
@@ -233,17 +237,23 @@
   .icon-sun { display: none; }
   .icon-moon { display: inline-block; }
 
-  /* Logo chip — invisible on light surfaces, fluid white pill on dark ones */
+  /*
+   * Logo chip — fully transparent & borderless on light surfaces so the
+   * JPEG's own white background blends fluidly into the white page.
+   * On dark surfaces (dark theme or footer-band) it gains a smooth white
+   * pill with a soft shadow.
+   */
   .logo-pill {
     display: inline-flex;
     align-items: center;
     border-radius: 9999px;
-    padding: 0.4rem 0.85rem;
+    padding: 0;
     background: transparent;
-    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease, padding 0.4s ease;
   }
   [data-theme="dark"] .logo-pill,
   .logo-pill-band {
+    padding: 0.4rem 0.85rem;
     background: #ffffff;
     box-shadow: 0 2px 18px rgba(0, 12, 14, 0.28);
   }
