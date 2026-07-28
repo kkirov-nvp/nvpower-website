@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { submitLead } from "../lib/lead";
 import type { Locale } from "../config/site";
+import { r, type RouteKey } from "../i18n/routes";
 
 /* §7.1 — homepage mini-configurator: 4 branching questions → recommendation
    card + inline mini lead form. Progress dots, „ти" tone. */
 
-type Rec = { title: string; text: string; href: string; cta: string };
+type Rec = { title: string; text: string; route: RouteKey; cta: string };
 
 const copy = {
   bg: {
@@ -26,25 +27,25 @@ const copy = {
     recTok: {
       title: "Препоръчваме: смяна на доставчика",
       text: "С цена 0.099 €/кВтч (0.194 лв./кВтч) и без скрити такси смяната ще ти спести реални пари — а е безплатна и без прекъсване на тока.",
-      href: "/tok/",
+      route: "tok",
       cta: "Виж плановете за ток",
     },
     recSolarHome: {
       title: "Препоръчваме: хибридна система за дома",
       text: "Соларна централа с батерия покрива дневното и вечерното ти потребление. С гъвкаво финансиране започваш без голяма първоначална инвестиция.",
-      href: "/solar/za-doma/",
+      route: "solarHome",
       cta: "Соларни системи за дома",
     },
     recSolarBiz: {
       title: "Препоръчваме: соларна централа за бизнеса",
       text: "Системата се изплаща от сметките, които спираш да плащаш. Проектираме, изграждаме и поддържаме — а с лизинг паричният поток остава при теб.",
-      href: "/solar/za-biznesa/",
+      route: "solarBiz",
       cta: "Соларни системи за бизнеса",
     },
     recBoth: {
       title: "Препоръчваме: пълния пакет NV Power",
       text: "Купуваш ток на ясна цена днес и изграждаш собствена централа с батерия утре — при един и същ партньор. Точно това правим най-добре.",
-      href: "/oferta/",
+      route: "oferta",
       cta: "Вземи комбинирана оферта",
     },
     form: {
@@ -79,25 +80,25 @@ const copy = {
     recTok: {
       title: "We recommend: switching supplier",
       text: "At €0.099/kWh (0.194 BGN/kWh) with no hidden fees, switching saves you real money — and it's free, with no power interruption.",
-      href: "/en/tok/",
+      route: "tok",
       cta: "See electricity plans",
     },
     recSolarHome: {
       title: "We recommend: a hybrid home system",
       text: "A solar plant with a battery covers your day and evening consumption. With flexible financing you start without a big upfront investment.",
-      href: "/en/solar/za-doma/",
+      route: "solarHome",
       cta: "Solar for your home",
     },
     recSolarBiz: {
       title: "We recommend: a solar plant for your business",
       text: "The system pays for itself from the bills you stop paying. We design, build and maintain it — and with leasing your cash flow stays with you.",
-      href: "/en/solar/za-biznesa/",
+      route: "solarBiz",
       cta: "Solar for your business",
     },
     recBoth: {
       title: "We recommend: the full NV Power package",
       text: "Buy electricity at a clear price today and build your own plant with a battery tomorrow — with the same partner. That's exactly what we do best.",
-      href: "/en/oferta/",
+      route: "oferta",
       cta: "Get a combined quote",
     },
     form: {
@@ -207,7 +208,7 @@ export default function MiniConfigurator({ locale }: { locale: Locale }) {
         <div className="text-center">
           <h3 className="text-2xl font-bold text-body">{rec.title}</h3>
           <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-muted">{rec.text}</p>
-          <a href={rec.href} className="btn btn-primary mt-5">{rec.cta}</a>
+          <a href={r(locale, rec.route)} className="btn btn-primary mt-5">{rec.cta}</a>
 
           {state === "ok" ? (
             <p className="mt-6 rounded-xl bg-accent/10 px-4 py-3 text-sm font-medium text-accent">{t.form.success}</p>
@@ -230,7 +231,7 @@ export default function MiniConfigurator({ locale }: { locale: Locale }) {
               </button>
               <p className="mt-3 text-center text-xs text-muted">
                 {t.or}{" "}
-                <a href={locale === "en" ? "/en/oferta/" : "/oferta/"} className="text-accent underline">{t.fullOffer}</a>
+                <a href={r(locale, "oferta")} className="text-accent underline">{t.fullOffer}</a>
               </p>
             </div>
           )}

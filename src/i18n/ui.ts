@@ -1,39 +1,8 @@
 import type { Locale } from "../config/site";
-import { site } from "../config/site";
 
-/** Route map — BG slugs are canonical; EN mirrors under /en/ (§5). */
-export const routes = {
-  home: "/",
-  tok: "/tok/",
-  solar: "/solar/",
-  solarHome: "/solar/za-doma/",
-  solarBiz: "/solar/za-biznesa/",
-  oferta: "/oferta/",
-  kalkulator: "/kalkulator/",
-  proekti: "/proekti/",
-  zaNas: "/za-nas/",
-  info: "/info/",
-  kontakti: "/kontakti/",
-  privacy: "/politika-poveritelnost/",
-  terms: "/obshti-usloviya/",
-  aiInfo: "/ai-info/",
-} as const;
-
-export type RouteKey = keyof typeof routes;
-
-/** Localize an internal path: bg → as-is, en → /en prefix. */
-export function href(locale: Locale, path: string): string {
-  return locale === "en" ? `/en${path}` : path;
-}
-
-export function r(locale: Locale, key: RouteKey): string {
-  return href(locale, routes[key]);
-}
-
-/** Given the BG-canonical path of the current page, produce hreflang pairs. */
-export function alternates(path: string) {
-  return { bg: path, en: `/en${path}` };
-}
+/* Routing lives in ./routes so client-side islands can import the helpers
+   without pulling this whole translation dictionary into their bundle. */
+export { routes, href, r, alternates, enPath, type RouteKey } from "./routes";
 
 /* ------------------------------------------------------------------ */
 
@@ -56,6 +25,7 @@ export const ui = {
       footerNav: "Навигация в долната част",
       langSwitch: "Switch to English",
       call: "Обади се",
+      backToTop: "Обратно към началото на страницата",
     },
     promises: {
       response: `Отговор до 1 работен ден`,
@@ -133,6 +103,7 @@ export const ui = {
       footerNav: "Footer navigation",
       langSwitch: "Превключи на български",
       call: "Call us",
+      backToTop: "Back to top of page",
     },
     promises: {
       response: `Reply within 1 business day`,

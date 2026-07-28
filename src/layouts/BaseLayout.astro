@@ -10,6 +10,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import MobileCtaBar from "../components/MobileCtaBar.astro";
 import CookieConsent from "../components/CookieConsent.astro";
+import BackToTop from "../components/BackToTop.astro";
 
 interface Props {
   locale: Locale;
@@ -108,6 +109,7 @@ const orgLd = {
 
     <Footer locale={locale} />
     <MobileCtaBar locale={locale} />
+    <BackToTop locale={locale} />
     <CookieConsent locale={locale} />
 
     <!-- Scroll reveals + animated counters (respects reduced motion) -->

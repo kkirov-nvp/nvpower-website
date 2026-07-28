@@ -2,6 +2,7 @@ import { useState } from "react";
 import { submitLead } from "../lib/lead";
 import type { Locale } from "../config/site";
 import { site } from "../config/site";
+import { r } from "../i18n/routes";
 
 /* §6.10 contact form — interest dropdown + monthly-bill bracket (silent lead
    scoring), optional file, GDPR, honeypot. */
@@ -124,7 +125,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
         <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-[#007b88]" />
         <span>
           {t.gdpr}{" "}
-          <a href={locale === "en" ? "/en/politika-poveritelnost/" : "/politika-poveritelnost/"} className="text-accent underline" target="_blank" rel="noopener noreferrer">→</a>
+          <a href={r(locale, "privacy")} className="text-accent underline" target="_blank" rel="noopener noreferrer">→</a>
         </span>
       </label>
       {state === "err" && (

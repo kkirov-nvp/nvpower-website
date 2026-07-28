@@ -1,0 +1,55 @@
+---
+import { ArrowUp } from "@lucide/astro";
+import type { Locale } from "../config/site";
+import { useUI } from "../i18n/ui";
+
+/* Back-to-top control — fades in as the visitor reaches the end of the page
+   (§8: no dead ends). Sits above the mobile CTA bar and below the cookie
+   banner in the stacking order. */
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = useUI(locale);
+---
+
+<button
+  id="back-to-top"
+  type="button"
+  aria-label={t.a11y.backToTop}
+  class="invisible fixed right-4 bottom-[calc(4.75rem+env(safe-area-inset-bottom))] z-40 inline-flex size-12 translate-y-3 items-center justify-center rounded-full bg-accent text-white opacity-0 shadow-[0_8px_24px_-6px_rgb(13_47_51/0.45)] transition-all duration-300 hover:bg-accent-hover focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent data-visible:visible data-visible:translate-y-0 data-visible:opacity-100 md:right-6 md:bottom-6 md:size-14"
+>
+  <span
+    class="flex size-9 items-center justify-center rounded-full border border-white/75 transition-colors md:size-10"
+  >
+    <ArrowUp class="size-[18px] md:size-5" aria-hidden="true" />
+  </span>
+</button>
+
+<script>
+  const btn = document.getElementById("back-to-top");
+
+  if (btn) {
+    // Reveal once the viewport is within this distance of the document end.
+    const NEAR_BOTTOM = 600;
+
+    const update = () => {
+      const doc = document.documentElement;
+      const reachedEnd = window.scrollY + window.innerHeight >= doc.scrollHeight - NEAR_BOTTOM;
+      btn.toggleAttribute("data-visible", reachedEnd);
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+
+    btn.addEventListener("click", () => {
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // "auto" would defer to the global `scroll-behavior: smooth`, so be explicit.
+      window.scrollTo({ top: 0, behavior: reduced ? "instant" : "smooth" });
+      // Return keyboard focus to the top of the page, not just the viewport.
+      document.querySelector<HTMLAnchorElement>("#site-header a")?.focus({ preventScroll: true });
+    });
+  }
+</script>

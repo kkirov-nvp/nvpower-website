@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { submitLead } from "../lib/lead";
 import { site, type Locale } from "../config/site";
+import { r } from "../i18n/routes";
 
 /* §6.4 — multi-step offer wizard (~60–90 sec). Preserves the original
    questionnaire's expert field logic, rebuilt as a friendly wizard with
@@ -243,7 +244,7 @@ export default function OfferWizard({ locale }: { locale: Locale }) {
         <div className="mx-auto flex size-16 items-center justify-center rounded-full bg-accent/10 text-4xl">✓</div>
         <h2 className="mt-5 font-[family-name:var(--font-display)] text-2xl font-bold text-body md:text-3xl">{strings.successTitle}</h2>
         <p className="mx-auto mt-3 max-w-md leading-relaxed text-muted">{strings.successText}</p>
-        <a href={locale === "en" ? "/en/proekti/" : "/proekti/"} className="btn btn-primary mt-7">{strings.successCta}</a>
+        <a href={r(locale, "proekti")} className="btn btn-primary mt-7">{strings.successCta}</a>
       </div>
     );
   }
@@ -338,7 +339,7 @@ export default function OfferWizard({ locale }: { locale: Locale }) {
                 <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-[#007b88]" />
                 <span>
                   {strings.gdpr}{" "}
-                  <a href={locale === "en" ? "/en/politika-poveritelnost/" : "/politika-poveritelnost/"} className="text-accent underline" target="_blank" rel="noopener noreferrer">
+                  <a href={r(locale, "privacy")} className="text-accent underline" target="_blank" rel="noopener noreferrer">
                     {locale === "en" ? "Privacy policy" : "Политика за поверителност"}
                   </a>
                 </span>

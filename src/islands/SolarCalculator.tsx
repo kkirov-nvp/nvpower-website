@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Sun, Zap, PiggyBank, CalendarClock, Leaf, TreePine, Car, ArrowRight } from "lucide-react";
 import type { Locale } from "../config/site";
 import { site, kwhPriceBGN } from "../config/site";
+import { r } from "../i18n/routes";
 
 /* /kalkulator — client-side solar savings calculator with fully transparent
    assumptions (expandable footnote). No contact data needed; the CTA hands
@@ -194,9 +195,10 @@ export default function SolarCalculator({ locale }: { locale: Locale }) {
   const aCo2 = useCountUp(res?.co2Tons ?? 0, 1);
 
   const objectSlugs: Record<ObjectType, string> = { home: "dom", business: "biznes", industry: "industria" };
+  const offerBase = r(locale, "oferta");
   const offerHref = res
-    ? `${locale === "en" ? "/en" : ""}/oferta/?bill=${res.monthlyBillBGN}&object=${objectSlugs[objectType]}&kwp=${res.kwp}`
-    : `${locale === "en" ? "/en" : ""}/oferta/`;
+    ? `${offerBase}?bill=${res.monthlyBillBGN}&object=${objectSlugs[objectType]}&kwp=${res.kwp}`
+    : offerBase;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
