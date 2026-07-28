@@ -1,25 +1,35 @@
 ---
 /**
- * NV Power logo — the original brand wordmark (public/images/logo.jpeg,
- * white background). In the light theme it blends straight into the white
- * header; on dark surfaces it sits in a fluid white pill.
+ * NV Power logo — the brand wordmark on a white background. In the light theme
+ * it blends into the white header; on dark surfaces it sits in a fluid white
+ * pill, which is what makes the white backdrop a non-issue.
  *
  * `on="band"` (footer / always-dark sections) forces the pill in both themes.
+ * `loading="lazy"` for below-the-fold placements such as the footer.
+ *
+ * Served as WebP with a PNG fallback, sized for 2× of the largest rendered
+ * height (h-7 = 28px). Replace both with a real SVG if the vector original
+ * becomes available — a wordmark should ideally not be a raster at all.
  */
 interface Props {
   on?: "auto" | "band";
   class?: string;
+  loading?: "eager" | "lazy";
 }
-const { on = "auto", class: className = "" } = Astro.props;
+const { on = "auto", class: className = "", loading = "eager" } = Astro.props;
 ---
 
 <span class:list={["logo-pill", on === "band" && "logo-pill-band", className]}>
-  <img
-    src="/images/logo.jpeg"
-    alt="NV Power"
-    width="844"
-    height="129"
-    class="h-6 w-auto md:h-7"
-    decoding="async"
-  />
+  <picture>
+    <source srcset="/images/logo.webp" type="image/webp" />
+    <img
+      src="/images/logo.png"
+      alt="NV Power"
+      width="399"
+      height="61"
+      class="h-6 w-auto md:h-7"
+      loading={loading}
+      decoding="async"
+    />
+  </picture>
 </span>

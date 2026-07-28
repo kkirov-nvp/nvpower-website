@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { submitLead, fileError } from "../lib/lead";
+import { useHydrated } from "../lib/useHydrated";
+import NoScriptFallback from "./NoScriptFallback";
 import type { Locale } from "../config/site";
 import { site } from "../config/site";
 import { r } from "../i18n/routes";
@@ -19,6 +21,7 @@ const copy = {
     bills: ["До 100 €", "100 – 500 €", "500 – 2 500 €", "Над 2 500 €"],
     message: "Съобщение *",
     messagePh: "Разкажи ни накратко за обекта или въпроса си…",
+    phonePh: "+359 88 123 4567",
     file: "Прикачи файл (по избор — напр. фактура)",
     gdpr: "Съгласен съм NV Power да обработи данните ми, за да отговори на запитването, съгласно политиката за поверителност.",
     submit: "Изпрати запитването",
@@ -40,6 +43,7 @@ const copy = {
     bills: ["Up to €100", "€100 – €500", "€500 – €2,500", "Over €2,500"],
     message: "Message *",
     messagePh: "Tell us briefly about your site or question…",
+    phonePh: "+359 88 123 4567",
     file: "Attach a file (optional — e.g. an invoice)",
     gdpr: "I agree that NV Power may process my data to answer this enquiry, per the privacy policy.",
     submit: "Send the enquiry",
@@ -54,6 +58,7 @@ const copy = {
 
 export default function ContactForm({ locale }: { locale: Locale }) {
   const t = copy[locale];
+  const hydrated = useHydrated();
   const [v, setV] = useState({ name: "", company: "", email: "", phone: "", interest: "", bill: "", message: "" });
   const [gdpr, setGdpr] = useState(false);
   const [file, setFile] = useState<File | null>(null);
@@ -91,33 +96,94 @@ export default function ContactForm({ locale }: { locale: Locale }) {
   return (
     <form onSubmit={submit} noValidate className="card grid gap-4 p-6 md:p-8">
       <div className="grid gap-4 sm:grid-cols-2">
-        <input className="field" placeholder={t.name} value={v.name} onChange={setField("name")} aria-label={t.name} />
-        <input className="field" placeholder={t.company} value={v.company} onChange={setField("company")} aria-label={t.company} />
+        <label className="grid gap-1.5 text-sm font-semibold text-body" htmlFor="cf-name">
+          {t.name}
+          <input
+            id="cf-name"
+            name="name"
+            autoComplete="name"
+            aria-required="true"
+            className="field font-normal"
+            value={v.name}
+            onChange={setField("name")}
+          />
+        </label>
+        <label className="grid gap-1.5 text-sm font-semibold text-body" htmlFor="cf-company">
+          {t.company}
+          <input
+            id="cf-company"
+            name="company"
+            autoComplete="organization"
+            className="field font-normal"
+            value={v.company}
+            onChange={setField("company")}
+          />
+        </label>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
-        <input className="field" type="email" placeholder={t.email} value={v.email} onChange={setField("email")} aria-label={t.email} />
-        <input className="field" type="tel" placeholder={t.phone} value={v.phone} onChange={setField("phone")} aria-label={t.phone} />
+        <label className="grid gap-1.5 text-sm font-semibold text-body" htmlFor="cf-email">
+          {t.email}
+          <input
+            id="cf-email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            inputMode="email"
+            aria-required="true"
+            className="field font-normal"
+            value={v.email}
+            onChange={setField("email")}
+          />
+        </label>
+        <label className="grid gap-1.5 text-sm font-semibold text-body" htmlFor="cf-phone">
+          {t.phone}
+          <input
+            id="cf-phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            inputMode="tel"
+            placeholder={t.phonePh}
+            aria-required="true"
+            className="field font-normal"
+            value={v.phone}
+            onChange={setField("phone")}
+          />
+        </label>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="grid gap-1.5 text-sm font-semibold text-body">
+        <label className="grid gap-1.5 text-sm font-semibold text-body" htmlFor="cf-interest">
           {t.interest}
-          <select className="field font-normal" value={v.interest} onChange={setField("interest")}>
+          <select id="cf-interest" name="interest" aria-required="true" className="field font-normal" value={v.interest} onChange={setField("interest")}>
             <option value="" disabled>{t.select}</option>
             {t.interests.map((o) => <option key={o} value={o}>{o}</option>)}
           </select>
         </label>
-        <label className="grid gap-1.5 text-sm font-semibold text-body">
+        <label className="grid gap-1.5 text-sm font-semibold text-body" htmlFor="cf-bill">
           {t.bill}
-          <select className="field font-normal" value={v.bill} onChange={setField("bill")}>
+          <select id="cf-bill" name="bill" className="field font-normal" value={v.bill} onChange={setField("bill")}>
             <option value="">{t.select}</option>
             {t.bills.map((o) => <option key={o} value={o}>{o}</option>)}
           </select>
         </label>
       </div>
-      <textarea className="field min-h-28" placeholder={t.messagePh} value={v.message} onChange={setField("message")} aria-label={t.message} />
-      <label className="grid gap-1.5 text-sm font-semibold text-body">
+      <label className="grid gap-1.5 text-sm font-semibold text-body" htmlFor="cf-message">
+        {t.message}
+        <textarea
+          id="cf-message"
+          name="message"
+          aria-required="true"
+          placeholder={t.messagePh}
+          className="field min-h-28 font-normal"
+          value={v.message}
+          onChange={setField("message")}
+        />
+      </label>
+      <label className="grid gap-1.5 text-sm font-semibold text-body" htmlFor="cf-file">
         {t.file}
         <input
+          id="cf-file"
+          name="attachment"
           type="file"
           accept=".pdf,.jpg,.jpeg,.png"
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}
@@ -137,7 +203,12 @@ export default function ContactForm({ locale }: { locale: Locale }) {
           {badFile ?? (missingRequired ? t.required : t.error)}
         </p>
       )}
-      <button type="submit" disabled={state === "sending"} className="btn btn-primary justify-self-start disabled:opacity-60">
+      <NoScriptFallback locale={locale} />
+      <button
+        type="submit"
+        disabled={state === "sending" || !hydrated}
+        className="btn btn-primary justify-self-start disabled:opacity-60"
+      >
         {state === "sending" ? t.sending : t.submit}
       </button>
     </form>

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { submitLead } from "../lib/lead";
+import { useHydrated } from "../lib/useHydrated";
+import NoScriptFallback from "./NoScriptFallback";
 import type { Locale } from "../config/site";
 import { r, type RouteKey } from "../i18n/routes";
 
@@ -119,6 +121,7 @@ const copy = {
 
 export default function MiniConfigurator({ locale }: { locale: Locale }) {
   const t = copy[locale];
+  const hydrated = useHydrated();
   const [step, setStep] = useState(0);
   const [need, setNeed] = useState<"tok" | "solar" | "both" | null>(null);
   const [size, setSize] = useState<number | null>(null);
@@ -216,17 +219,51 @@ export default function MiniConfigurator({ locale }: { locale: Locale }) {
             <div className="mt-7 border-t border-line pt-6 text-left">
               <p className="mb-3 text-sm text-muted">{t.form.lead}</p>
               <div className="grid gap-3 sm:grid-cols-2">
-                <input className="field" placeholder={t.form.name} value={name} onChange={(e) => setName(e.target.value)} aria-label={t.form.name} />
-                <input className="field" type="tel" placeholder={t.form.phone} value={phone} onChange={(e) => setPhone(e.target.value)} aria-label={t.form.phone} />
+                <label className="grid gap-1 text-xs font-semibold text-body" htmlFor="mc-name">
+                  {t.form.name}
+                  <input
+                    id="mc-name"
+                    name="name"
+                    autoComplete="name"
+                    aria-required="true"
+                    className="field font-normal"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </label>
+                <label className="grid gap-1 text-xs font-semibold text-body" htmlFor="mc-phone">
+                  {t.form.phone}
+                  <input
+                    id="mc-phone"
+                    name="phone"
+                    type="tel"
+                    autoComplete="tel"
+                    inputMode="tel"
+                    aria-required="true"
+                    className="field font-normal"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </label>
               </div>
               {/* honeypot */}
               <input type="text" value={hp} onChange={(e) => setHp(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" name="website" />
               <label className="mt-3 flex items-start gap-2.5 text-xs text-muted">
-                <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-[#007b88]" />
+                <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-accent" />
                 {t.form.gdpr}
               </label>
-              {state === "err" && <p className="mt-2 text-xs font-medium text-red-600">{name && phone && gdpr ? t.form.error : t.form.required}</p>}
-              <button type="button" onClick={send} disabled={state === "sending"} className="btn btn-primary mt-4 w-full disabled:opacity-60">
+              {state === "err" && (
+                <p className="mt-2 text-xs font-medium text-red-600">
+                  {!name.trim() || !phone.trim() || !gdpr ? t.form.required : t.form.error}
+                </p>
+              )}
+              <NoScriptFallback locale={locale} />
+              <button
+                type="button"
+                onClick={send}
+                disabled={state === "sending" || !hydrated}
+                className="btn btn-primary mt-4 w-full disabled:opacity-60"
+              >
                 {state === "sending" ? t.form.sending : t.form.submit}
               </button>
               <p className="mt-3 text-center text-xs text-muted">

@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { submitLead } from "../lib/lead";
+import { useHydrated } from "../lib/useHydrated";
+import NoScriptFallback from "./NoScriptFallback";
 import { site, type Locale } from "../config/site";
 import { r } from "../i18n/routes";
 
@@ -8,6 +10,14 @@ import { r } from "../i18n/routes";
    progress bar, branching, GDPR and an explicit success timeline. */
 
 type Answers = Record<string, string | string[]>;
+
+/** Browser autofill hints, keyed by field id. */
+const AUTOCOMPLETE: Record<string, string> = {
+  name: "name",
+  phone: "tel",
+  email: "email",
+  city: "address-level2",
+};
 
 type Step = {
   id: string;
@@ -181,6 +191,7 @@ function buildSteps(locale: Locale): { steps: Step[]; strings: Record<string, st
 }
 
 export default function OfferWizard({ locale }: { locale: Locale }) {
+  const hydrated = useHydrated();
   const { steps, strings } = useMemo(() => buildSteps(locale), [locale]);
   const [stepIdx, setStepIdx] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
@@ -271,14 +282,26 @@ export default function OfferWizard({ locale }: { locale: Locale }) {
           {step.fields.map((f) => (
             <div key={f.id}>
               {"label" in f && f.label && (
-                <p className="mb-2.5 text-sm font-semibold text-body">
-                  {f.label}
-                  {"required" in f && f.required ? <span className="text-accent"> *</span> : null}
-                </p>
+                (() => {
+                  const singleControl = f.kind === "text" || (f.kind === "choice" && f.options.length > 8);
+                  const content = (
+                    <>
+                      {f.label}
+                      {"required" in f && f.required ? <span className="text-accent"> *</span> : null}
+                    </>
+                  );
+                  return singleControl ? (
+                    <label className="mb-2.5 block text-sm font-semibold text-body" htmlFor={f.id}>
+                      {content}
+                    </label>
+                  ) : (
+                    <p className="mb-2.5 text-sm font-semibold text-body">{content}</p>
+                  );
+                })()
               )}
 
               {f.kind === "choice" && f.options.length > 8 ? (
-                <select className="field" value={(answers[f.id] as string) ?? ""} onChange={(e) => set(f.id, e.target.value)} aria-label={f.label ?? step.title}>
+                <select id={f.id} name={f.id} className="field" value={(answers[f.id] as string) ?? ""} onChange={(e) => set(f.id, e.target.value)} aria-label={f.label ?? step.title}>
                   <option value="" disabled>—</option>
                   {f.options.map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
@@ -320,8 +343,12 @@ export default function OfferWizard({ locale }: { locale: Locale }) {
                 </div>
               ) : (
                 <input
+                  id={f.id}
+                  name={f.id}
+                  autoComplete={AUTOCOMPLETE[f.id]}
                   className="field"
                   type={f.type ?? "text"}
+                  inputMode={f.type === "tel" ? "tel" : f.type === "email" ? "email" : undefined}
                   placeholder={f.placeholder}
                   value={(answers[f.id] as string) ?? ""}
                   onChange={(e) => set(f.id, e.target.value)}
@@ -350,11 +377,20 @@ export default function OfferWizard({ locale }: { locale: Locale }) {
 
         {err && <p className="mt-4 rounded-xl bg-red-50 px-4 py-2.5 text-sm font-medium text-red-700">{err}</p>}
 
+        <div className="mt-4">
+          <NoScriptFallback locale={locale} />
+        </div>
+
         <div className="mt-7 flex items-center justify-between gap-3">
           {stepIdx > 0 ? (
             <button type="button" onClick={() => setStepIdx((i) => i - 1)} className="btn btn-ghost-light !py-3">← {strings.back}</button>
           ) : <span />}
-          <button type="button" onClick={next} disabled={state === "sending"} className="btn btn-primary !px-8 !py-3 disabled:opacity-60">
+          <button
+            type="button"
+            onClick={next}
+            disabled={state === "sending" || !hydrated}
+            className="btn btn-primary !px-8 !py-3 disabled:opacity-60"
+          >
             {state === "sending" ? strings.sending : isLast ? strings.submit : strings.next + " →"}
           </button>
         </div>
