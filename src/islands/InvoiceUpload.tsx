@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { submitLead } from "../lib/lead";
+import { submitLead, fileError } from "../lib/lead";
 import type { Locale } from "../config/site";
 import { site } from "../config/site";
 import { r } from "../i18n/routes";
@@ -39,22 +39,25 @@ const copy = {
 
 export default function InvoiceUpload({ locale }: { locale: Locale }) {
   const t = copy[locale];
-  const [fileName, setFileName] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [gdpr, setGdpr] = useState(false);
   const [hp, setHp] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "ok" | "err">("idle");
 
+  const missingRequired = !file || !phone.trim() || !gdpr;
+  const badFile = fileError(file, locale);
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!fileName || !phone.trim() || !gdpr) {
+    if (missingRequired || badFile) {
       setState("err");
       return;
     }
     setState("sending");
-    const ok = await submitLead("invoice", { fileName, phone, email, gdpr }, hp);
-    setState(ok ? "ok" : "err");
+    const result = await submitLead("invoice", { phone, email, gdpr }, hp, file);
+    setState(result === "ok" ? "ok" : "err");
   }
 
   if (state === "ok") {
@@ -74,8 +77,8 @@ export default function InvoiceUpload({ locale }: { locale: Locale }) {
         <input
           type="file"
           accept=".pdf,.jpg,.jpeg,.png"
-          onChange={(e) => setFileName(e.target.files?.[0]?.name ?? "")}
-          className="field cursor-pointer font-normal file:mr-3 file:rounded-lg file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-white"
+          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          className="field cursor-pointer font-normal file:mr-3 file:rounded-lg file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-accent-contrast"
         />
         <span className="text-xs font-normal text-muted">{t.fileHint}</span>
       </label>
@@ -85,7 +88,7 @@ export default function InvoiceUpload({ locale }: { locale: Locale }) {
       </div>
       <input type="text" value={hp} onChange={(e) => setHp(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" name="website" />
       <label className="flex items-start gap-3 text-sm text-muted">
-        <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-[#007b88]" />
+        <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-accent" />
         <span>
           {t.gdpr}{" "}
           <a href={r(locale, "privacy")} className="text-accent underline" target="_blank" rel="noopener noreferrer">→</a>
@@ -93,7 +96,7 @@ export default function InvoiceUpload({ locale }: { locale: Locale }) {
       </label>
       {state === "err" && (
         <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm font-medium text-red-700">
-          {fileName && phone && gdpr ? t.error : t.required}
+          {badFile ?? (missingRequired ? t.required : t.error)}
         </p>
       )}
       <button type="submit" disabled={state === "sending"} className="btn btn-primary justify-self-start disabled:opacity-60">

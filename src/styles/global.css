@@ -11,6 +11,9 @@
   --accent: #007b88;
   --accent-hover: #006670;
   --accent-soft: rgba(0, 123, 136, 0.08);
+  /* Foreground for anything sitting ON --accent (buttons, chips, the
+     back-to-top control). White clears AA on the light teal (5.01:1). */
+  --accent-contrast: #ffffff;
 
   --bg-color: #ffffff;
   --bg-color-alt: #f8f9fa;
@@ -33,9 +36,19 @@
    * Background sits darker than the NV-letter colour (#14474b) so the logo
    * remains legible when shown without its white pill.
    */
-  --accent: #0d9aaa;
-  --accent-hover: #10b3c5;
-  --accent-soft: rgba(16, 179, 197, 0.14);
+  /*
+   * The accent does double duty in dark mode: accent-coloured *text* on the
+   * pine background wants to be bright, while white text ON an accent button
+   * wants it dark. #0d9aaa split the difference and failed both (4.29:1 as
+   * text on the background, 3.66:1 on cards, and only 3.38:1 for white on the
+   * primary button). Resolved by going bright enough for text — 5.72:1 on the
+   * background, 4.89:1 on cards — and flipping button foregrounds to a deep
+   * pine via --accent-contrast, which lands at 6.31:1.
+   */
+  --accent: #17b3c6;
+  --accent-hover: #22c1d4;
+  --accent-soft: rgba(23, 179, 198, 0.16);
+  --accent-contrast: #04262a;
 
   --bg-color: #0c2e31;
   --bg-color-alt: #113a3e;
@@ -58,6 +71,7 @@
 @theme inline {
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
+  --color-accent-contrast: var(--accent-contrast);
   --color-surface: var(--bg-color);
   --color-surface-alt: var(--bg-color-alt);
   --color-body: var(--text-color);
@@ -175,7 +189,7 @@
 }
 @utility btn-primary {
   background: var(--accent);
-  color: #ffffff;
+  color: var(--accent-contrast);
   &:hover { background: var(--accent-hover); }
   &:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent); outline-offset: 2px; }
 }

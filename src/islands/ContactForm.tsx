@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { submitLead } from "../lib/lead";
+import { submitLead, fileError } from "../lib/lead";
 import type { Locale } from "../config/site";
 import { site } from "../config/site";
 import { r } from "../i18n/routes";
@@ -16,7 +16,7 @@ const copy = {
     interest: "От какво се интересуваш? *",
     interests: ["Ток за бизнеса / дома", "Соларна система", "Батерии за съхранение", "Изкупуване на енергия", "Консултация"],
     bill: "Месечна сметка за ток (по избор)",
-    bills: ["До 200 лв.", "200 – 1 000 лв.", "1 000 – 5 000 лв.", "Над 5 000 лв."],
+    bills: ["До 100 €", "100 – 500 €", "500 – 2 500 €", "Над 2 500 €"],
     message: "Съобщение *",
     messagePh: "Разкажи ни накратко за обекта или въпроса си…",
     file: "Прикачи файл (по избор — напр. фактура)",
@@ -56,22 +56,26 @@ export default function ContactForm({ locale }: { locale: Locale }) {
   const t = copy[locale];
   const [v, setV] = useState({ name: "", company: "", email: "", phone: "", interest: "", bill: "", message: "" });
   const [gdpr, setGdpr] = useState(false);
-  const [fileName, setFileName] = useState("");
+  const [file, setFile] = useState<File | null>(null);
   const [hp, setHp] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "ok" | "err">("idle");
 
   const setField = (k: keyof typeof v) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setV((s) => ({ ...s, [k]: e.target.value }));
 
+  const missingRequired =
+    !v.name.trim() || !v.email.trim() || !v.phone.trim() || !v.interest || !v.message.trim() || !gdpr;
+  const badFile = fileError(file, locale);
+
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!v.name.trim() || !v.email.trim() || !v.phone.trim() || !v.interest || !v.message.trim() || !gdpr) {
+    if (missingRequired || badFile) {
       setState("err");
       return;
     }
     setState("sending");
-    const ok = await submitLead("contact", { ...v, fileName, gdpr }, hp);
-    setState(ok ? "ok" : "err");
+    const result = await submitLead("contact", { ...v, gdpr }, hp, file);
+    setState(result === "ok" ? "ok" : "err");
   }
 
   if (state === "ok") {
@@ -116,13 +120,13 @@ export default function ContactForm({ locale }: { locale: Locale }) {
         <input
           type="file"
           accept=".pdf,.jpg,.jpeg,.png"
-          onChange={(e) => setFileName(e.target.files?.[0]?.name ?? "")}
-          className="field cursor-pointer font-normal file:mr-3 file:rounded-lg file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-white"
+          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          className="field cursor-pointer font-normal file:mr-3 file:rounded-lg file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-xs file:font-bold file:text-accent-contrast"
         />
       </label>
       <input type="text" value={hp} onChange={(e) => setHp(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" name="website" />
       <label className="flex items-start gap-3 text-sm text-muted">
-        <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-[#007b88]" />
+        <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-accent" />
         <span>
           {t.gdpr}{" "}
           <a href={r(locale, "privacy")} className="text-accent underline" target="_blank" rel="noopener noreferrer">→</a>
@@ -130,7 +134,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
       </label>
       {state === "err" && (
         <p className="rounded-xl bg-red-50 px-4 py-2.5 text-sm font-medium text-red-700">
-          {v.name && v.email && v.phone && v.interest && v.message && gdpr ? t.error : t.required}
+          {badFile ?? (missingRequired ? t.required : t.error)}
         </p>
       )}
       <button type="submit" disabled={state === "sending"} className="btn btn-primary justify-self-start disabled:opacity-60">

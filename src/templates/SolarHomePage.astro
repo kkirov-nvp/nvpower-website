@@ -93,8 +93,8 @@ const c = {
       items: [
         {
           name: "Система 5 kWp",
-          priceMain: "~9 – 12 хил. лв.",
-          priceSub: "≈ 4 600 – 6 150 €",
+          priceMain: "4 600 – 6 150 €",
+          priceSub: "до ключ, с монтаж",
           note: "без батерия",
           features: [
             "Добра първа стъпка към собствена енергия",
@@ -105,8 +105,8 @@ const c = {
         },
         {
           name: "Система 10 kWp + 10 kWh батерия",
-          priceMain: "~25 – 35 хил. лв.",
-          priceSub: "≈ 12 800 – 17 900 €",
+          priceMain: "12 800 – 17 900 €",
+          priceSub: "до ключ, с монтаж",
           note: "хибридна конфигурация",
           features: [
             "Дневно и вечерно потребление от слънцето",
@@ -225,8 +225,8 @@ const c = {
       items: [
         {
           name: "5 kWp system",
-          priceMain: "~ BGN 9–12k",
-          priceSub: "≈ €4,600 – 6,150",
+          priceMain: "€4,600 – 6,150",
+          priceSub: "turnkey, installed",
           note: "without a battery",
           features: [
             "A solid first step towards your own energy",
@@ -237,8 +237,8 @@ const c = {
         },
         {
           name: "10 kWp system + 10 kWh battery",
-          priceMain: "~ BGN 25–35k",
-          priceSub: "≈ €12,800 – 17,900",
+          priceMain: "€12,800 – 17,900",
+          priceSub: "turnkey, installed",
           note: "hybrid configuration",
           features: [
             "Daytime and evening consumption from the sun",
@@ -361,7 +361,7 @@ const c = {
           style={`--reveal-delay:${i * 90}ms`}
         >
           {p.highlight && (
-            <span class="absolute -top-3.5 left-6 rounded-full bg-accent px-3.5 py-1.5 text-xs font-bold text-[#6fd0da]">{c.pricing.recommended}</span>
+            <span class="absolute -top-3.5 left-6 rounded-full bg-accent px-3.5 py-1.5 text-xs font-bold text-accent-contrast">{c.pricing.recommended}</span>
           )}
           <h3 class="mt-2 text-xl font-bold text-body">{p.name}</h3>
           <p class="font-[family-name:var(--font-display)]">

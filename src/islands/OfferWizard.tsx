@@ -233,9 +233,9 @@ export default function OfferWizard({ locale }: { locale: Locale }) {
       return;
     }
     setState("sending");
-    const ok = await submitLead("offer-wizard", { ...answers, gdpr }, hp);
-    setState(ok ? "ok" : "fail");
-    if (!ok) setErr(strings.error);
+    const result = await submitLead("offer-wizard", { ...answers, gdpr }, hp);
+    setState(result === "ok" ? "ok" : "fail");
+    if (result !== "ok") setErr(strings.error);
   }
 
   if (state === "ok") {
@@ -292,7 +292,7 @@ export default function OfferWizard({ locale }: { locale: Locale }) {
                         type="button"
                         onClick={() => set(f.id, o)}
                         aria-pressed={active}
-                        className={`rounded-xl border px-4 py-3 text-left text-sm font-medium transition-all ${active ? "border-accent bg-accent text-white shadow-md" : "border-line bg-surface-alt text-body hover:border-accent/50"}`}
+                        className={`rounded-xl border px-4 py-3 text-left text-sm font-medium transition-all ${active ? "border-accent bg-accent text-accent-contrast shadow-md" : "border-line bg-surface-alt text-body hover:border-accent/50"}`}
                       >
                         {o}
                       </button>
@@ -336,7 +336,7 @@ export default function OfferWizard({ locale }: { locale: Locale }) {
             <>
               <input type="text" value={hp} onChange={(e) => setHp(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" name="website" />
               <label className="flex items-start gap-3 text-sm text-muted">
-                <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-[#007b88]" />
+                <input type="checkbox" checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} className="mt-0.5 size-4 accent-accent" />
                 <span>
                   {strings.gdpr}{" "}
                   <a href={r(locale, "privacy")} className="text-accent underline" target="_blank" rel="noopener noreferrer">

@@ -34,7 +34,7 @@ export const projects: Project[] = [
     batteryKwh: 100,
     year: 2025,
     status: { bg: "В експлоатация", en: "Operational" },
-    annualSavings: { bg: "≈ 38 000 лв. годишно", en: "≈ €19,400 per year" },
+    annualSavings: { bg: "≈ 19 400 € годишно", en: "≈ €19,400 per year" },
     story: {
       bg: "Хибридна система върху плосък покрив с батерия за покриване на вечерните смени. Примерен запис — замени с реален проект.",
       en: "Hybrid flat-roof system with a battery covering evening shifts. Sample entry — replace with a real project.",
@@ -52,7 +52,7 @@ export const projects: Project[] = [
     batteryKwh: 10,
     year: 2025,
     status: { bg: "В експлоатация", en: "Operational" },
-    annualSavings: { bg: "≈ 2 900 лв. годишно", en: "≈ €1,480 per year" },
+    annualSavings: { bg: "≈ 1 480 € годишно", en: "≈ €1,480 per year" },
     story: {
       bg: "Скатен покрив юг, 10 kWp + 10 kWh батерия, зарядна станция за електромобил. Примерен запис — замени с реален проект.",
       en: "South-facing pitched roof, 10 kWp + 10 kWh battery, EV charger. Sample entry — replace with a real project.",
@@ -70,7 +70,7 @@ export const projects: Project[] = [
     batteryKwh: null,
     year: 2024,
     status: { bg: "В експлоатация", en: "Operational" },
-    annualSavings: { bg: "≈ 61 000 лв. годишно", en: "≈ €31,200 per year" },
+    annualSavings: { bg: "≈ 31 200 € годишно", en: "≈ €31,200 per year" },
     story: {
       bg: "Наземна конструкция върху свободен терен, захранва напоителна система и хладилни складове. Примерен запис — замени с реален проект.",
       en: "Ground-mounted on free terrain, powering irrigation and cold storage. Sample entry — replace with a real project.",

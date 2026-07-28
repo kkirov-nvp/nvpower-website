@@ -80,7 +80,7 @@ const c = {
         type="button"
         data-filter="all"
         aria-pressed="true"
-        class="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-body transition-colors hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white"
+        class="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-body transition-colors hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-accent-contrast"
       >
         {c.all}
       </button>
@@ -90,7 +90,7 @@ const c = {
             type="button"
             data-filter={seg}
             aria-pressed="false"
-            class="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-body transition-colors hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-white"
+            class="rounded-full border border-line px-5 py-2.5 text-sm font-semibold text-body transition-colors hover:border-accent aria-pressed:border-accent aria-pressed:bg-accent aria-pressed:text-accent-contrast"
           >
             {segmentLabels[seg][locale]}
           </button>

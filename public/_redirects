@@ -1,0 +1,23 @@
+# Redirects — Netlify / Cloudflare Pages format.
+# For Vercel, mirror these in vercel.json → "redirects" (permanent: true);
+# for nginx, use `return 301`. Same host-config pairing as public/_headers.
+#
+# The English pages originally mirrored the Bulgarian slugs (/en/tok/,
+# /en/za-nas/, …) and were renamed to real English slugs. These 301s preserve
+# any link equity and stop old links from dead-ending. Bulgarian slugs are
+# unchanged and need no rules.
+#
+# Trailing slashes are normalised during matching, so /en/tok and /en/tok/
+# both resolve. Keep these rules as long as the old URLs may still be linked.
+
+/en/tok/                     /en/electricity/            301
+/en/oferta/                  /en/request-a-quote/        301
+/en/kalkulator/              /en/calculator/             301
+/en/proekti/                 /en/projects/               301
+/en/za-nas/                  /en/about/                  301
+/en/info/                    /en/resources/              301
+/en/kontakti/                /en/contact/                301
+/en/politika-poveritelnost/  /en/privacy/                301
+/en/obshti-usloviya/         /en/terms/                   301
+/en/solar/za-doma/           /en/solar/residential/      301
+/en/solar/za-biznesa/        /en/solar/for-business/     301

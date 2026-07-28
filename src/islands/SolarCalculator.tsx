@@ -1,20 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Sun, Zap, PiggyBank, CalendarClock, Leaf, TreePine, Car, ArrowRight } from "lucide-react";
 import type { Locale } from "../config/site";
-import { site, kwhPriceBGN } from "../config/site";
+import { kwhPriceEUR } from "../config/site";
 import { r } from "../i18n/routes";
 
 /* /kalkulator — client-side solar savings calculator with fully transparent
    assumptions (expandable footnote). No contact data needed; the CTA hands
    the numbers to the offer wizard via query params. */
 
-/* ---------- transparent assumptions (also rendered in the footnote) ---------- */
-const EUR = site.eurRate;
-const PRICE_BGN = kwhPriceBGN; // лв./кВтч from the central config
+/* ---------- transparent assumptions (also rendered in the footnote) ----------
+   All money is in euro: Bulgaria joined the euro area in January 2026. */
+const PRICE_EUR = kwhPriceEUR; // €/kWh from the central config
 const YIELD_KWH_PER_KWP = 1150; // annual yield per kWp in Bulgaria
 const M2_PER_KWP = 5; // roof area needed per kWp
 const SELF_USE = { home: 0.7, business: 0.8, industry: 0.8 } as const; // share of production used on site
-const COST_BGN_PER_KWP = { home: 1900, business: 1500, industry: 1500 } as const; // indicative turnkey cost
+const COST_EUR_PER_KWP = { home: 970, business: 770, industry: 770 } as const; // indicative turnkey cost
 const CO2_KG_PER_KWH = 0.4;
 const TREE_KG_PER_YEAR = 21; // one tree absorbs ~21 kg CO₂/year
 const SOFIA_RING_KM = 61; // one lap of the Sofia ring road
@@ -23,7 +23,6 @@ const KG_PER_LAP = SOFIA_RING_KM * CAR_KG_PER_KM;
 
 type ObjectType = keyof typeof SELF_USE;
 type Mode = "bill" | "kwh";
-type Currency = "bgn" | "eur";
 
 const copy = {
   bg: {
@@ -54,16 +53,18 @@ const copy = {
     cta: "Вземи точна оферта",
     ctaNote: "Оферта за 2 минути · Без ангажимент · Без депозити",
     assumptionsTitle: "Как смятаме? Всички допускания — открито",
+    billPh: "напр. 130",
+    kwhPh: "напр. 1200",
+    areaPh: "напр. 60",
     assumptions: [
-      `Цена на тока: ${PRICE_BGN.toFixed(3)} лв./кВтч (${(PRICE_BGN / EUR).toFixed(3)} €/кВтч) — публичната ни цена.`,
+      `Цена на тока: ${PRICE_EUR.toFixed(3)} €/кВтч — публичната ни цена.`,
       `1 kWp фотоволтаици произвежда ~${YIELD_KWH_PER_KWP} кВтч годишно в България.`,
       `1 kWp изисква ~${M2_PER_KWP} m² покривна площ.`,
       "Собствено потребление: 70% за дом (с батерия) и 80% за бизнес/индустрия — останалото се изкупува или губи и не го броим за икономия.",
-      "Ориентировъчна цена на система: ~1900 лв./kWp за дом и ~1500 лв./kWp за бизнес — до ключ, преди финансиране.",
+      `Ориентировъчна цена на система: ~${COST_EUR_PER_KWP.home} €/kWp за дом и ~${COST_EUR_PER_KWP.business} €/kWp за бизнес — до ключ, преди финансиране.`,
       `CO₂: ${CO2_KG_PER_KWH} кг спестен CO₂ на произведен кВтч; 1 дърво поглъща ~${TREE_KG_PER_YEAR} кг CO₂/год; 1 обиколка на околовръстното на София е ~${SOFIA_RING_KM} км при ~120 г CO₂/км за бензинов автомобил.`,
       "Числата са ориентировъчни — точните зависят от покрива, засенчването и профила на потребление. Затова финалната оферта я прави инженер, не калкулатор.",
     ],
-    perMonth: "на месец",
   },
   en: {
     inputsTitle: "Your details",
@@ -93,21 +94,23 @@ const copy = {
     cta: "Get an exact quote",
     ctaNote: "A quote in 2 minutes · No commitment · No deposits",
     assumptionsTitle: "How do we calculate? All assumptions, in the open",
+    billPh: "e.g. 130",
+    kwhPh: "e.g. 1200",
+    areaPh: "e.g. 60",
     assumptions: [
-      `Electricity price: ${PRICE_BGN.toFixed(3)} BGN/kWh (€${(PRICE_BGN / EUR).toFixed(3)}/kWh) — our published price.`,
+      `Electricity price: €${PRICE_EUR.toFixed(3)}/kWh — our published price.`,
       `1 kWp of photovoltaics produces ~${YIELD_KWH_PER_KWP} kWh per year in Bulgaria.`,
       `1 kWp needs ~${M2_PER_KWP} m² of roof area.`,
       "Self-consumption: 70% for a home (with battery) and 80% for business/industry — the rest is sold back or lost, and we don't count it as savings.",
-      "Indicative system cost: ~1,900 BGN/kWp for homes and ~1,500 BGN/kWp for business — turnkey, before financing.",
+      `Indicative system cost: ~€${COST_EUR_PER_KWP.home}/kWp for homes and ~€${COST_EUR_PER_KWP.business}/kWp for business — turnkey, before financing.`,
       `CO₂: ${CO2_KG_PER_KWH} kg of CO₂ saved per kWh produced; 1 tree absorbs ~${TREE_KG_PER_YEAR} kg CO₂/year; 1 lap of the Sofia ring road is ~${SOFIA_RING_KM} km at ~120 g CO₂/km for a petrol car.`,
       "These numbers are indicative — the exact ones depend on your roof, shading and consumption profile. That's why the final quote comes from an engineer, not a calculator.",
     ],
-    perMonth: "per month",
   },
 } as const;
 
 /* ---------- animated number ---------- */
-function useCountUp(target: number, decimals = 0): string {
+function useCountUp(target: number, numLocale: string, decimals = 0): string {
   const [val, setVal] = useState(target);
   const fromRef = useRef(target);
   const rafRef = useRef(0);
@@ -134,13 +137,14 @@ function useCountUp(target: number, decimals = 0): string {
     return () => cancelAnimationFrame(rafRef.current);
   }, [target]);
 
-  return val.toLocaleString("bg-BG", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+  return val.toLocaleString(numLocale, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 }
 
 export default function SolarCalculator({ locale }: { locale: Locale }) {
   const t = copy[locale];
+  // Number formatting follows the reading locale; the currency is always EUR.
+  const numLocale = locale === "bg" ? "bg-BG" : "en-GB";
   const [mode, setMode] = useState<Mode>("bill");
-  const [currency, setCurrency] = useState<Currency>("bgn");
   const [bill, setBill] = useState("");
   const [kwh, setKwh] = useState("");
   const [objectType, setObjectType] = useState<ObjectType>("home");
@@ -151,8 +155,8 @@ export default function SolarCalculator({ locale }: { locale: Locale }) {
     const kwhNum = parseFloat(kwh.replace(",", "."));
     const areaNum = parseFloat(area.replace(",", "."));
 
-    const billBGN = mode === "bill" ? (currency === "eur" ? billNum * EUR : billNum) : NaN;
-    const monthlyKwh = mode === "bill" ? billBGN / PRICE_BGN : kwhNum;
+    const billEUR = mode === "bill" ? billNum : NaN;
+    const monthlyKwh = mode === "bill" ? billEUR / PRICE_EUR : kwhNum;
     if (!Number.isFinite(monthlyKwh) || monthlyKwh <= 0) return null;
 
     const annualKwh = monthlyKwh * 12;
@@ -166,38 +170,36 @@ export default function SolarCalculator({ locale }: { locale: Locale }) {
 
     const production = kwp * YIELD_KWH_PER_KWP;
     const useful = Math.min(production * SELF_USE[objectType], annualKwh);
-    const savingsBGN = useful * PRICE_BGN;
-    const costBGN = kwp * COST_BGN_PER_KWP[objectType];
-    const payback = savingsBGN > 0 ? costBGN / savingsBGN : 0;
+    const savingsEUR = useful * PRICE_EUR;
+    const costEUR = kwp * COST_EUR_PER_KWP[objectType];
+    const payback = savingsEUR > 0 ? costEUR / savingsEUR : 0;
 
     const co2Kg = production * CO2_KG_PER_KWH;
-    const monthlyBillBGN = mode === "bill" ? billBGN : monthlyKwh * PRICE_BGN;
+    const monthlyBillEUR = mode === "bill" ? billEUR : monthlyKwh * PRICE_EUR;
 
     return {
       kwp,
       capped,
       production: Math.round(production),
-      savingsBGN: Math.round(savingsBGN),
-      savingsEUR: Math.round(savingsBGN / EUR),
+      savingsEUR: Math.round(savingsEUR),
       payback: Math.round(payback * 10) / 10,
       co2Tons: Math.round((co2Kg / 1000) * 10) / 10,
       trees: Math.max(1, Math.round(co2Kg / TREE_KG_PER_YEAR)),
       laps: Math.max(1, Math.round(co2Kg / KG_PER_LAP)),
-      monthlyBillBGN: Math.round(monthlyBillBGN),
+      monthlyBillEUR: Math.round(monthlyBillEUR),
     };
-  }, [mode, currency, bill, kwh, objectType, area]);
+  }, [mode, bill, kwh, objectType, area]);
 
-  const aKwp = useCountUp(res?.kwp ?? 0, 1);
-  const aProduction = useCountUp(res?.production ?? 0);
-  const aSavingsBGN = useCountUp(res?.savingsBGN ?? 0);
-  const aSavingsEUR = useCountUp(res?.savingsEUR ?? 0);
-  const aPayback = useCountUp(res?.payback ?? 0, 1);
-  const aCo2 = useCountUp(res?.co2Tons ?? 0, 1);
+  const aKwp = useCountUp(res?.kwp ?? 0, numLocale, 1);
+  const aProduction = useCountUp(res?.production ?? 0, numLocale);
+  const aSavingsEUR = useCountUp(res?.savingsEUR ?? 0, numLocale);
+  const aPayback = useCountUp(res?.payback ?? 0, numLocale, 1);
+  const aCo2 = useCountUp(res?.co2Tons ?? 0, numLocale, 1);
 
   const objectSlugs: Record<ObjectType, string> = { home: "dom", business: "biznes", industry: "industria" };
   const offerBase = r(locale, "oferta");
   const offerHref = res
-    ? `${offerBase}?bill=${res.monthlyBillBGN}&object=${objectSlugs[objectType]}&kwp=${res.kwp}`
+    ? `${offerBase}?bill=${res.monthlyBillEUR}&object=${objectSlugs[objectType]}&kwp=${res.kwp}`
     : offerBase;
 
   return (
@@ -214,7 +216,7 @@ export default function SolarCalculator({ locale }: { locale: Locale }) {
               type="button"
               onClick={() => setMode(m)}
               aria-pressed={mode === m}
-              className={`rounded-xl border px-3 py-2.5 text-sm font-semibold transition-all ${mode === m ? "border-accent bg-accent text-white shadow-md" : "border-line bg-surface-alt text-body hover:border-accent/50"}`}
+              className={`rounded-xl border px-3 py-2.5 text-sm font-semibold transition-all ${mode === m ? "border-accent bg-accent text-accent-contrast shadow-md" : "border-line bg-surface-alt text-body hover:border-accent/50"}`}
             >
               {label}
             </button>
@@ -225,7 +227,7 @@ export default function SolarCalculator({ locale }: { locale: Locale }) {
           {mode === "bill" ? (
             <label className="grid gap-1.5 text-sm font-semibold text-body" htmlFor="calc-bill">
               {t.bill}
-              <span className="flex gap-2">
+              <span className="flex items-center gap-2">
                 <input
                   id="calc-bill"
                   className="field"
@@ -233,32 +235,12 @@ export default function SolarCalculator({ locale }: { locale: Locale }) {
                   inputMode="decimal"
                   min="0"
                   step="10"
-                  placeholder={currency === "bgn" ? "напр. 250" : "e.g. 130"}
+                  placeholder={t.billPh}
                   value={bill}
                   onChange={(e) => setBill(e.target.value)}
                 />
-                <span className="inline-flex overflow-hidden rounded-xl border border-line" role="group" aria-label="лв. / €">
-                  {([["bgn", "лв."], ["eur", "€"]] as const).map(([cur, label]) => (
-                    <button
-                      key={cur}
-                      type="button"
-                      onClick={() => setCurrency(cur)}
-                      aria-pressed={currency === cur}
-                      className={`px-3.5 text-sm font-bold transition-colors ${currency === cur ? "bg-accent text-white" : "bg-surface-alt text-muted hover:text-body"}`}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </span>
+                <span className="text-sm font-bold text-muted">€</span>
               </span>
-              {bill && Number.isFinite(parseFloat(bill)) && parseFloat(bill) > 0 && (
-                <span className="text-xs font-normal text-muted">
-                  ≈{" "}
-                  {currency === "bgn"
-                    ? `${(parseFloat(bill.replace(",", ".")) / EUR).toFixed(2)} € ${t.perMonth}`
-                    : `${(parseFloat(bill.replace(",", ".")) * EUR).toFixed(2)} лв. ${t.perMonth}`}
-                </span>
-              )}
             </label>
           ) : (
             <label className="grid gap-1.5 text-sm font-semibold text-body" htmlFor="calc-kwh">
@@ -271,7 +253,7 @@ export default function SolarCalculator({ locale }: { locale: Locale }) {
                   inputMode="decimal"
                   min="0"
                   step="50"
-                  placeholder="напр. 1200"
+                  placeholder={t.kwhPh}
                   value={kwh}
                   onChange={(e) => setKwh(e.target.value)}
                 />
@@ -289,7 +271,7 @@ export default function SolarCalculator({ locale }: { locale: Locale }) {
                   type="button"
                   onClick={() => setObjectType(k)}
                   aria-pressed={objectType === k}
-                  className={`rounded-xl border px-3 py-2.5 text-sm font-semibold transition-all ${objectType === k ? "border-accent bg-accent text-white shadow-md" : "border-line bg-surface-alt text-body hover:border-accent/50"}`}
+                  className={`rounded-xl border px-3 py-2.5 text-sm font-semibold transition-all ${objectType === k ? "border-accent bg-accent text-accent-contrast shadow-md" : "border-line bg-surface-alt text-body hover:border-accent/50"}`}
                 >
                   {t.objects[k]}
                 </button>
@@ -306,7 +288,7 @@ export default function SolarCalculator({ locale }: { locale: Locale }) {
               inputMode="decimal"
               min="0"
               step="5"
-              placeholder="напр. 60"
+              placeholder={t.areaPh}
               value={area}
               onChange={(e) => setArea(e.target.value)}
             />
@@ -355,9 +337,18 @@ export default function SolarCalculator({ locale }: { locale: Locale }) {
                   {t.savingsLabel}
                 </p>
                 <p className="mt-1.5 font-[family-name:var(--font-display)] text-3xl font-bold text-accent">
-                  {aSavingsBGN} <span className="text-base font-bold">лв.</span>
+                  {/* English puts the symbol first (€1,076); Bulgarian trails it (1076 €). */}
+                  {locale === "en" ? (
+                    <>
+                      <span className="text-base font-bold">€</span>
+                      {aSavingsEUR}
+                    </>
+                  ) : (
+                    <>
+                      {aSavingsEUR} <span className="text-base font-bold">€</span>
+                    </>
+                  )}
                 </p>
-                <p className="text-sm font-semibold text-muted">≈ {aSavingsEUR} €</p>
               </div>
               <div className="rounded-xl bg-surface-alt p-4">
                 <p className="flex items-center gap-2 text-xs font-bold tracking-wide text-muted uppercase">
@@ -383,11 +374,11 @@ export default function SolarCalculator({ locale }: { locale: Locale }) {
               <ul className="mt-2.5 flex flex-col gap-1.5 text-sm text-muted">
                 <li className="flex items-center gap-2">
                   <TreePine className="size-4 shrink-0 text-accent" aria-hidden="true" />
-                  {t.treesPrefix} <strong className="text-body">{res.trees.toLocaleString("bg-BG")}</strong> {t.treesSuffix}
+                  {t.treesPrefix} <strong className="text-body">{res.trees.toLocaleString(numLocale)}</strong> {t.treesSuffix}
                 </li>
                 <li className="flex items-center gap-2">
                   <Car className="size-4 shrink-0 text-accent" aria-hidden="true" />
-                  {t.lapsPrefix} <strong className="text-body">{res.laps.toLocaleString("bg-BG")}</strong> {t.lapsSuffix}
+                  {t.lapsPrefix} <strong className="text-body">{res.laps.toLocaleString(numLocale)}</strong> {t.lapsSuffix}
                 </li>
               </ul>
             </div>

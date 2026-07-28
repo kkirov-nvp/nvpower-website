@@ -50,15 +50,15 @@ export const site = {
   /** Response promise repeated sitewide (§8): "в рамките на 1 работен ден". */
   responseTime: { bg: "1 работен ден", en: "1 business day" },
 
-  /** Electricity price — published, transparent, dual currency (€ primary). */
+  /**
+   * Electricity price — published and transparent.
+   * Bulgaria joined the euro area in January 2026, so the euro is the only
+   * currency quoted anywhere on the site. Do not reintroduce lev pricing.
+   */
   price: {
     eurPerKwh: 0.099,
-    bgnPerKwh: 0.194,
-    display: { bg: "0.099 €/кВтч (0.194 лв./кВтч)", en: "€0.099/kWh (0.194 BGN/kWh)" },
+    display: { bg: "0.099 €/кВтч", en: "€0.099/kWh" },
   },
-
-  /** BGN/EUR fixed conversion rate (Eurozone transition) */
-  eurRate: 1.95583,
 
   /** [PLACEHOLDER] §2 [TEAM] — at least founder/manager with a real photo */
   team: [
@@ -69,8 +69,14 @@ export const site = {
     },
   ],
 
-  /** Form endpoint — POST target (form service / serverless). [PLACEHOLDER] */
-  formEndpoint: "/api/lead", // e.g. https://formspree.io/f/XXXX
+  /**
+   * [PLACEHOLDER] Form endpoint — POST target receiving multipart FormData
+   * (e.g. https://formspree.io/f/XXXX, or your own serverless handler).
+   * While this is empty every form shows the visitor the email/phone fallback
+   * instead of a false "we got it" — see src/lib/lead.ts. Must be set, and the
+   * origin added to connect-src + form-action in public/_headers, before launch.
+   */
+  formEndpoint: "" as string,
 
   gaMeasurementId: "", // [PLACEHOLDER] GA4 id, e.g. G-XXXXXXX; empty = analytics off
 } as const;
@@ -78,4 +84,3 @@ export const site = {
 export type Locale = "bg" | "en";
 
 export const kwhPriceEUR = site.price.eurPerKwh;
-export const kwhPriceBGN = site.price.bgnPerKwh;

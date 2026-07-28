@@ -18,7 +18,7 @@ const copy = {
       { id: "both", label: "И двете", hint: "ток днес + централа утре" },
     ],
     q2tok: "Каква е месечната ти сметка за ток?",
-    q2tokA: ["До 200 лв.", "200 – 1 000 лв.", "1 000 – 5 000 лв.", "Над 5 000 лв."],
+    q2tokA: ["До 100 €", "100 – 500 €", "500 – 2 500 €", "Над 2 500 €"],
     q2solar: "За какъв обект е системата?",
     q2solarA: ["Къща / дом", "Бизнес сграда / склад", "Производство / индустрия", "Земеделски имот / терен"],
     q3: "Какво е най-важно за теб?",
@@ -26,7 +26,7 @@ const copy = {
     back: "Назад",
     recTok: {
       title: "Препоръчваме: смяна на доставчика",
-      text: "С цена 0.099 €/кВтч (0.194 лв./кВтч) и без скрити такси смяната ще ти спести реални пари — а е безплатна и без прекъсване на тока.",
+      text: "С цена 0.099 €/кВтч и без скрити такси смяната ще ти спести реални пари — а е безплатна и без прекъсване на тока.",
       route: "tok",
       cta: "Виж плановете за ток",
     },
@@ -79,7 +79,7 @@ const copy = {
     back: "Back",
     recTok: {
       title: "We recommend: switching supplier",
-      text: "At €0.099/kWh (0.194 BGN/kWh) with no hidden fees, switching saves you real money — and it's free, with no power interruption.",
+      text: "At €0.099/kWh with no hidden fees, switching saves you real money — and it's free, with no power interruption.",
       route: "tok",
       cta: "See electricity plans",
     },
@@ -143,12 +143,12 @@ export default function MiniConfigurator({ locale }: { locale: Locale }) {
       return;
     }
     setState("sending");
-    const ok = await submitLead(
+    const result = await submitLead(
       "mini-configurator",
       { name, phone, need, size: size !== null ? q2.a[size] : null, goal: goal !== null ? t.q3a[goal] : null, gdpr },
       hp,
     );
-    setState(ok ? "ok" : "err");
+    setState(result === "ok" ? "ok" : "err");
   }
 
   const Option = ({ label, hint, onClick }: { label: string; hint?: string; onClick: () => void }) => (

@@ -36,7 +36,7 @@ const c = {
           badge: "Най-предвидим",
           name: "Фиксиран",
           priceMain: "0.099 €/кВтч",
-          priceSub: "0.194 лв./кВтч",
+          priceSub: "без скрити такси",
           term: "фиксирана цена за 12 месеца",
           features: [
             "Една и съща цена всеки месец — планираш бюджета си спокойно",
@@ -81,7 +81,7 @@ const c = {
       lead: "Без звездички и дребен шрифт — това са условията.",
       colLabel: "Условие",
       rows: [
-        { label: "Цена", values: ["0.099 €/кВтч (0.194 лв./кВтч)", "БНЕБ + фиксирана надбавка", "По договаряне"] },
+        { label: "Цена", values: ["0.099 €/кВтч", "БНЕБ + фиксирана надбавка", "По договаряне"] },
         { label: "Срок", values: ["12 месеца", "Безсрочен", "По договаряне"] },
         { label: "Депозит", values: ["НЕ", "НЕ", "НЕ"] },
         { label: "Скрити такси", values: ["0%", "0%", "0%"] },
@@ -95,7 +95,7 @@ const c = {
       title: "Как сменяш доставчика",
       lead: "Цялата процедура я движим ние — на теб ти остава да подпишеш.",
       steps: [
-        { icon: FileSearch, title: "Изпращаш ни фактура", text: "Или просто данните на обекта. Сравняваме условията и ти показваме конкретната разлика в лева. Безплатно е." },
+        { icon: FileSearch, title: "Изпращаш ни фактура", text: "Или просто данните на обекта. Сравняваме условията и ти показваме конкретната разлика в евро. Безплатно е." },
         { icon: PenLine, title: "Подписваш дистанционно", text: "Договор на разбираем български, подписан онлайн. Ние подаваме всички документи към мрежовия оператор." },
         { icon: Repeat, title: "От 1-во число си при нас", text: "Смяната става без прекъсване на тока — жиците са същите, сменя се само фактурата. Изцяло дистанционно." },
       ],
@@ -138,7 +138,7 @@ const c = {
           badge: "Most predictable",
           name: "Fixed",
           priceMain: "€0.099/kWh",
-          priceSub: "0.194 BGN/kWh",
+          priceSub: "no hidden fees",
           term: "fixed price for 12 months",
           features: [
             "The same price every month — budget with confidence",
@@ -183,7 +183,7 @@ const c = {
       lead: "No asterisks, no small print — these are the terms.",
       colLabel: "Term",
       rows: [
-        { label: "Price", values: ["€0.099/kWh (0.194 BGN/kWh)", "IBEX + fixed margin", "Negotiated"] },
+        { label: "Price", values: ["€0.099/kWh", "IBEX + fixed margin", "Negotiated"] },
         { label: "Contract term", values: ["12 months", "Open-ended", "Negotiated"] },
         { label: "Deposit", values: ["NO", "NO", "NO"] },
         { label: "Hidden fees", values: ["0%", "0%", "0%"] },
@@ -263,7 +263,7 @@ const c = {
           <span
             class:list={[
               "absolute -top-3.5 left-6 rounded-full px-3.5 py-1.5 text-xs font-bold",
-              i === 0 ? "bg-accent text-[#6fd0da]" : "bg-accent/10 text-accent",
+              i === 0 ? "bg-accent text-accent-contrast" : "bg-accent/10 text-accent",
             ]}
           >
             {plan.badge}
