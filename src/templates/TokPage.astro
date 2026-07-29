@@ -17,78 +17,100 @@ const { locale } = Astro.props;
 const c = {
   bg: {
     title: "Ток за бизнеса и дома — ясна цена, без изненади | NV Power",
-    description: `Ток за бизнеса и дома на ${site.price.display.bg} — фиксиран, борсов или индивидуален план. Смяната е безплатна и без прекъсване.`,
+    description: `Изкупуване на ток от ВЕИ производители и доставка за бизнеса и дома. NV Фиксиран, NV Standard или индивидуална оферта над 1 MW.`,
     hero: {
       h1: "Ток на ясна цена. Без изненади.",
-      sub: "Лицензиран търговец на електроенергия за бизнеса и дома. Публикуваме цената си, спазваме я и ти оставяме един телефонен номер — на личния ти консултант.",
+      sub: "Лицензиран търговец на електроенергия за бизнеса и дома.",
       ctaPrimary: "Вземи оферта за 2 минути",
       ctaSecondary: "Виж плановете",
       checks: [`Отговор до 1 работен ден`, "Без скрити такси", "Без депозити"],
     },
     plans: {
       eyebrow: "Планове",
-      title: "Избери как да купуваш тока си",
-      lead: "Три плана, една философия: ясна цена, ясен договор и човек, който вдига телефона. Всички включват участие в балансиращата ни група.",
-      cta: "Вземи оферта",
+      title: "Избери как да продаваш тока си",
+      lead: "Три плана с ясна цена и договор — с постоянна комуникация с екипа ни през целия период.",
+      note: "Всички планове включват участие в балансиращата ни група",
       items: [
         {
           icon: Zap,
-          badge: "Най-предвидим",
-          name: "Фиксиран",
-          priceMain: "0.099 €/кВтч",
-          priceSub: "без скрити такси",
-          term: "фиксирана цена за 12 месеца",
+          badge: "Най-предсказуем",
+          name: "NV Фиксиран",
+          priceMain: "БНЕБ − 15 €",
+          priceSub: "на MWh",
+          term: "предизвестие само 1 месец",
           features: [
-            "Една и съща цена всеки месец — планираш бюджета си спокойно",
-            "Пазарът скача? Твоята цена — не",
-            "Балансирането е включено в цената",
-            "Идеален за дом и малък бизнес",
+            "Предизвестие: само 1 месец — без дългосрочно обвързване",
+            "Фиксирано балансиране",
+            "Постоянна комуникация и поддръжка от търговския ни екип",
+            "Идеален за малки и средни ВЕИ производители",
           ],
+          cta: "Вземи оферта за NV Fixed",
         },
         {
           icon: LineChart,
-          badge: "Най-гъвкав",
-          name: "Борсов",
-          priceMain: "Цена БНЕБ",
-          priceSub: "+ фиксирана надбавка",
-          term: "безсрочен, следваш пазара",
-          features: [
-            "Плащаш реалната борсова цена + прозрачна надбавка",
-            "Без лимит на потребление",
-            "Печелиш, когато пазарът пада",
-            "Месечен отчет с пълна разбивка",
+          badge: "Най-популярен",
+          name: "NV Standard",
+          priceMain: "от БНЕБ − 4 €",
+          priceSub: "до БНЕБ − 5 € на MWh",
+          term: "две нива на гъвкавост",
+          /* Two-component plan — the visitor picks a tier inside the card. */
+          options: [
+            {
+              id: "flex",
+              label: "Standard Flexible",
+              formula: "БНЕБ − 5 €",
+              notice: "Предизвестие: 3 месеца",
+              hint: "По-кратък срок, повече свобода",
+            },
+            {
+              id: "long",
+              label: "Standard Дългосрочен",
+              formula: "БНЕБ − 4 €",
+              notice: "Предизвестие: 12 месеца",
+              hint: "Най-добрата цена за стандартен план",
+            },
           ],
+          features: [
+            "Избираш нивото на гъвкавост според планирания си хоризонт",
+            "По-ниска такса за балансиране при по-дългосрочен договор",
+            "Включено пълно управление на балансиращата група",
+          ],
+          cta: "Избери NV Standard",
         },
         {
           icon: Building2,
-          badge: "За големи обекти",
-          name: "Индивидуален",
+          badge: "За големи обекти (над 1 MW)",
+          name: "NV Individual",
           priceMain: "По договаряне",
-          priceSub: "спрямо профила ти на потребление",
-          term: "за големи консуматори",
+          priceSub: "спрямо производствения ти профил",
+          term: "предизвестие по договор",
           features: [
-            "Анализ на товаровия ти профил преди офертата",
-            "Личен мениджър на договора",
-            "Стратегия фиксирано / борсово по избор",
-            "Условия за няколко обекта в един договор",
+            "Персонализирана оферта за производители с мощност над 1 MW",
+            "Предизвестие: индивидуално спрямо договора",
+            "Дълбок анализ на производствения профил преди офертата",
+            "Личен акаунт мениджър и индивидуална търговска стратегия",
           ],
+          cta: "Заяви индивидуална оферта",
         },
       ],
+      /* B2B block under the cards — supply *and* buy-back above 1 MW. */
+      b2b: {
+        title: "Продаваме ток и изготвяме индивидуални оферти",
+        text: "Персонализирано изкупуване и доставка на електрическа енергия за консуматори и производители с мощност над 1 MW — разработени на база специфичния профил на производство и потребление.",
+        cta: "Свържи се с нас",
+      },
     },
     compare: {
       eyebrow: "Сравнение",
       title: "Плановете един до друг",
       lead: "Без звездички и дребен шрифт — това са условията.",
-      colLabel: "Условие",
+      cols: ["План", "Формула (БНЕБ)", "Срок на предизвестие", "Целева група", "Основно предимство"],
       rows: [
-        { label: "Цена", values: ["0.099 €/кВтч", "БНЕБ + фиксирана надбавка", "По договаряне"] },
-        { label: "Срок", values: ["12 месеца", "Безсрочен", "По договаряне"] },
-        { label: "Депозит", values: ["НЕ", "НЕ", "НЕ"] },
-        { label: "Скрити такси", values: ["0%", "0%", "0%"] },
-        { label: "Предизвестие", values: ["1 месец", "1 месец", "1 месец"] },
-        { label: "Личен консултант", values: ["Да", "Да", "Личен мениджър"] },
+        { plan: "NV Фиксиран", formula: "БНЕБ − 15 €", notice: "1 месец", target: "Малки ВЕИ централи", advantage: "Пълна свобода с 1 месец предизвестие." },
+        { plan: "NV Standard Flexible", formula: "БНЕБ − 5 €", notice: "3 месеца", target: "Средни ВЕИ", advantage: "Баланс между добра цена и кратък срок." },
+        { plan: "NV Standard Дългосрочен", formula: "БНЕБ − 4 €", notice: "12 месеца", target: "Стабилни ВЕИ", advantage: "Максимална печалба с най-ниска такса за балансиране." },
+        { plan: "NV Individual", formula: "По договаряне", notice: "По договаряне", target: "Обекти над 1 MW", advantage: "Условия, построени спрямо профила на обекта." },
       ],
-      plans: ["Фиксиран", "Борсов", "Индивидуален"],
     },
     switch: {
       eyebrow: "Смяна на доставчик",
@@ -119,78 +141,100 @@ const c = {
   },
   en: {
     title: "Electricity at a clear price for business & home | NV Power",
-    description: `Electricity at ${site.price.display.en} — fixed, exchange-indexed or individual plans. Switching is free and uninterrupted.`,
+    description: `Electricity buy-back for renewable producers and supply for business and home. NV Fixed, NV Standard or an individual offer above 1 MW.`,
     hero: {
       h1: "Electricity at a clear price. No surprises.",
-      sub: "A licensed electricity trader for business and home. We publish our price, we honour it, and we leave you one phone number — your personal consultant's.",
+      sub: "A licensed electricity trader for business and home.",
       ctaPrimary: "Get a quote in 2 minutes",
       ctaSecondary: "See the plans",
       checks: [`Reply within 1 business day`, "No hidden fees", "No deposits"],
     },
     plans: {
       eyebrow: "Plans",
-      title: "Choose how you buy your power",
-      lead: "Three plans, one philosophy: a clear price, a clear contract and a person who picks up the phone. All include membership in our balancing group.",
-      cta: "Get a quote",
+      title: "Choose how you sell your power",
+      lead: "Three plans with a clear price and a clear contract — and constant contact with our team throughout.",
+      note: "Every plan includes membership in our balancing group",
       items: [
         {
           icon: Zap,
           badge: "Most predictable",
-          name: "Fixed",
-          priceMain: "€0.099/kWh",
-          priceSub: "no hidden fees",
-          term: "fixed price for 12 months",
+          name: "NV Fixed",
+          priceMain: "IBEX − €15",
+          priceSub: "per MWh",
+          term: "just 1 month's notice",
           features: [
-            "The same price every month — budget with confidence",
-            "Market spikes? Not your problem",
-            "Balancing is included in the price",
-            "Ideal for homes and small business",
+            "Notice period: just 1 month — no long-term lock-in",
+            "Fixed balancing",
+            "Ongoing contact and support from our trading desk",
+            "Ideal for small and mid-size renewable producers",
           ],
+          cta: "Get an NV Fixed quote",
         },
         {
           icon: LineChart,
-          badge: "Most flexible",
-          name: "Exchange",
-          priceMain: "IBEX price",
-          priceSub: "+ a fixed margin",
-          term: "open-ended, you follow the market",
-          features: [
-            "You pay the real exchange price + a transparent margin",
-            "No consumption limit",
-            "You win when the market drops",
-            "Monthly report with a full breakdown",
+          badge: "Most popular",
+          name: "NV Standard",
+          priceMain: "from IBEX − €4",
+          priceSub: "to IBEX − €5 per MWh",
+          term: "two levels of flexibility",
+          /* Two-component plan — the visitor picks a tier inside the card. */
+          options: [
+            {
+              id: "flex",
+              label: "Standard Flexible",
+              formula: "IBEX − €5",
+              notice: "Notice period: 3 months",
+              hint: "Shorter term, more freedom",
+            },
+            {
+              id: "long",
+              label: "Standard Long-term",
+              formula: "IBEX − €4",
+              notice: "Notice period: 12 months",
+              hint: "The best price in the standard plan",
+            },
           ],
+          features: [
+            "Choose the level of flexibility that matches your horizon",
+            "A lower balancing fee on a longer contract",
+            "Full balancing-group management included",
+          ],
+          cta: "Choose NV Standard",
         },
         {
           icon: Building2,
-          badge: "For large sites",
-          name: "Individual",
+          badge: "For large sites (over 1 MW)",
+          name: "NV Individual",
           priceMain: "Negotiated",
-          priceSub: "based on your consumption profile",
-          term: "for large consumers",
+          priceSub: "based on your generation profile",
+          term: "notice period set by contract",
           features: [
-            "Load-profile analysis before the offer",
-            "A personal contract manager",
-            "Fixed / exchange strategy — your choice",
-            "Multiple sites under one contract",
+            "A tailored offer for producers with over 1 MW installed capacity",
+            "Notice period: set individually in the contract",
+            "In-depth analysis of your generation profile before the offer",
+            "A personal account manager and an individual trading strategy",
           ],
+          cta: "Request an individual offer",
         },
       ],
+      /* B2B block under the cards — supply *and* buy-back above 1 MW. */
+      b2b: {
+        title: "We sell power and build individual offers",
+        text: "Bespoke buy-back and supply of electricity for consumers and producers above 1 MW — built around your specific generation and consumption profile.",
+        cta: "Get in touch",
+      },
     },
     compare: {
       eyebrow: "Comparison",
       title: "The plans side by side",
       lead: "No asterisks, no small print — these are the terms.",
-      colLabel: "Term",
+      cols: ["Plan", "Formula (IBEX)", "Notice period", "Target group", "Key advantage"],
       rows: [
-        { label: "Price", values: ["€0.099/kWh", "IBEX + fixed margin", "Negotiated"] },
-        { label: "Contract term", values: ["12 months", "Open-ended", "Negotiated"] },
-        { label: "Deposit", values: ["NO", "NO", "NO"] },
-        { label: "Hidden fees", values: ["0%", "0%", "0%"] },
-        { label: "Notice period", values: ["1 month", "1 month", "1 month"] },
-        { label: "Personal consultant", values: ["Yes", "Yes", "Dedicated manager"] },
+        { plan: "NV Fixed", formula: "IBEX − €15", notice: "1 month", target: "Small renewable plants", advantage: "Full freedom, one month's notice." },
+        { plan: "NV Standard Flexible", formula: "IBEX − €5", notice: "3 months", target: "Mid-size renewables", advantage: "A balance of good price and a short commitment." },
+        { plan: "NV Standard Long-term", formula: "IBEX − €4", notice: "12 months", target: "Established renewables", advantage: "Maximum return with the lowest balancing fee." },
+        { plan: "NV Individual", formula: "Negotiated", notice: "Negotiated", target: "Sites over 1 MW", advantage: "Terms built around your site's profile." },
       ],
-      plans: ["Fixed", "Exchange", "Individual"],
     },
     switch: {
       eyebrow: "Switching supplier",
@@ -227,7 +271,7 @@ const c = {
   <section class="bg-band">
     <div class="container-site py-16 text-center md:py-24">
       <h1 class="mx-auto max-w-3xl text-4xl font-bold text-white sm:text-5xl md:text-6xl md:leading-[1.05]">
-        {c.hero.h1.split(".")[0]}.{" "}<span class="text-[#6fd0da]">{c.hero.h1.split(".").slice(1).join(".").trim()}</span>
+        {c.hero.h1.split(".")[0]}.<br /><span class="text-[#6fd0da]">{c.hero.h1.split(".").slice(1).join(".").trim()}</span>
       </h1>
       <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/75 md:text-lg">{c.hero.sub}</p>
 
@@ -254,16 +298,21 @@ const c = {
   <section id="planove" class="section container-site">
     <SectionHeading eyebrow={c.plans.eyebrow} title={c.plans.title} lead={c.plans.lead} />
 
+    <p class="reveal mx-auto mt-6 flex w-fit items-center gap-2.5 rounded-full bg-accent/10 px-5 py-2.5 text-sm font-semibold text-accent">
+      <Check class="size-4 shrink-0" aria-hidden="true" />
+      {c.plans.note}
+    </p>
+
     <div class="mt-12 grid gap-6 md:grid-cols-3">
       {c.plans.items.map((plan, i) => (
         <article
-          class:list={["reveal card relative flex flex-col gap-5 p-7 md:p-8", i === 0 && "border-accent ring-1 ring-accent"]}
+          class:list={["reveal card relative flex h-full flex-col gap-5 p-7 md:p-8", i === 1 && "border-accent ring-1 ring-accent"]}
           style={`--reveal-delay:${i * 90}ms`}
         >
           <span
             class:list={[
               "absolute -top-3.5 left-6 rounded-full px-3.5 py-1.5 text-xs font-bold",
-              i === 0 ? "bg-accent text-accent-contrast" : "bg-accent/10 text-accent",
+              i === 1 ? "bg-accent text-accent-contrast" : "bg-accent/10 text-accent",
             ]}
           >
             {plan.badge}
@@ -275,10 +324,23 @@ const c = {
           <h3 class="text-xl font-bold text-body">{plan.name}</h3>
 
           <p class="font-[family-name:var(--font-display)]">
-            <span class:list={["font-bold text-accent", i === 0 ? "text-4xl" : "text-2xl"]}>{plan.priceMain}</span>
+            <span class:list={["font-bold text-accent", i === 1 ? "text-4xl" : "text-3xl"]}>{plan.priceMain}</span>
             <span class="mt-1 block text-sm font-bold text-muted">{plan.priceSub}</span>
             <span class="mt-1 block text-sm font-medium text-accent">{plan.term}</span>
           </p>
+
+          {"options" in plan && plan.options && (
+            <div class="grid grid-cols-2 gap-2.5">
+              {plan.options.map((opt) => (
+                <div class="flex flex-col rounded-xl border border-line bg-surface-alt p-3">
+                  <p class="text-[11px] leading-tight font-bold tracking-wide text-accent uppercase">{opt.label}</p>
+                  <p class="mt-2 font-[family-name:var(--font-display)] text-base leading-none font-bold whitespace-nowrap text-accent">{opt.formula}</p>
+                  <p class="mt-2 text-xs leading-snug font-semibold text-body">{opt.notice}</p>
+                  <p class="mt-1 text-[11px] leading-snug text-muted">{opt.hint}</p>
+                </div>
+              ))}
+            </div>
+          )}
 
           <ul class="flex flex-col gap-2.5">
             {plan.features.map((f) => (
@@ -289,12 +351,29 @@ const c = {
             ))}
           </ul>
 
-          <a href={r(locale, "oferta")} class:list={["btn mt-auto self-start", i === 0 ? "btn-primary" : "btn-outline"]}>
-            {c.plans.cta}
+          <a href={r(locale, "oferta")} class:list={["btn mt-auto self-start", i === 1 ? "btn-primary" : "btn-outline"]}>
+            {plan.cta}
             <ArrowRight class="size-4" aria-hidden="true" />
           </a>
         </article>
       ))}
+    </div>
+
+    <!-- B2B: supply and buy-back above 1 MW -->
+    <div class="reveal card mt-8 flex flex-col gap-5 border-accent/30 bg-accent/5 p-7 md:flex-row md:items-center md:justify-between md:p-8">
+      <div class="flex items-start gap-4">
+        <span class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+          <Building2 class="size-6" aria-hidden="true" />
+        </span>
+        <div>
+          <h3 class="text-lg font-bold text-body">{c.plans.b2b.title}</h3>
+          <p class="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted">{c.plans.b2b.text}</p>
+        </div>
+      </div>
+      <a href={r(locale, "kontakti")} class="btn btn-outline shrink-0 self-start md:self-auto">
+        {c.plans.b2b.cta}
+        <ArrowRight class="size-4" aria-hidden="true" />
+      </a>
     </div>
   </section>
 
@@ -304,36 +383,22 @@ const c = {
       <SectionHeading eyebrow={c.compare.eyebrow} title={c.compare.title} lead={c.compare.lead} />
 
       <div class="reveal card mt-10 overflow-x-auto">
-        <table class="w-full min-w-[40rem] border-collapse text-sm">
+        <table class="w-full min-w-[48rem] border-collapse text-sm">
           <thead>
             <tr class="bg-band text-left text-white">
-              <th scope="col" class="px-5 py-4 font-[family-name:var(--font-display)] font-bold md:px-6">{c.compare.colLabel}</th>
-              {c.compare.plans.map((p) => (
-                <th scope="col" class="px-5 py-4 font-[family-name:var(--font-display)] font-bold md:px-6">{p}</th>
+              {c.compare.cols.map((col) => (
+                <th scope="col" class="px-5 py-4 font-[family-name:var(--font-display)] font-bold md:px-6">{col}</th>
               ))}
             </tr>
           </thead>
           <tbody class="divide-y divide-line">
             {c.compare.rows.map((row) => (
-              <tr class="odd:bg-white even:bg-surface-alt/60">
-                <th scope="row" class="px-5 py-3.5 text-left font-semibold text-body md:px-6">{row.label}</th>
-                {row.values.map((v) => (
-                  <td class="px-5 py-3.5 text-muted md:px-6">
-                    {v === "НЕ" || v === "NO" ? (
-                      <span class="inline-flex items-center gap-1.5 font-bold text-accent">
-                        <X class="size-4" aria-hidden="true" />
-                        {v}
-                      </span>
-                    ) : v === "0%" ? (
-                      <span class="inline-flex items-center gap-1.5 font-bold text-accent">
-                        <Check class="size-4" aria-hidden="true" />
-                        {v}
-                      </span>
-                    ) : (
-                      v
-                    )}
-                  </td>
-                ))}
+              <tr class="odd:bg-surface even:bg-surface-alt/60">
+                <th scope="row" class="px-5 py-3.5 text-left font-semibold text-body md:px-6">{row.plan}</th>
+                <td class="px-5 py-3.5 font-[family-name:var(--font-display)] font-bold text-accent md:px-6">{row.formula}</td>
+                <td class="px-5 py-3.5 text-muted md:px-6">{row.notice}</td>
+                <td class="px-5 py-3.5 text-muted md:px-6">{row.target}</td>
+                <td class="px-5 py-3.5 text-muted md:px-6">{row.advantage}</td>
               </tr>
             ))}
           </tbody>
@@ -383,3 +448,4 @@ const c = {
   <!-- 7 ▸ FINAL CTA BAND -->
   <CtaBand locale={locale} />
 </BaseLayout>
+

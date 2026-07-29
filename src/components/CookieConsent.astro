@@ -18,7 +18,10 @@ const t = useUI(locale);
   role="dialog"
   aria-label={t.consent.title}
 >
-  <h2 class="font-[family-name:var(--font-display)] text-base font-bold text-body">{t.consent.title}</h2>
+  <h2 class="flex items-center gap-2 font-[family-name:var(--font-display)] text-base font-bold text-body">
+    <span aria-hidden="true">🍪</span>
+    {t.consent.title}
+  </h2>
   <p class="mt-1.5 text-sm leading-relaxed text-muted">
     {t.consent.text}
     <a href={r(locale, "privacy")} class="font-medium text-accent underline">{t.consent.privacyLink}</a>

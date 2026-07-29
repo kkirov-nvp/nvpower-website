@@ -1,6 +1,9 @@
 # Redirects — Netlify / Cloudflare Pages format.
-# For Vercel, mirror these in vercel.json → "redirects" (permanent: true);
-# for nginx, use `return 301`. Same host-config pairing as public/_headers.
+#
+# ⚠️  This site is deployed on VERCEL, which ignores this file entirely — the
+# live 301s come from /vercel.json → "redirects". This file is kept only so a
+# move to Netlify / Cloudflare Pages still works. Change one, change the other.
+# For nginx, use `return 301`.
 #
 # The English pages originally mirrored the Bulgarian slugs (/en/tok/,
 # /en/za-nas/, …) and were renamed to real English slugs. These 301s preserve

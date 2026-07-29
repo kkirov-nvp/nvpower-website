@@ -1,5 +1,9 @@
 # Security headers — Netlify / Cloudflare Pages format.
-# For Vercel, mirror these in vercel.json → "headers"; for nginx, add_header.
+#
+# ⚠️  This site is deployed on VERCEL, which ignores this file entirely — the
+# live headers come from /vercel.json → "headers". This file is kept only so a
+# move to Netlify / Cloudflare Pages still works. Change one, change the other.
+# For nginx, use add_header.
 # When you wire a real form endpoint, add its origin to connect-src + form-action.
 
 /*

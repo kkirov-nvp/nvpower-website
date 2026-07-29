@@ -43,7 +43,10 @@ export async function submitLead(
 
   const endpoint = site.formEndpoint;
 
-  if (!endpoint || endpoint.startsWith("/api/")) {
+  // Empty is the only "not configured" signal. Do not sniff the path: a
+  // same-origin handler at /api/lead is a perfectly valid endpoint, and is in
+  // fact the preferred one — it keeps the CSP at form-action 'self'.
+  if (!endpoint.trim()) {
     // Loud on purpose: this must be caught before launch, not after.
     console.error(
       `[NV Power] No form endpoint configured — the "${kind}" submission was NOT sent. ` +

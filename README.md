@@ -23,9 +23,31 @@
 **Тема:** светлата (бяла) тема е по подразбиране; тъмната се включва от
 превключвателя в хедъра и се пази в `localStorage`.
 
-Формите POST-ват към `site.formEndpoint`. Докато е `/api/lead` (placeholder),
-изпращането се симулира и логва в конзолата. Свържи form service / serverless
-функция с имейл до info@nvpower.bg.
+### Форми — задължително преди launch
+
+Формите POST-ват `multipart/form-data` (включително прикачения файл) към
+`site.formEndpoint`. **Докато е празен низ, нищо не се изпраща:** посетителят
+вижда телефон и имейл като резервен вариант, а в конзолата се логва грешка.
+Никога не се показва фалшиво потвърждение.
+
+Свържи form service (напр. Formspree) или собствена serverless функция, която
+праща имейл до info@nvpower.bg, и попълни `site.formEndpoint`.
+
+Ако endpoint-ът е на **друг домейн**, добави origin-а му към `connect-src` и
+`form-action` в CSP — на Vercel това е в **`vercel.json`** (и за пренос-
+имост, същото в `public/_headers`). Иначе CSP ще блокира заявката. Endpoint на
+**същия домейн** (напр. `/api/lead`) не изисква промяна в CSP.
+
+## Хостинг (Vercel)
+
+Сайтът е статичен build в `dist/`. Деплойва се на **Vercel**, затова
+`public/_headers` и `public/_redirects` (Netlify / Cloudflare Pages формат)
+**не се четат** — реалните HTTP хедъри и 301 редиректите идват от
+**`vercel.json`**. Ако промениш едното, промени и другото.
+
+`vercel.json` съдържа: security хедъри (CSP, HSTS, X-Frame-Options…),
+кеширане на `/_astro/*`, `trailingSlash: true` и 301 редиректи от старите
+английски адреси към новите.
 
 ## Команди
 

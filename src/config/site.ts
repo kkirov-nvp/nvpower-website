@@ -13,8 +13,8 @@ export const site = {
   tagline: { bg: "Енергия за утрешния ден", en: "Energy for tomorrow" },
 
   /** [PLACEHOLDER] main phone — appears in header, click-to-call */
-  phone: "+359 88 555 0199",
-  phoneHref: "+359885550199",
+  phone: "+359 XXXXXXX",
+  phoneHref: "+359XXXXXXX",
 
   email: "info@nvpower.bg",
 
@@ -30,14 +30,14 @@ export const site = {
 
   /** [PLACEHOLDER] legal identity — ЕИК, ДДС № */
   legal: {
-    bg: "„НВ Пауър“ ЕООД · ЕИК 207415339 · ДДС № BG207415339",
-    en: "NV Power Ltd · UIC 207415339 · VAT BG207415339",
+    bg: "„НВ Пауър“ ЕООД · ЕИК XXXXXXX · ДДС № BGXXXXXXX",
+    en: "NV Power Ltd · UIC XXXXXXX · VAT BGXXXXXXX",
   },
 
   /** [PLACEHOLDER] КЕВР license number (publish the PDF in /documents too) */
   license: {
-    bg: "Лицензия за търговия с електрическа енергия № Л-593-15 от 12.09.2019 г. / КЕВР",
-    en: "Electricity trading licence No. L-593-15 of 12.09.2019 / EWRC",
+    bg: "Лицензия за търговия с електрическа енергия № XXXXXXX / КЕВР",
+    en: "Electricity trading licence No. XXXXXXX / EWRC",
   },
 
   /** [PLACEHOLDER] real social profiles — remove any that don't exist */
