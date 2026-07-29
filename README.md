@@ -21,6 +21,8 @@ with battery storage.
 
 **Блокери** — сайтът не бива да се промотира преди това:
 
+- [ ] **Домейн / индексиране.** `nvpower.bg` все още е старият (Wix) сайт, затова този деплой е демо и е **noindex** (`SITE_INDEXABLE = false` в `src/config/site.ts`; `robots.txt` връща `Disallow: /`). `SITE_URL` умишлено остава `https://nvpower.bg`, за да са верни canonical/hreflang/og:url/sitemap в момента, в който този build стане реалният сайт — тогава просто обърни флага на `true`. Внимавай и за `www` формата: `nvpower.bg` прави 301 към `www.nvpower.bg`.
+
 - [ ] **Form endpoint.** `site.formEndpoint` е празен низ, затова формите не изпращат нищо — посетителят вижда телефон и имейл. Свържи form service или serverless функция (виж раздел „Форми" по-долу).
 - [ ] **Маскирани данни.** Телефон, ЕИК, ДДС №, КЕВР лиценз № и цената на тока са умишлено `XXX` / `XXXXXXX` в `src/config/site.ts` — замени с реалните стойности.
 - [ ] **Примерни проекти.** 4 записа в `src/data/projects.ts` са флагнати със `sample: true`.
@@ -157,6 +159,8 @@ flexible financing.
 ### TO-DO before launch
 
 **Blockers** — do not promote the site until these are done:
+
+- [ ] **Domain / indexing.** `nvpower.bg` still serves the old (Wix) site, so this deployment is a demo and is **noindex** (`SITE_INDEXABLE = false` in `src/config/site.ts`; `robots.txt` returns `Disallow: /`). `SITE_URL` deliberately stays `https://nvpower.bg` so canonical/hreflang/og:url/sitemap are already correct the moment this build becomes the real site — then just flip the flag to `true`. Mind the `www` form too: `nvpower.bg` 301s to `www.nvpower.bg`.
 
 - [ ] **Form endpoint.** `site.formEndpoint` is an empty string, so forms send nothing — visitors get the phone/email fallback. Wire a form service or serverless function (see the Forms section below).
 - [ ] **Masked data.** Phone, company ID (ЕИК), VAT number, EWRC licence number and the electricity price are deliberately `XXX` / `XXXXXXX` in `src/config/site.ts` — replace with the real values.

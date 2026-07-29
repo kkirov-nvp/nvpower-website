@@ -8,6 +8,21 @@
 
 export const SITE_URL = "https://nvpower.bg";
 
+/**
+ * Is THIS deployment the canonical site?
+ *
+ * false while the build lives on a *.vercel.app preview URL and nvpower.bg still
+ * serves the old (Wix) site. Two things go wrong otherwise: every page declares
+ * a canonical of https://nvpower.bg/... which 404s over there, so search engines
+ * drop the page or guess; and the demo competes with the real site for NV Power
+ * brand terms.
+ *
+ * SITE_URL deliberately stays nvpower.bg so canonicals, hreflang, og:url and the
+ * sitemap are already correct the moment this build becomes the real site — at
+ * which point flip this to true and nothing else needs touching.
+ */
+export const SITE_INDEXABLE = false;
+
 export const site = {
   name: "NV Power",
   tagline: { bg: "Енергия за утрешния ден", en: "Energy for tomorrow" },
