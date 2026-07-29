@@ -38,11 +38,19 @@ const t = useUI(locale);
     </label>
   </div>
 
-  <div class="mt-4 flex flex-wrap gap-2">
+  <!-- Settings sits inline to the right of the two main choices; it drops the
+       btn padding so all three fit on one row in the narrow banner. -->
+  <div class="mt-4 flex flex-wrap items-center gap-2">
     <button id="cc-accept" type="button" class="btn btn-primary !py-2.5 text-sm">{t.consent.acceptAll}</button>
     <button id="cc-reject" type="button" class="btn btn-outline !py-2.5 text-sm">{t.consent.rejectAll}</button>
-    <button id="cc-toggle" type="button" class="btn !py-2.5 text-sm text-muted underline">{t.consent.settings}</button>
     <button id="cc-save" type="button" hidden class="btn btn-outline !py-2.5 text-sm">{t.consent.save}</button>
+    <button
+      id="cc-toggle"
+      type="button"
+      class="rounded-lg px-2 py-2.5 text-sm font-semibold text-muted underline transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    >
+      {t.consent.settings}
+    </button>
   </div>
 </div>
 

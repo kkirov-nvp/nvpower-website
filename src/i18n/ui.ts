@@ -28,7 +28,7 @@ export const ui = {
       backToTop: "Обратно към началото на страницата",
     },
     promises: {
-      response: `Отговор до 1 работен ден`,
+      response: `Отговор до 3 работни дни`,
       noFees: "Без скрити такси",
       offer2min: "Оферта за 2 минути",
       noDeposit: "Без депозити",
@@ -36,7 +36,7 @@ export const ui = {
     },
     cta: {
       title: "Готов за енергийна независимост?",
-      text: `Вземи оферта за 2 минути или ни се обади — отговаряме до 1 работен ден.`,
+      text: `Вземи оферта за 2 минути или ни се обади — отговаряме до 3 работни дни.`,
       primary: "Вземи оферта",
       call: "Обади се",
     },
@@ -106,7 +106,7 @@ export const ui = {
       backToTop: "Back to top of page",
     },
     promises: {
-      response: `Reply within 1 business day`,
+      response: `Reply within 3 business days`,
       noFees: "No hidden fees",
       offer2min: "A quote in 2 minutes",
       noDeposit: "No deposits",
@@ -114,7 +114,7 @@ export const ui = {
     },
     cta: {
       title: "Ready for energy independence?",
-      text: `Get a quote in 2 minutes or give us a call — we reply within 1 business day.`,
+      text: `Get a quote in 2 minutes or give us a call — we reply within 3 business days.`,
       primary: "Get a quote",
       call: "Call us",
     },

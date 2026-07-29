@@ -23,13 +23,14 @@ const c = {
       sub: "Лицензиран търговец на електроенергия за бизнеса и дома.",
       ctaPrimary: "Вземи оферта за 2 минути",
       ctaSecondary: "Виж плановете",
-      checks: [`Отговор до 1 работен ден`, "Без скрити такси", "Без депозити"],
+      checks: [`Отговор до 3 работни дни`, "Без скрити такси", "Без депозити"],
     },
     plans: {
       eyebrow: "Планове",
       title: "Избери как да продаваш тока си",
       lead: "Три плана с ясна цена и договор — с постоянна комуникация с екипа ни през целия период.",
       note: "Всички планове включват участие в балансиращата ни група",
+      noticeLabel: "Предизвестие",
       items: [
         {
           icon: Zap,
@@ -59,14 +60,14 @@ const c = {
               id: "flex",
               label: "Standard Flexible",
               formula: "БНЕБ − 5 €",
-              notice: "Предизвестие: 3 месеца",
+              notice: "3 месеца",
               hint: "По-кратък срок, повече свобода",
             },
             {
               id: "long",
               label: "Standard Дългосрочен",
               formula: "БНЕБ − 4 €",
-              notice: "Предизвестие: 12 месеца",
+              notice: "12 месеца",
               hint: "Най-добрата цена за стандартен план",
             },
           ],
@@ -87,7 +88,7 @@ const c = {
           features: [
             "Персонализирана оферта за производители с мощност над 1 MW",
             "Предизвестие: индивидуално спрямо договора",
-            "Дълбок анализ на производствения профил преди офертата",
+            "Анализ на производствения профил преди офертата",
             "Личен акаунт мениджър и индивидуална търговска стратегия",
           ],
           cta: "Заяви индивидуална оферта",
@@ -125,7 +126,7 @@ const c = {
     invoice: {
       eyebrow: "Провери сам",
       title: "Изпрати ни фактура — ще ти покажем разликата",
-      lead: `Прикачи последната си фактура за ток и ще получиш сравнителна оферта до 1 работен ден — с конкретни числа, не с обещания.`,
+      lead: `Прикачи последната си фактура за ток и ще получиш сравнителна оферта до 3 работни дни — с конкретни числа, не с обещания.`,
     },
     faq: {
       eyebrow: "Въпроси",
@@ -147,13 +148,14 @@ const c = {
       sub: "A licensed electricity trader for business and home.",
       ctaPrimary: "Get a quote in 2 minutes",
       ctaSecondary: "See the plans",
-      checks: [`Reply within 1 business day`, "No hidden fees", "No deposits"],
+      checks: [`Reply within 3 business days`, "No hidden fees", "No deposits"],
     },
     plans: {
       eyebrow: "Plans",
       title: "Choose how you sell your power",
       lead: "Three plans with a clear price and a clear contract — and constant contact with our team throughout.",
       note: "Every plan includes membership in our balancing group",
+      noticeLabel: "Notice period",
       items: [
         {
           icon: Zap,
@@ -183,14 +185,14 @@ const c = {
               id: "flex",
               label: "Standard Flexible",
               formula: "IBEX − €5",
-              notice: "Notice period: 3 months",
+              notice: "3 months",
               hint: "Shorter term, more freedom",
             },
             {
               id: "long",
               label: "Standard Long-term",
               formula: "IBEX − €4",
-              notice: "Notice period: 12 months",
+              notice: "12 months",
               hint: "The best price in the standard plan",
             },
           ],
@@ -211,7 +213,7 @@ const c = {
           features: [
             "A tailored offer for producers with over 1 MW installed capacity",
             "Notice period: set individually in the contract",
-            "In-depth analysis of your generation profile before the offer",
+            "Analysis of your generation profile before the offer",
             "A personal account manager and an individual trading strategy",
           ],
           cta: "Request an individual offer",
@@ -249,7 +251,7 @@ const c = {
     invoice: {
       eyebrow: "Check for yourself",
       title: "Send us an invoice — we'll show you the difference",
-      lead: `Attach your latest electricity invoice and you'll get a comparative quote within 1 business day — with real numbers, not promises.`,
+      lead: `Attach your latest electricity invoice and you'll get a comparative quote within 3 business days — with real numbers, not promises.`,
     },
     faq: {
       eyebrow: "Questions",
@@ -335,7 +337,9 @@ const c = {
                 <div class="flex flex-col rounded-xl border border-line bg-surface-alt p-3">
                   <p class="text-[11px] leading-tight font-bold tracking-wide text-accent uppercase">{opt.label}</p>
                   <p class="mt-2 font-[family-name:var(--font-display)] text-base leading-none font-bold whitespace-nowrap text-accent">{opt.formula}</p>
-                  <p class="mt-2 text-xs leading-snug font-semibold text-body">{opt.notice}</p>
+                  <p class="mt-2 text-xs leading-snug font-semibold text-body">
+                    {c.plans.noticeLabel}: <span class="whitespace-nowrap">{opt.notice}</span>
+                  </p>
                   <p class="mt-1 text-[11px] leading-snug text-muted">{opt.hint}</p>
                 </div>
               ))}
@@ -427,7 +431,7 @@ const c = {
     <div class="container-site section">
       <SectionHeading eyebrow={c.invoice.eyebrow} title={c.invoice.title} lead={c.invoice.lead} on="band" />
       <ul class="mt-7 flex flex-wrap items-center justify-center gap-x-7 gap-y-2.5">
-        <li class="flex items-center gap-2 text-sm font-medium text-white/85"><Clock class="size-4 text-[#6fd0da]" aria-hidden="true" /> {locale === "bg" ? `Отговор до 1 работен ден` : `Reply within 1 business day`}</li>
+        <li class="flex items-center gap-2 text-sm font-medium text-white/85"><Clock class="size-4 text-[#6fd0da]" aria-hidden="true" /> {locale === "bg" ? `Отговор до 3 работни дни` : `Reply within 3 business days`}</li>
         <li class="flex items-center gap-2 text-sm font-medium text-white/85"><BadgePercent class="size-4 text-[#6fd0da]" aria-hidden="true" /> {locale === "bg" ? "Без скрити такси" : "No hidden fees"}</li>
         <li class="flex items-center gap-2 text-sm font-medium text-white/85"><ShieldCheck class="size-4 text-[#6fd0da]" aria-hidden="true" /> {locale === "bg" ? "Без ангажимент" : "No commitment"}</li>
       </ul>

@@ -47,8 +47,8 @@ export const site = {
     instagram: "",
   },
 
-  /** Response promise repeated sitewide (§8): "в рамките на 1 работен ден". */
-  responseTime: { bg: "1 работен ден", en: "1 business day" },
+  /** Response promise repeated sitewide (§8): "в рамките на 3 работни дни". */
+  responseTime: { bg: "3 работни дни", en: "3 business days" },
 
   /**
    * Electricity price — published and transparent.
