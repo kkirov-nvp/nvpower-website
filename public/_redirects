@@ -10,8 +10,10 @@
 # any link equity and stop old links from dead-ending. Bulgarian slugs are
 # unchanged and need no rules.
 #
-# Trailing slashes are normalised during matching, so /en/tok and /en/tok/
-# both resolve. Keep these rules as long as the old URLs may still be linked.
+# Netlify / Cloudflare normalise trailing slashes when matching. Vercel does
+# NOT — with trailingSlash: true it rewrites to the slash form *before* matching
+# redirects, so vercel.json must spell the sources with the slash. Keep these
+# rules as long as the old URLs may still be linked.
 
 /en/tok/                     /en/electricity/            301
 /en/oferta/                  /en/request-a-quote/        301

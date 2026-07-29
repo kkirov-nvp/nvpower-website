@@ -22,16 +22,16 @@
     }
   ],
   "redirects": [
-    { "source": "/en/tok", "destination": "/en/electricity/", "permanent": true },
-    { "source": "/en/oferta", "destination": "/en/request-a-quote/", "permanent": true },
-    { "source": "/en/kalkulator", "destination": "/en/calculator/", "permanent": true },
-    { "source": "/en/proekti", "destination": "/en/projects/", "permanent": true },
-    { "source": "/en/za-nas", "destination": "/en/about/", "permanent": true },
-    { "source": "/en/info", "destination": "/en/resources/", "permanent": true },
-    { "source": "/en/kontakti", "destination": "/en/contact/", "permanent": true },
-    { "source": "/en/politika-poveritelnost", "destination": "/en/privacy/", "permanent": true },
-    { "source": "/en/obshti-usloviya", "destination": "/en/terms/", "permanent": true },
-    { "source": "/en/solar/za-doma", "destination": "/en/solar/residential/", "permanent": true },
-    { "source": "/en/solar/za-biznesa", "destination": "/en/solar/for-business/", "permanent": true }
+    { "source": "/en/tok/", "destination": "/en/electricity/", "permanent": true },
+    { "source": "/en/oferta/", "destination": "/en/request-a-quote/", "permanent": true },
+    { "source": "/en/kalkulator/", "destination": "/en/calculator/", "permanent": true },
+    { "source": "/en/proekti/", "destination": "/en/projects/", "permanent": true },
+    { "source": "/en/za-nas/", "destination": "/en/about/", "permanent": true },
+    { "source": "/en/info/", "destination": "/en/resources/", "permanent": true },
+    { "source": "/en/kontakti/", "destination": "/en/contact/", "permanent": true },
+    { "source": "/en/politika-poveritelnost/", "destination": "/en/privacy/", "permanent": true },
+    { "source": "/en/obshti-usloviya/", "destination": "/en/terms/", "permanent": true },
+    { "source": "/en/solar/za-doma/", "destination": "/en/solar/residential/", "permanent": true },
+    { "source": "/en/solar/za-biznesa/", "destination": "/en/solar/for-business/", "permanent": true }
   ]
 }
