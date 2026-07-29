@@ -51,8 +51,6 @@ const c = {
           icon: LineChart,
           badge: "Най-популярен",
           name: "NV Standard",
-          priceMain: "от БНЕБ − 4 €",
-          priceSub: "до БНЕБ − 5 € на MWh",
           term: "две нива на гъвкавост",
           /* Two-component plan — the visitor picks a tier inside the card. */
           options: [
@@ -96,6 +94,7 @@ const c = {
       ],
       /* B2B block under the cards — supply *and* buy-back above 1 MW. */
       b2b: {
+        badge: "За обекти над 1 MW",
         title: "Продаваме ток и изготвяме индивидуални оферти",
         text: "Персонализирано изкупуване и доставка на електрическа енергия за консуматори и производители с мощност над 1 MW — разработени на база специфичния профил на производство и потребление.",
         cta: "Свържи се с нас",
@@ -176,8 +175,6 @@ const c = {
           icon: LineChart,
           badge: "Most popular",
           name: "NV Standard",
-          priceMain: "from IBEX − €4",
-          priceSub: "to IBEX − €5 per MWh",
           term: "two levels of flexibility",
           /* Two-component plan — the visitor picks a tier inside the card. */
           options: [
@@ -221,6 +218,7 @@ const c = {
       ],
       /* B2B block under the cards — supply *and* buy-back above 1 MW. */
       b2b: {
+        badge: "For sites over 1 MW",
         title: "We sell power and build individual offers",
         text: "Bespoke buy-back and supply of electricity for consumers and producers above 1 MW — built around your specific generation and consumption profile.",
         cta: "Get in touch",
@@ -305,7 +303,9 @@ const c = {
       {c.plans.note}
     </p>
 
-    <div class="mt-12 grid gap-6 md:grid-cols-3">
+    <!-- 3-up only from xl: at md the cards are ~160px wide, too narrow for the
+         tier boxes and it forces the plan title onto two lines -->
+    <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
       {c.plans.items.map((plan, i) => (
         <article
           class:list={["reveal card relative flex h-full flex-col gap-5 p-7 md:p-8", i === 1 && "border-accent ring-1 ring-accent"]}
@@ -323,13 +323,20 @@ const c = {
           <span class="mt-2 flex size-12 items-center justify-center rounded-xl bg-accent/10 text-accent">
             <plan.icon class="size-6" aria-hidden="true" />
           </span>
-          <h3 class="text-xl font-bold text-body">{plan.name}</h3>
+          <h3 class="text-xl font-bold text-body">
+            {plan.name}
+            {"options" in plan && plan.options && (
+              <span class="text-xs font-medium text-muted"> ({plan.term})</span>
+            )}
+          </h3>
 
-          <p class="font-[family-name:var(--font-display)]">
-            <span class:list={["font-bold text-accent", i === 1 ? "text-4xl" : "text-3xl"]}>{plan.priceMain}</span>
-            <span class="mt-1 block text-sm font-bold text-muted">{plan.priceSub}</span>
-            <span class="mt-1 block text-sm font-medium text-accent">{plan.term}</span>
-          </p>
+          {!("options" in plan && plan.options) && (
+            <p class="font-[family-name:var(--font-display)]">
+              <span class:list={["font-bold text-accent", i === 1 ? "text-4xl" : "text-3xl"]}>{plan.priceMain}</span>
+              <span class="mt-1 block text-sm font-bold text-muted">{plan.priceSub}</span>
+              <span class="mt-1 block text-sm font-medium text-accent">{plan.term}</span>
+            </p>
+          )}
 
           {"options" in plan && plan.options && (
             <div class="grid grid-cols-2 gap-2.5">
@@ -363,21 +370,34 @@ const c = {
       ))}
     </div>
 
-    <!-- B2B: supply and buy-back above 1 MW -->
-    <div class="reveal card mt-8 flex flex-col gap-5 border-accent/30 bg-accent/5 p-7 md:flex-row md:items-center md:justify-between md:p-8">
-      <div class="flex items-start gap-4">
-        <span class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
-          <Building2 class="size-6" aria-hidden="true" />
-        </span>
-        <div>
-          <h3 class="text-lg font-bold text-body">{c.plans.b2b.title}</h3>
-          <p class="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted">{c.plans.b2b.text}</p>
+    <!-- B2B: supply and buy-back above 1 MW. Deliberately the loudest block on
+         the page — it sits on the dark band surface the hero and CTA band use, so
+         it separates hard from the white plan cards without new colours. -->
+    <div
+      class="reveal mt-10 overflow-hidden rounded-2xl bg-band-deep p-8 shadow-[0_18px_50px_-18px_rgb(13_47_51/0.55)] ring-1 ring-accent/40 md:p-10"
+    >
+      <div class="flex flex-col gap-7 md:flex-row md:items-center md:justify-between md:gap-10">
+        <div class="flex items-start gap-5">
+          <span class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-accent text-accent-contrast">
+            <Building2 class="size-7" aria-hidden="true" />
+          </span>
+          <div>
+            <span
+              class="inline-block rounded-full bg-accent px-3 py-1 font-[family-name:var(--font-display)] text-xs font-bold tracking-wide text-accent-contrast uppercase"
+            >
+              {c.plans.b2b.badge}
+            </span>
+            <h3 class="mt-3 font-[family-name:var(--font-display)] text-2xl font-bold text-white md:text-3xl">
+              {c.plans.b2b.title}
+            </h3>
+            <p class="mt-3 max-w-2xl text-base leading-relaxed text-white/80">{c.plans.b2b.text}</p>
+          </div>
         </div>
+        <a href={r(locale, "kontakti")} class="btn btn-primary shrink-0 self-start !px-8 !py-4 text-base md:self-auto">
+          {c.plans.b2b.cta}
+          <ArrowRight class="size-4" aria-hidden="true" />
+        </a>
       </div>
-      <a href={r(locale, "kontakti")} class="btn btn-outline shrink-0 self-start md:self-auto">
-        {c.plans.b2b.cta}
-        <ArrowRight class="size-4" aria-hidden="true" />
-      </a>
     </div>
   </section>
 
