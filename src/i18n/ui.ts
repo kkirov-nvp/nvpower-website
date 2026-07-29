@@ -50,6 +50,7 @@ export const ui = {
       contact: "Контакти",
       links: {
         tok: "Ток за бизнеса и дома",
+        izkupuvane: "Изкупуване на ток от производители",
         solar: "Соларни системи и батерии",
         solarHome: "Соларна система за дома",
         solarBiz: "Соларна система за бизнеса",
@@ -128,6 +129,7 @@ export const ui = {
       contact: "Contact",
       links: {
         tok: "Electricity for business & home",
+        izkupuvane: "Buy-back for producers",
         solar: "Solar systems & batteries",
         solarHome: "Solar for your home",
         solarBiz: "Solar for your business",
