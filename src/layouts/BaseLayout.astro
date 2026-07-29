@@ -16,7 +16,7 @@ interface Props {
   locale: Locale;
   title: string;
   description: string;
-  /** BG-canonical path of this page, e.g. "/tok/" — used for canonical + hreflang */
+  /** BG-canonical path of this page, e.g. "/tok/" – used for canonical + hreflang */
   path: string;
   /** Extra JSON-LD blocks (already-serializable objects) */
   jsonLd?: object[];
@@ -28,7 +28,7 @@ interface Props {
 const { locale, title, description, path, jsonLd = [], ogImage = "/og-default.png", noindex = false } = Astro.props;
 /* Page-level noindex (404) OR a non-canonical deployment both block indexing.
    Canonical/hreflang stay driven by `noindex` alone, so the markup a real
-   deployment emits is unchanged — only the robots meta is added here. */
+   deployment emits is unchanged – only the robots meta is added here. */
 const blockIndexing = noindex || !SITE_INDEXABLE;
 const t = useUI(locale);
 const alt = alternates(path);

@@ -36,13 +36,13 @@ export const ui = {
     },
     cta: {
       title: "Готов за енергийна независимост?",
-      text: `Вземи оферта за 2 минути или ни се обади — отговаряме до 3 работни дни.`,
+      text: `Вземи оферта за 2 минути или ни се обади – отговаряме до 3 работни дни.`,
       primary: "Вземи оферта",
       call: "Обади се",
     },
     footer: {
       oneLiner:
-        "Ток на ясна цена и соларни централи с батерии — от един партньор, който мисли за твоята дългосрочна независимост.",
+        "Ток на ясна цена и соларни централи с батерии – от един партньор, който мисли за твоята дългосрочна независимост.",
       services: "Услуги",
       company: "Компания",
       information: "Информация",
@@ -114,13 +114,13 @@ export const ui = {
     },
     cta: {
       title: "Ready for energy independence?",
-      text: `Get a quote in 2 minutes or give us a call — we reply within 3 business days.`,
+      text: `Get a quote in 2 minutes or give us a call – we reply within 3 business days.`,
       primary: "Get a quote",
       call: "Call us",
     },
     footer: {
       oneLiner:
-        "Electricity at a clear price and solar plants with batteries — from one partner focused on your long-term independence.",
+        "Electricity at a clear price and solar plants with batteries – from one partner focused on your long-term independence.",
       services: "Services",
       company: "Company",
       information: "Information",

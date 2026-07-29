@@ -5,7 +5,7 @@ import NoScriptFallback from "./NoScriptFallback";
 import { site, type Locale } from "../config/site";
 import { r } from "../i18n/routes";
 
-/* §6.4 — multi-step offer wizard (~60–90 sec). Preserves the original
+/* §6.4 – multi-step offer wizard (~60–90 sec). Preserves the original
    questionnaire's expert field logic, rebuilt as a friendly wizard with
    progress bar, branching, GDPR and an explicit success timeline. */
 
@@ -302,7 +302,7 @@ export default function OfferWizard({ locale }: { locale: Locale }) {
 
               {f.kind === "choice" && f.options.length > 8 ? (
                 <select id={f.id} name={f.id} className="field" value={(answers[f.id] as string) ?? ""} onChange={(e) => set(f.id, e.target.value)} aria-label={f.label ?? step.title}>
-                  <option value="" disabled>—</option>
+                  <option value="" disabled>–</option>
                   {f.options.map((o) => <option key={o} value={o}>{o}</option>)}
                 </select>
               ) : f.kind === "choice" ? (

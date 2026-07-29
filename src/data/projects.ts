@@ -1,9 +1,9 @@
 import type { Locale } from "../config/site";
 
 /* ==========================================================================
-   ⚠️  SAMPLE DATA — §2 [PROJECTS]. Replace with REAL completed installations
+   ⚠️  SAMPLE DATA – §2 [PROJECTS]. Replace with REAL completed installations
    before publishing (location, kWp, battery, photo, client type, savings).
-   Never publish fake projects. Delete entries you can't verify — the site
+   Never publish fake projects. Delete entries you can't verify – the site
    renders an honest "coming soon" state when this list is empty.
    ========================================================================== */
 
@@ -19,7 +19,7 @@ export type Project = {
   annualSavings: Record<Locale, string>;
   story: Record<Locale, string>;
   quote?: { text: Record<Locale, string>; author: Record<Locale, string> };
-  image: string; // /images/projects/*.webp — real photos only
+  image: string; // /images/projects/*.webp – real photos only
   featured: boolean;
   sample: true; // remove this flag on real entries
 };
@@ -36,8 +36,8 @@ export const projects: Project[] = [
     status: { bg: "В експлоатация", en: "Operational" },
     annualSavings: { bg: "≈ 19 400 € годишно", en: "≈ €19,400 per year" },
     story: {
-      bg: "Хибридна система върху плосък покрив с батерия за покриване на вечерните смени. Примерен запис — замени с реален проект.",
-      en: "Hybrid flat-roof system with a battery covering evening shifts. Sample entry — replace with a real project.",
+      bg: "Хибридна система върху плосък покрив с батерия за покриване на вечерните смени. Примерен запис – замени с реален проект.",
+      en: "Hybrid flat-roof system with a battery covering evening shifts. Sample entry – replace with a real project.",
     },
     image: "",
     featured: true,
@@ -54,8 +54,8 @@ export const projects: Project[] = [
     status: { bg: "В експлоатация", en: "Operational" },
     annualSavings: { bg: "≈ 1 480 € годишно", en: "≈ €1,480 per year" },
     story: {
-      bg: "Скатен покрив юг, 10 kWp + 10 kWh батерия, зарядна станция за електромобил. Примерен запис — замени с реален проект.",
-      en: "South-facing pitched roof, 10 kWp + 10 kWh battery, EV charger. Sample entry — replace with a real project.",
+      bg: "Скатен покрив юг, 10 kWp + 10 kWh батерия, зарядна станция за електромобил. Примерен запис – замени с реален проект.",
+      en: "South-facing pitched roof, 10 kWp + 10 kWh battery, EV charger. Sample entry – replace with a real project.",
     },
     image: "",
     featured: true,
@@ -72,8 +72,8 @@ export const projects: Project[] = [
     status: { bg: "В експлоатация", en: "Operational" },
     annualSavings: { bg: "≈ 31 200 € годишно", en: "≈ €31,200 per year" },
     story: {
-      bg: "Наземна конструкция върху свободен терен, захранва напоителна система и хладилни складове. Примерен запис — замени с реален проект.",
-      en: "Ground-mounted on free terrain, powering irrigation and cold storage. Sample entry — replace with a real project.",
+      bg: "Наземна конструкция върху свободен терен, захранва напоителна система и хладилни складове. Примерен запис – замени с реален проект.",
+      en: "Ground-mounted on free terrain, powering irrigation and cold storage. Sample entry – replace with a real project.",
     },
     image: "",
     featured: true,

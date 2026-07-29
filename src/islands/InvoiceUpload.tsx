@@ -6,7 +6,7 @@ import type { Locale } from "../config/site";
 import { site } from "../config/site";
 import { r } from "../i18n/routes";
 
-/* /tok invoice-upload block — send us a recent invoice, get a comparative
+/* /tok invoice-upload block – send us a recent invoice, get a comparative
    quote. File + phone (+ optional email), GDPR, honeypot. Mirrors the
    ContactForm pattern. */
 
@@ -23,7 +23,7 @@ const copy = {
     successText: `Ще получиш сравнителна оферта до 3 работни дни.`,
     required: "Прикачи фактура, попълни телефон и отбележи съгласието.",
     error: "Нещо се обърка. Пиши ни директно на " + site.email + ".",
-    fileHint: "Числата от фактурата ни стигат — не ни трябва нищо друго.",
+    fileHint: "Числата от фактурата ни стигат – не ни трябва нищо друго.",
   },
   en: {
     file: "Your latest electricity invoice (PDF, JPG or PNG) *",
@@ -37,7 +37,7 @@ const copy = {
     successText: `You'll receive a comparative quote within 3 business days.`,
     required: "Attach an invoice, fill in your phone and tick the consent box.",
     error: "Something went wrong. Email us directly at " + site.email + ".",
-    fileHint: "The numbers on the invoice are all we need — nothing else.",
+    fileHint: "The numbers on the invoice are all we need – nothing else.",
   },
 } as const;
 

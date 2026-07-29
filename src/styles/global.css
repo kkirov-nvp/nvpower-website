@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ==========================================================================
-   NV Power — theming system
+   NV Power – theming system
    Light theme is the default; dark theme via [data-theme='dark'] on <html>.
    Palette: teal accent #007B88 + deep charcoal, clean corporate look.
    ========================================================================== */
@@ -25,14 +25,14 @@
   --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   --input-bg: #f8f9fa;
 
-  /* Dark band sections (footer / CTA) — dark in both themes */
+  /* Dark band sections (footer / CTA) – dark in both themes */
   --band-bg: #212121;
   --band-bg-deep: #18181b;
 }
 
 [data-theme="dark"] {
   /*
-   * Dark theme — deep pine/forest teal.
+   * Dark theme – deep pine/forest teal.
    * Background sits darker than the NV-letter colour (#14474b) so the logo
    * remains legible when shown without its white pill.
    */
@@ -41,8 +41,8 @@
    * pine background wants to be bright, while white text ON an accent button
    * wants it dark. #0d9aaa split the difference and failed both (4.29:1 as
    * text on the background, 3.66:1 on cards, and only 3.38:1 for white on the
-   * primary button). Resolved by going bright enough for text — 5.72:1 on the
-   * background, 4.89:1 on cards — and flipping button foregrounds to a deep
+   * primary button). Resolved by going bright enough for text – 5.72:1 on the
+   * background, 4.89:1 on cards – and flipping button foregrounds to a deep
    * pine via --accent-contrast, which lands at 6.31:1.
    */
   --accent: #17b3c6;
@@ -154,7 +154,7 @@
   color: var(--eyebrow-color, var(--accent));
 }
 
-/* Card — lifts from the page background in both themes */
+/* Card – lifts from the page background in both themes */
 @utility card {
   border-radius: 0.875rem;
   border: 1px solid var(--line-color);
@@ -170,7 +170,7 @@
   background: rgb(255 255 255 / 0.05);
 }
 
-/* Buttons — teal accent, smooth transitions */
+/* Buttons – teal accent, smooth transitions */
 @utility btn {
   display: inline-flex;
   align-items: center;
@@ -187,7 +187,7 @@
   text-decoration: none;
   /* Deliberately NOT nowrap: the long Bulgarian labels ("Вземи оферта за 2
      минути" is 321px) cannot shrink, so on a 320-390px phone they forced the
-     button — and any grid card containing one — wider than the viewport. */
+     button – and any grid card containing one – wider than the viewport. */
   text-align: center;
   text-wrap: balance;
 }
@@ -213,7 +213,7 @@
   &:focus-visible { outline: 3px solid rgb(255 255 255 / 0.35); outline-offset: 2px; }
 }
 
-/* Form controls — solid + light border in light theme, darker in dark theme */
+/* Form controls – solid + light border in light theme, darker in dark theme */
 @utility field {
   display: flex;
   width: 100%;
@@ -261,7 +261,7 @@
   .icon-moon { display: inline-block; }
 
   /*
-   * Logo chip — fully transparent & borderless on light surfaces so the
+   * Logo chip – fully transparent & borderless on light surfaces so the
    * JPEG's own white background blends fluidly into the white page.
    * On dark surfaces (dark theme or footer-band) it gains a smooth white
    * pill with a soft shadow.

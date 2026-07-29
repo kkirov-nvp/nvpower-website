@@ -1,8 +1,8 @@
 /* ==========================================================================
-   NV Power — central business facts (§2 of the build brief)
+   NV Power – central business facts (§2 of the build brief)
 
    ⚠️  EVERY value marked [PLACEHOLDER] must be replaced with the real fact
-   before publishing. This is the ONLY file that needs editing — all pages
+   before publishing. This is the ONLY file that needs editing – all pages
    read from here. Never publish unverifiable claims.
    ========================================================================== */
 
@@ -18,7 +18,7 @@ export const SITE_URL = "https://nvpower.bg";
  * brand terms.
  *
  * SITE_URL deliberately stays nvpower.bg so canonicals, hreflang, og:url and the
- * sitemap are already correct the moment this build becomes the real site — at
+ * sitemap are already correct the moment this build becomes the real site – at
  * which point flip this to true and nothing else needs touching.
  */
 export const SITE_INDEXABLE = false;
@@ -27,7 +27,7 @@ export const site = {
   name: "NV Power",
   tagline: { bg: "Енергия за утрешния ден", en: "Energy for tomorrow" },
 
-  /** [PLACEHOLDER] main phone — appears in header, click-to-call */
+  /** [PLACEHOLDER] main phone – appears in header, click-to-call */
   phone: "+359 XXXXXXX",
   phoneHref: "+359XXXXXXX",
 
@@ -43,7 +43,7 @@ export const site = {
 
   workingHours: { bg: "Пон – Пет: 09:00 – 18:00", en: "Mon – Fri: 09:00 – 18:00" },
 
-  /** [PLACEHOLDER] legal identity — ЕИК, ДДС № */
+  /** [PLACEHOLDER] legal identity – ЕИК, ДДС № */
   legal: {
     bg: "„НВ Пауър“ ЕООД · ЕИК XXXXXXX · ДДС № BGXXXXXXX",
     en: "NV Power Ltd · UIC XXXXXXX · VAT BGXXXXXXX",
@@ -55,7 +55,7 @@ export const site = {
     en: "Electricity trading licence No. XXXXXXX / EWRC",
   },
 
-  /** [PLACEHOLDER] real social profiles — remove any that don't exist */
+  /** [PLACEHOLDER] real social profiles – remove any that don't exist */
   socials: {
     facebook: "https://www.facebook.com/nvpower",
     linkedin: "https://www.linkedin.com/company/nvpower",
@@ -66,23 +66,23 @@ export const site = {
   responseTime: { bg: "3 работни дни", en: "3 business days" },
 
   /**
-   * Electricity price — published and transparent.
+   * Electricity price – published and transparent.
    * Bulgaria joined the euro area in January 2026, so the euro is the only
    * currency quoted anywhere on the site. Do not reintroduce lev pricing.
    */
   price: {
     /**
      * [PLACEHOLDER] Indicative rate the solar calculator computes with. It is
-     * NOT shown as a published tariff anywhere — `display` below is masked
+     * NOT shown as a published tariff anywhere – `display` below is masked
      * until a real price is agreed, so no invented figure can be read as a
      * commitment. Set both together.
      */
     eurPerKwh: 0.099,
-    /** [PLACEHOLDER] the publicly quoted price — masked until confirmed. */
+    /** [PLACEHOLDER] the publicly quoted price – masked until confirmed. */
     display: { bg: "XXX €/кВтч", en: "€XXX/kWh" },
   },
 
-  /** [PLACEHOLDER] §2 [TEAM] — at least founder/manager with a real photo */
+  /** [PLACEHOLDER] §2 [TEAM] – at least founder/manager with a real photo */
   team: [
     {
       name: { bg: "Николай Върбанов", en: "Nikolay Varbanov" }, // [PLACEHOLDER] mock name
@@ -92,10 +92,10 @@ export const site = {
   ],
 
   /**
-   * [PLACEHOLDER] Form endpoint — POST target receiving multipart FormData
+   * [PLACEHOLDER] Form endpoint – POST target receiving multipart FormData
    * (e.g. https://formspree.io/f/XXXX, or your own serverless handler).
    * While this is empty every form shows the visitor the email/phone fallback
-   * instead of a false "we got it" — see src/lib/lead.ts. Must be set, and the
+   * instead of a false "we got it" – see src/lib/lead.ts. Must be set, and the
    * origin added to connect-src + form-action in public/_headers, before launch.
    */
   formEndpoint: "" as string,

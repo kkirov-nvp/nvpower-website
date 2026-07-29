@@ -14,13 +14,13 @@ const segments = ["home", "business", "industry", "agri"] as const;
 
 const c = {
   bg: {
-    title: "Проекти — реални соларни системи и икономии | NV Power",
+    title: "Проекти – реални соларни системи и икономии | NV Power",
     description:
-      "Разгледай изградени от NV Power соларни системи с батерии — за дома, бизнеса, индустрията и земеделието. Мощност, локация и реална годишна икономия за всеки проект.",
+      "Разгледай изградени от NV Power соларни системи с батерии – за дома, бизнеса, индустрията и земеделието. Мощност, локация и реална годишна икономия за всеки проект.",
     hero: {
       eyebrow: "Проекти",
       h1: "Реални системи. Реални икономии.",
-      sub: "Разгледай изградени системи по сегмент — с мощност, батерия, локация и годишна икономия. Без разкрасяване.",
+      sub: "Разгледай изградени системи по сегмент – с мощност, батерия, локация и годишна икономия. Без разкрасяване.",
     },
     filterLabel: "Филтрирай проектите по сегмент",
     all: "Всички",
@@ -33,17 +33,17 @@ const c = {
       savings: "Икономия",
     },
     emptyFilter: "В тази категория още няма публикувани проекти. Питай ни какво изграждаме в момента.",
-    honest: "Публикуваме всеки завършен проект с реални числа и снимки — с разрешение на клиента.",
+    honest: "Публикуваме всеки завършен проект с реални числа и снимки – с разрешение на клиента.",
     ctaTitle: "Искаш подобна система?",
   },
   en: {
-    title: "Projects — real solar systems and savings | NV Power",
+    title: "Projects – real solar systems and savings | NV Power",
     description:
-      "Solar systems with batteries built by NV Power — capacity, location and real annual savings for every project.",
+      "Solar systems with batteries built by NV Power – capacity, location and real annual savings for every project.",
     hero: {
       eyebrow: "Projects",
       h1: "Real systems. Real savings.",
-      sub: "Browse completed systems by segment — with capacity, battery, location and annual savings. No embellishment.",
+      sub: "Browse completed systems by segment – with capacity, battery, location and annual savings. No embellishment.",
     },
     filterLabel: "Filter projects by segment",
     all: "All",
@@ -56,7 +56,7 @@ const c = {
       savings: "Savings",
     },
     emptyFilter: "No published projects in this category yet. Ask us what we're building right now.",
-    honest: "We publish every completed project with real numbers and photos — with the client's permission.",
+    honest: "We publish every completed project with real numbers and photos – with the client's permission.",
     ctaTitle: "Want a system like these?",
   },
 }[locale];
@@ -131,7 +131,7 @@ const c = {
                 <div class="flex items-center gap-2.5">
                   <Battery class="size-4 shrink-0 text-accent" aria-hidden="true" />
                   <dt class="text-muted">{c.specs.battery}</dt>
-                  <dd class="ml-auto font-semibold text-body">{p.batteryKwh ? `${p.batteryKwh} kWh` : "—"}</dd>
+                  <dd class="ml-auto font-semibold text-body">{p.batteryKwh ? `${p.batteryKwh} kWh` : "–"}</dd>
                 </div>
                 <div class="flex items-center gap-2.5">
                   <MapPin class="size-4 shrink-0 text-accent" aria-hidden="true" />

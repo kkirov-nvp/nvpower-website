@@ -1,10 +1,10 @@
-# NV Power — nvpower.bg
+# NV Power – nvpower.bg
 
 **🇧🇬 [Български](#български) · 🇬🇧 [English](#english)**
 
-Двуезичен маркетингов сайт за **NV Power** — търговия с електроенергия и
+Двуезичен маркетингов сайт за **NV Power** – търговия с електроенергия и
 фотоволтаични централи с батерии.
-Bilingual marketing site for **NV Power** — electricity trading and solar plants
+Bilingual marketing site for **NV Power** – electricity trading and solar plants
 with battery storage.
 
 **„Енергия за утрешния ден" / "Energy for tomorrow"**
@@ -19,36 +19,36 @@ with battery storage.
 
 ### TO-DO преди публикуване
 
-**Блокери** — сайтът не бива да се промотира преди това:
+**Блокери** – сайтът не бива да се промотира преди това:
 
-- [ ] **Домейн / индексиране.** `nvpower.bg` все още е старият (Wix) сайт, затова този деплой е демо и е **noindex** (`SITE_INDEXABLE = false` в `src/config/site.ts`; `robots.txt` връща `Disallow: /`). `SITE_URL` умишлено остава `https://nvpower.bg`, за да са верни canonical/hreflang/og:url/sitemap в момента, в който този build стане реалният сайт — тогава просто обърни флага на `true`. Внимавай и за `www` формата: `nvpower.bg` прави 301 към `www.nvpower.bg`.
+- [ ] **Домейн / индексиране.** `nvpower.bg` все още е старият (Wix) сайт, затова този деплой е демо и е **noindex** (`SITE_INDEXABLE = false` в `src/config/site.ts`; `robots.txt` връща `Disallow: /`). `SITE_URL` умишлено остава `https://nvpower.bg`, за да са верни canonical/hreflang/og:url/sitemap в момента, в който този build стане реалният сайт – тогава просто обърни флага на `true`. Внимавай и за `www` формата: `nvpower.bg` прави 301 към `www.nvpower.bg`.
 
-- [ ] **Form endpoint.** `site.formEndpoint` е празен низ, затова формите не изпращат нищо — посетителят вижда телефон и имейл. Свържи form service или serverless функция (виж раздел „Форми" по-долу).
-- [ ] **Маскирани данни.** Телефон, ЕИК, ДДС №, КЕВР лиценз № и цената на тока са умишлено `XXX` / `XXXXXXX` в `src/config/site.ts` — замени с реалните стойности.
+- [ ] **Form endpoint.** `site.formEndpoint` е празен низ, затова формите не изпращат нищо – посетителят вижда телефон и имейл. Свържи form service или serverless функция (виж раздел „Форми" по-долу).
+- [ ] **Маскирани данни.** Телефон, ЕИК, ДДС №, КЕВР лиценз № и цената на тока са умишлено `XXX` / `XXXXXXX` в `src/config/site.ts` – замени с реалните стойности.
 - [ ] **Примерни проекти.** 4 записа в `src/data/projects.ts` са флагнати със `sample: true`.
 - [ ] **Останали placeholder-и.** Адрес, Google Maps embed, екип (име + реална снимка), социални профили, GA4 id.
 
-**Несъответствия след преориентирането на `/tok/`** — страницата вече е за ВЕИ производители (изкупуване), а не за консуматори:
+**Несъответствия след преориентирането на `/tok/`** – страницата вече е за ВЕИ производители (изкупуване), а не за консуматори:
 
-- [ ] Навигацията и футърът още пишат „Ток за бизнеса и дома" и водят към `/tok/`. Реши текста — `nav.tok` и `footer.links.tok` в `src/i18n/ui.ts`.
+- [ ] Навигацията и футърът още пишат „Ток за бизнеса и дома" и водят към `/tok/`. Реши текста – `nav.tok` и `footer.links.tok` в `src/i18n/ui.ts`.
 - [ ] Началната страница все още е написана за консуматори (доставка), а `/tok/` продава изкупуване. Реши дали консуматорската оферта да се върне на отделна страница.
 - [ ] `0.099` се вижда още на 2 места, и двете като **индикативни**, не като тарифа: допусканията в `/kalkulator/` и „Примерни числа" в `/solar/za-biznesa/`. Ако трябва да се маскират, редът с бизнес случая изисква преписване, не find-and-replace (стойността е изчислена от цената).
 
 **Инфраструктура:**
 
-- [ ] Вторият Vercel проект (`nvpower-website.vercel.app`) не е свързан с `main` и отдава стар build. Линкът в About на repo-то сочи него — изтрий проекта или го насочи към `main`.
+- [ ] Вторият Vercel проект (`nvpower-website.vercel.app`) не е свързан с `main` и отдава стар build. Линкът в About на repo-то сочи него – изтрий проекта или го насочи към `main`.
 - [ ] Клонът `en-slug-rename` е слят в `main` и може да се изтрие.
 
 **Приятно за имане:**
 
-- [ ] Истинско SVG лого — нужен е векторният оригинал; сегашното е оптимизиран растер (WebP + PNG).
+- [ ] Истинско SVG лого – нужен е векторният оригинал; сегашното е оптимизиран растер (WebP + PNG).
 - [ ] Индикация за скролване (градиент отдясно) на широката сравнителна таблица в мобилен изглед.
 
 ### Стек
 
-- **Astro 7** — изцяло статичен изход, целият текст е в началния HTML (SEO)
-- **Tailwind CSS v4** — дизайн токени в `src/styles/global.css` (`@theme inline`)
-- **React islands** — само за интерактивното (wizard, калкулатор, форми)
+- **Astro 7** – изцяло статичен изход, целият текст е в началния HTML (SEO)
+- **Tailwind CSS v4** – дизайн токени в `src/styles/global.css` (`@theme inline`)
+- **React islands** – само за интерактивното (wizard, калкулатор, форми)
 - **Montserrat + Inter** (self-hosted чрез Fontsource), **Lucide** икони
 
 ### Команди
@@ -60,34 +60,34 @@ npm run preview
 npx astro check  # типова проверка
 ```
 
-### ⚠️ Преди публикуване — задължително
+### ⚠️ Преди публикуване – задължително
 
 **1. Бизнес факти.** Всичко е централизирано в **`src/config/site.ts`**, маркирано
 с `[PLACEHOLDER]`. Телефонът, ЕИК, ДДС № и КЕВР лицензът са умишлено маскирани
 като `XXXXXXX`, за да не бъдат сбъркани с истински. Замени също адрес, екип,
 социални профили и GA4 id.
 
-**2. Примерни проекти.** `src/data/projects.ts` — записите са флагнати със
+**2. Примерни проекти.** `src/data/projects.ts` – записите са флагнати със
 `sample: true`. Замени с реални или изтрий; сайтът показва честно „очаквайте
 скоро", ако списъкът е празен.
 
-**3. Форми — единственият реален блокер.** Формите POST-ват
+**3. Форми – единственият реален блокер.** Формите POST-ват
 `multipart/form-data` (включително прикачения файл) към `site.formEndpoint`.
 **Докато е празен низ, нищо не се изпраща:** посетителят вижда телефон и имейл
 като резервен вариант, а в конзолата се логва грешка. Никога не се показва
-фалшиво потвърждение — по-добре честен провал, отколкото загубен клиент.
+фалшиво потвърждение – по-добре честен провал, отколкото загубен клиент.
 
 Свържи form service (напр. Formspree) или собствена serverless функция с имейл
 до info@nvpower.bg, и попълни `site.formEndpoint`.
 
 > **CSP:** ако endpoint-ът е на **друг домейн**, добави origin-а му към
-> `connect-src` и `form-action` — на Vercel това е в **`vercel.json`**.
+> `connect-src` и `form-action` – на Vercel това е в **`vercel.json`**.
 > Endpoint на **същия домейн** (напр. `/api/lead`) не изисква промяна.
 
 ### Хостинг (Vercel)
 
 Статичен build в `dist/`. Деплойва се на **Vercel**, затова `public/_headers` и
-`public/_redirects` (Netlify / Cloudflare Pages формат) **не се четат** —
+`public/_redirects` (Netlify / Cloudflare Pages формат) **не се четат** –
 реалните HTTP хедъри и 301 редиректите идват от **`vercel.json`**. Файловете за
 Netlify са запазени само за преносимост; **промениш ли едното, промени и другото**.
 
@@ -102,7 +102,7 @@ Permissions-Policy), кеширане на `/_astro/*`, `trailingSlash: true` и
 (`/tok/` → `/en/electricity/`), описани в `EN_SLUGS`.
 
 От тази карта се генерират навигацията, езиковият превключвател, `canonical`,
-`hreflang` двойките и sitemap-ът. **Липсващ запис чупи всичките наведнъж** — ако
+`hreflang` двойките и sitemap-ът. **Липсващ запис чупи всичките наведнъж** – ако
 добавяш страница, добави и slug-а.
 
 ### Валута
@@ -145,7 +145,7 @@ src/
 
 Целият сайт е на приятелско-неформално **„ти"** (никога „Вие"). Английската
 версия е **пълно огледало**, не резюме. Обещанието за отговор е **3 работни дни**
-и се повтаря навсякъде — сменя се от `site.responseTime`.
+и се повтаря навсякъде – сменя се от `site.responseTime`.
 
 ---
 
@@ -158,36 +158,36 @@ flexible financing.
 
 ### TO-DO before launch
 
-**Blockers** — do not promote the site until these are done:
+**Blockers** – do not promote the site until these are done:
 
-- [ ] **Domain / indexing.** `nvpower.bg` still serves the old (Wix) site, so this deployment is a demo and is **noindex** (`SITE_INDEXABLE = false` in `src/config/site.ts`; `robots.txt` returns `Disallow: /`). `SITE_URL` deliberately stays `https://nvpower.bg` so canonical/hreflang/og:url/sitemap are already correct the moment this build becomes the real site — then just flip the flag to `true`. Mind the `www` form too: `nvpower.bg` 301s to `www.nvpower.bg`.
+- [ ] **Domain / indexing.** `nvpower.bg` still serves the old (Wix) site, so this deployment is a demo and is **noindex** (`SITE_INDEXABLE = false` in `src/config/site.ts`; `robots.txt` returns `Disallow: /`). `SITE_URL` deliberately stays `https://nvpower.bg` so canonical/hreflang/og:url/sitemap are already correct the moment this build becomes the real site – then just flip the flag to `true`. Mind the `www` form too: `nvpower.bg` 301s to `www.nvpower.bg`.
 
-- [ ] **Form endpoint.** `site.formEndpoint` is an empty string, so forms send nothing — visitors get the phone/email fallback. Wire a form service or serverless function (see the Forms section below).
-- [ ] **Masked data.** Phone, company ID (ЕИК), VAT number, EWRC licence number and the electricity price are deliberately `XXX` / `XXXXXXX` in `src/config/site.ts` — replace with the real values.
+- [ ] **Form endpoint.** `site.formEndpoint` is an empty string, so forms send nothing – visitors get the phone/email fallback. Wire a form service or serverless function (see the Forms section below).
+- [ ] **Masked data.** Phone, company ID (ЕИК), VAT number, EWRC licence number and the electricity price are deliberately `XXX` / `XXXXXXX` in `src/config/site.ts` – replace with the real values.
 - [ ] **Sample projects.** 4 entries in `src/data/projects.ts` are flagged `sample: true`.
 - [ ] **Remaining placeholders.** Address, Google Maps embed, team member (name + real photo), social profiles, GA4 id.
 
-**Inconsistencies after repositioning `/tok/`** — that page now targets renewable producers (buy-back), not consumers:
+**Inconsistencies after repositioning `/tok/`** – that page now targets renewable producers (buy-back), not consumers:
 
-- [ ] Nav and footer still read "Electricity for business & home" while linking to `/tok/`. Decide the wording — `nav.tok` and `footer.links.tok` in `src/i18n/ui.ts`.
+- [ ] Nav and footer still read "Electricity for business & home" while linking to `/tok/`. Decide the wording – `nav.tok` and `footer.links.tok` in `src/i18n/ui.ts`.
 - [ ] The homepage is still written for consumers buying power, while `/tok/` sells buy-back. Decide whether the consumer offering returns on its own page.
-- [ ] `0.099` still appears in 2 places, both framed as **indicative** rather than quoted as a tariff: the `/kalkulator/` assumptions and the "Example numbers" block on `/solar/za-biznesa/`. Masking those needs a rewrite, not a find-and-replace — the business-case value is derived from the rate.
+- [ ] `0.099` still appears in 2 places, both framed as **indicative** rather than quoted as a tariff: the `/kalkulator/` assumptions and the "Example numbers" block on `/solar/za-biznesa/`. Masking those needs a rewrite, not a find-and-replace – the business-case value is derived from the rate.
 
 **Infrastructure:**
 
-- [ ] The second Vercel project (`nvpower-website.vercel.app`) is not wired to `main` and serves a stale build. The repo's About link points at it — delete the project or point it at `main`.
+- [ ] The second Vercel project (`nvpower-website.vercel.app`) is not wired to `main` and serves a stale build. The repo's About link points at it – delete the project or point it at `main`.
 - [ ] Branch `en-slug-rename` is merged into `main` and can be deleted.
 
 **Nice to have:**
 
-- [ ] A real SVG logo — needs the vector original; the current one is an optimised raster (WebP + PNG).
+- [ ] A real SVG logo – needs the vector original; the current one is an optimised raster (WebP + PNG).
 - [ ] A scroll affordance (right-edge gradient) on the wide comparison table in mobile view.
 
 ### Stack
 
-- **Astro 7** — fully static output; all copy is in the initial HTML (SEO)
-- **Tailwind CSS v4** — design tokens in `src/styles/global.css` (`@theme inline`)
-- **React islands** — only for the interactive parts (wizard, calculator, forms)
+- **Astro 7** – fully static output; all copy is in the initial HTML (SEO)
+- **Tailwind CSS v4** – design tokens in `src/styles/global.css` (`@theme inline`)
+- **React islands** – only for the interactive parts (wizard, calculator, forms)
 - **Montserrat + Inter** (self-hosted via Fontsource), **Lucide** icons
 
 ### Commands
@@ -199,34 +199,34 @@ npm run preview
 npx astro check  # type check
 ```
 
-### ⚠️ Before going live — required
+### ⚠️ Before going live – required
 
 **1. Business facts.** All centralised in **`src/config/site.ts`** and marked
 `[PLACEHOLDER]`. The phone number, company ID (ЕИК), VAT number and the EWRC
 licence are deliberately masked as `XXXXXXX` so invented identifiers can never
 be mistaken for real ones. Also replace the address, team, socials and GA4 id.
 
-**2. Sample projects.** `src/data/projects.ts` — entries are flagged
+**2. Sample projects.** `src/data/projects.ts` – entries are flagged
 `sample: true`. Replace with real installations or delete them; the site renders
 an honest "coming soon" state when the list is empty.
 
-**3. Forms — the one real blocker.** Forms POST `multipart/form-data`
+**3. Forms – the one real blocker.** Forms POST `multipart/form-data`
 (attachment included) to `site.formEndpoint`. **While it is an empty string
 nothing is sent:** the visitor gets the phone/email fallback and the console logs
-an error. A false confirmation is never shown — an honest failure beats a lost
+an error. A false confirmation is never shown – an honest failure beats a lost
 lead.
 
 Wire a form service (e.g. Formspree) or your own serverless function that emails
 info@nvpower.bg, then set `site.formEndpoint`.
 
 > **CSP:** if the endpoint is on **another domain**, add its origin to
-> `connect-src` and `form-action` — on Vercel that lives in **`vercel.json`**.
+> `connect-src` and `form-action` – on Vercel that lives in **`vercel.json`**.
 > A **same-origin** endpoint (e.g. `/api/lead`) needs no change.
 
 ### Hosting (Vercel)
 
 Static build in `dist/`. Deployed on **Vercel**, which means `public/_headers`
-and `public/_redirects` (Netlify / Cloudflare Pages formats) **are ignored** —
+and `public/_redirects` (Netlify / Cloudflare Pages formats) **are ignored** –
 the live HTTP headers and 301s come from **`vercel.json`**. The Netlify files are
 kept only for portability; **change one, change the other**.
 
@@ -242,7 +242,7 @@ canonical; English pages live under `/en/` with **their own English slugs**
 
 Navigation, the language switcher, `canonical`, the `hreflang` pair and the
 sitemap are all derived from that map. **A missing entry breaks all of them at
-once** — when you add a page, add its slug too.
+once** – when you add a page, add its slug too.
 
 ### Currency
 
@@ -285,4 +285,4 @@ src/
 
 The Bulgarian copy uses the informal **„ти"** throughout, never „Вие". The
 English version is a **full mirror**, not a summary. The response promise is
-**3 business days**, repeated sitewide — change it in `site.responseTime`.
+**3 business days**, repeated sitewide – change it in `site.responseTime`.

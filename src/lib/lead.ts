@@ -4,7 +4,7 @@ import { site } from "../config/site";
  * Submit a lead to the configured endpoint (§3 Forms).
  *
  * Sent as multipart FormData rather than JSON so an attached invoice actually
- * reaches the inbox — most form services (Formspree, Web3Forms, a serverless
+ * reaches the inbox – most form services (Formspree, Web3Forms, a serverless
  * handler) accept files this way.
  *
  * This deliberately never reports success it cannot verify: if no endpoint is
@@ -39,17 +39,17 @@ export async function submitLead(
   honeypot?: string,
   file?: File | null,
 ): Promise<LeadResult> {
-  if (honeypot) return "ok"; // bot — pretend success, send nothing
+  if (honeypot) return "ok"; // bot – pretend success, send nothing
 
   const endpoint = site.formEndpoint;
 
   // Empty is the only "not configured" signal. Do not sniff the path: a
   // same-origin handler at /api/lead is a perfectly valid endpoint, and is in
-  // fact the preferred one — it keeps the CSP at form-action 'self'.
+  // fact the preferred one – it keeps the CSP at form-action 'self'.
   if (!endpoint.trim()) {
     // Loud on purpose: this must be caught before launch, not after.
     console.error(
-      `[NV Power] No form endpoint configured — the "${kind}" submission was NOT sent. ` +
+      `[NV Power] No form endpoint configured – the "${kind}" submission was NOT sent. ` +
         `Set site.formEndpoint in src/config/site.ts to a real form service or serverless URL.`,
       data,
     );
@@ -67,7 +67,7 @@ export async function submitLead(
   body.append("ts", new Date().toISOString());
 
   try {
-    // No Content-Type header — the browser sets the multipart boundary itself.
+    // No Content-Type header – the browser sets the multipart boundary itself.
     const res = await fetch(endpoint, { method: "POST", headers: { Accept: "application/json" }, body });
     return res.ok ? "ok" : "error";
   } catch {

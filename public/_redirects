@@ -1,6 +1,6 @@
-# Redirects — Netlify / Cloudflare Pages format.
+# Redirects – Netlify / Cloudflare Pages format.
 #
-# ⚠️  This site is deployed on VERCEL, which ignores this file entirely — the
+# ⚠️  This site is deployed on VERCEL, which ignores this file entirely – the
 # live 301s come from /vercel.json → "redirects". This file is kept only so a
 # move to Netlify / Cloudflare Pages still works. Change one, change the other.
 # For nginx, use `return 301`.
@@ -11,7 +11,7 @@
 # unchanged and need no rules.
 #
 # Netlify / Cloudflare normalise trailing slashes when matching. Vercel does
-# NOT — with trailingSlash: true it rewrites to the slash form *before* matching
+# NOT – with trailingSlash: true it rewrites to the slash form *before* matching
 # redirects, so vercel.json must spell the sources with the slash. Keep these
 # rules as long as the old URLs may still be linked.
 

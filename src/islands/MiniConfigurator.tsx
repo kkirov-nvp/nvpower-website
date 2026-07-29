@@ -5,7 +5,7 @@ import NoScriptFallback from "./NoScriptFallback";
 import type { Locale } from "../config/site";
 import { r, type RouteKey } from "../i18n/routes";
 
-/* §7.1 — homepage mini-configurator: 4 branching questions → recommendation
+/* §7.1 – homepage mini-configurator: 4 branching questions → recommendation
    card + inline mini lead form. Progress dots, „ти" tone. */
 
 type Rec = { title: string; text: string; route: RouteKey; cta: string };
@@ -28,7 +28,7 @@ const copy = {
     back: "Назад",
     recTok: {
       title: "Препоръчваме: смяна на доставчика",
-      text: "С цена XXX €/кВтч и без скрити такси смяната ще ти спести реални пари — а е безплатна и без прекъсване на тока.",
+      text: "С цена XXX €/кВтч и без скрити такси смяната ще ти спести реални пари – а е безплатна и без прекъсване на тока.",
       route: "tok",
       cta: "Виж плановете за ток",
     },
@@ -40,13 +40,13 @@ const copy = {
     },
     recSolarBiz: {
       title: "Препоръчваме: соларна централа за бизнеса",
-      text: "Системата се изплаща от сметките, които спираш да плащаш. Проектираме, изграждаме и поддържаме — а с лизинг паричният поток остава при теб.",
+      text: "Системата се изплаща от сметките, които спираш да плащаш. Проектираме, изграждаме и поддържаме – а с лизинг паричният поток остава при теб.",
       route: "solarBiz",
       cta: "Соларни системи за бизнеса",
     },
     recBoth: {
       title: "Препоръчваме: пълния пакет NV Power",
-      text: "Купуваш ток на ясна цена днес и изграждаш собствена централа с батерия утре — при един и същ партньор. Точно това правим най-добре.",
+      text: "Купуваш ток на ясна цена днес и изграждаш собствена централа с батерия утре – при един и същ партньор. Точно това правим най-добре.",
       route: "oferta",
       cta: "Вземи комбинирана оферта",
     },
@@ -81,7 +81,7 @@ const copy = {
     back: "Back",
     recTok: {
       title: "We recommend: switching supplier",
-      text: "At €XXX/kWh with no hidden fees, switching saves you real money — and it's free, with no power interruption.",
+      text: "At €XXX/kWh with no hidden fees, switching saves you real money – and it's free, with no power interruption.",
       route: "tok",
       cta: "See electricity plans",
     },
@@ -93,13 +93,13 @@ const copy = {
     },
     recSolarBiz: {
       title: "We recommend: a solar plant for your business",
-      text: "The system pays for itself from the bills you stop paying. We design, build and maintain it — and with leasing your cash flow stays with you.",
+      text: "The system pays for itself from the bills you stop paying. We design, build and maintain it – and with leasing your cash flow stays with you.",
       route: "solarBiz",
       cta: "Solar for your business",
     },
     recBoth: {
       title: "We recommend: the full NV Power package",
-      text: "Buy electricity at a clear price today and build your own plant with a battery tomorrow — with the same partner. That's exactly what we do best.",
+      text: "Buy electricity at a clear price today and build your own plant with a battery tomorrow – with the same partner. That's exactly what we do best.",
       route: "oferta",
       cta: "Get a combined quote",
     },

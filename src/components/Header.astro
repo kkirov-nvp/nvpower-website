@@ -7,13 +7,13 @@ import Logo from "./Logo.astro";
 
 interface Props {
   locale: Locale;
-  /** BG-canonical path — used for the language switcher */
+  /** BG-canonical path – used for the language switcher */
   path: string;
 }
 const { locale, path } = Astro.props;
 const t = useUI(locale);
 const alt = alternates(path);
-// Utility pages (404) have no localized twin — switch language via the homepage.
+// Utility pages (404) have no localized twin – switch language via the homepage.
 const hasTwin = path !== "/404/";
 const otherHref = locale === "bg" ? (hasTwin ? alt.en : "/en/") : hasTwin ? alt.bg : "/";
 const otherLabel = locale === "bg" ? "EN" : "БГ";
@@ -34,7 +34,7 @@ const current = Astro.url.pathname;
   style="background: var(--header-bg);"
 >
   <nav class="container-site flex h-16 items-center justify-between gap-3 md:h-20" aria-label={t.a11y.primaryNav}>
-    <a href={r(locale, "home")} aria-label={`${site.name} — ${locale === "bg" ? "начало" : "home"}`}>
+    <a href={r(locale, "home")} aria-label={`${site.name} – ${locale === "bg" ? "начало" : "home"}`}>
       <Logo />
     </a>
 
@@ -136,7 +136,7 @@ const current = Astro.url.pathname;
     btn.querySelector(".menu-close-icon")?.classList.toggle("hidden", !open);
   });
 
-  // Theme switch — persists to localStorage, applied via [data-theme] on <html>
+  // Theme switch – persists to localStorage, applied via [data-theme] on <html>
   const themeBtn = document.getElementById("theme-toggle")!;
   themeBtn.addEventListener("click", () => {
     const root = document.documentElement;

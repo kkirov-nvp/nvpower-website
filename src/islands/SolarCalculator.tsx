@@ -4,7 +4,7 @@ import type { Locale } from "../config/site";
 import { kwhPriceEUR } from "../config/site";
 import { r } from "../i18n/routes";
 
-/* /kalkulator — client-side solar savings calculator with fully transparent
+/* /kalkulator – client-side solar savings calculator with fully transparent
    assumptions (expandable footnote). No contact data needed; the CTA hands
    the numbers to the offer wizard via query params. */
 
@@ -37,7 +37,7 @@ const copy = {
     area: "Покривна площ в m² (по избор)",
     areaHint: "Ако я знаеш, ще съобразим системата с покрива ти.",
     resultsTitle: "Твоята система, на един поглед",
-    empty: "Въведи сметка или консумация и ще изчислим системата ти на момента — без данни за контакт.",
+    empty: "Въведи сметка или консумация и ще изчислим системата ти на момента – без данни за контакт.",
     kwpLabel: "Препоръчана система",
     productionLabel: "Годишно производство",
     savingsLabel: "Годишна икономия",
@@ -52,18 +52,18 @@ const copy = {
     areaCapNote: "Ограничихме системата според посочената покривна площ.",
     cta: "Вземи точна оферта",
     ctaNote: "Оферта за 2 минути · Без ангажимент · Без депозити",
-    assumptionsTitle: "Как смятаме? Всички допускания — открито",
+    assumptionsTitle: "Как смятаме? Всички допускания – открито",
     billPh: "напр. 130",
     kwhPh: "напр. 1200",
     areaPh: "напр. 60",
     assumptions: [
-      `Цена на тока: ${PRICE_EUR.toFixed(3)} €/кВтч — индикативна цена, използвана в изчислението.`,
+      `Цена на тока: ${PRICE_EUR.toFixed(3)} €/кВтч – индикативна цена, използвана в изчислението.`,
       `1 kWp фотоволтаици произвежда ~${YIELD_KWH_PER_KWP} кВтч годишно в България.`,
       `1 kWp изисква ~${M2_PER_KWP} m² покривна площ.`,
-      "Собствено потребление: 70% за дом (с батерия) и 80% за бизнес/индустрия — останалото се изкупува или губи и не го броим за икономия.",
-      `Ориентировъчна цена на система: ~${COST_EUR_PER_KWP.home} €/kWp за дом и ~${COST_EUR_PER_KWP.business} €/kWp за бизнес — до ключ, преди финансиране.`,
+      "Собствено потребление: 70% за дом (с батерия) и 80% за бизнес/индустрия – останалото се изкупува или губи и не го броим за икономия.",
+      `Ориентировъчна цена на система: ~${COST_EUR_PER_KWP.home} €/kWp за дом и ~${COST_EUR_PER_KWP.business} €/kWp за бизнес – до ключ, преди финансиране.`,
       `CO₂: ${CO2_KG_PER_KWH} кг спестен CO₂ на произведен кВтч; 1 дърво поглъща ~${TREE_KG_PER_YEAR} кг CO₂/год; 1 обиколка на околовръстното на София е ~${SOFIA_RING_KM} км при ~120 г CO₂/км за бензинов автомобил.`,
-      "Числата са ориентировъчни — точните зависят от покрива, засенчването и профила на потребление. Затова финалната оферта я прави инженер, не калкулатор.",
+      "Числата са ориентировъчни – точните зависят от покрива, засенчването и профила на потребление. Затова финалната оферта я прави инженер, не калкулатор.",
     ],
   },
   en: {
@@ -78,7 +78,7 @@ const copy = {
     area: "Roof area in m² (optional)",
     areaHint: "If you know it, we'll size the system to your roof.",
     resultsTitle: "Your system at a glance",
-    empty: "Enter a bill or consumption and we'll size your system instantly — no contact details needed.",
+    empty: "Enter a bill or consumption and we'll size your system instantly – no contact details needed.",
     kwpLabel: "Recommended system",
     productionLabel: "Annual production",
     savingsLabel: "Annual savings",
@@ -98,13 +98,13 @@ const copy = {
     kwhPh: "e.g. 1200",
     areaPh: "e.g. 60",
     assumptions: [
-      `Electricity price: €${PRICE_EUR.toFixed(3)}/kWh — indicative rate used in this calculation.`,
+      `Electricity price: €${PRICE_EUR.toFixed(3)}/kWh – indicative rate used in this calculation.`,
       `1 kWp of photovoltaics produces ~${YIELD_KWH_PER_KWP} kWh per year in Bulgaria.`,
       `1 kWp needs ~${M2_PER_KWP} m² of roof area.`,
-      "Self-consumption: 70% for a home (with battery) and 80% for business/industry — the rest is sold back or lost, and we don't count it as savings.",
-      `Indicative system cost: ~€${COST_EUR_PER_KWP.home}/kWp for homes and ~€${COST_EUR_PER_KWP.business}/kWp for business — turnkey, before financing.`,
+      "Self-consumption: 70% for a home (with battery) and 80% for business/industry – the rest is sold back or lost, and we don't count it as savings.",
+      `Indicative system cost: ~€${COST_EUR_PER_KWP.home}/kWp for homes and ~€${COST_EUR_PER_KWP.business}/kWp for business – turnkey, before financing.`,
       `CO₂: ${CO2_KG_PER_KWH} kg of CO₂ saved per kWh produced; 1 tree absorbs ~${TREE_KG_PER_YEAR} kg CO₂/year; 1 lap of the Sofia ring road is ~${SOFIA_RING_KM} km at ~120 g CO₂/km for a petrol car.`,
-      "These numbers are indicative — the exact ones depend on your roof, shading and consumption profile. That's why the final quote comes from an engineer, not a calculator.",
+      "These numbers are indicative – the exact ones depend on your roof, shading and consumption profile. That's why the final quote comes from an engineer, not a calculator.",
     ],
   },
 } as const;

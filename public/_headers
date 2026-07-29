@@ -1,6 +1,6 @@
-# Security headers — Netlify / Cloudflare Pages format.
+# Security headers – Netlify / Cloudflare Pages format.
 #
-# ⚠️  This site is deployed on VERCEL, which ignores this file entirely — the
+# ⚠️  This site is deployed on VERCEL, which ignores this file entirely – the
 # live headers come from /vercel.json → "headers". This file is kept only so a
 # move to Netlify / Cloudflare Pages still works. Change one, change the other.
 # For nginx, use add_header.

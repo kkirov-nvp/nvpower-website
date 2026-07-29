@@ -1,11 +1,11 @@
 import type { Locale } from "../config/site";
 
 /**
- * Route map — BG slugs are canonical (§5).
+ * Route map – BG slugs are canonical (§5).
  *
  * EN mirrors live under /en/ and use *English* slugs, not the BG ones, so the
  * English site reads naturally and ranks on English terms. Keep EN_SLUGS in
- * sync with the filenames under src/pages/en/ — a missing entry silently
+ * sync with the filenames under src/pages/en/ – a missing entry silently
  * produces a 404 in the nav, the language switcher, the canonical tag and the
  * hreflang pair all at once.
  */

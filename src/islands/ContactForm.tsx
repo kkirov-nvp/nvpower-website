@@ -6,7 +6,7 @@ import type { Locale } from "../config/site";
 import { site } from "../config/site";
 import { r } from "../i18n/routes";
 
-/* §6.10 contact form — interest dropdown + monthly-bill bracket (silent lead
+/* §6.10 contact form – interest dropdown + monthly-bill bracket (silent lead
    scoring), optional file, GDPR, honeypot. */
 
 const copy = {
@@ -22,7 +22,7 @@ const copy = {
     message: "Съобщение *",
     messagePh: "Разкажи ни накратко за обекта или въпроса си…",
     phonePh: "+359 88 123 4567",
-    file: "Прикачи файл (по избор — напр. фактура)",
+    file: "Прикачи файл (по избор – напр. фактура)",
     gdpr: "Съгласен съм NV Power да обработи данните ми, за да отговори на запитването, съгласно политиката за поверителност.",
     submit: "Изпрати запитването",
     sending: "Изпращане…",
@@ -44,7 +44,7 @@ const copy = {
     message: "Message *",
     messagePh: "Tell us briefly about your site or question…",
     phonePh: "+359 88 123 4567",
-    file: "Attach a file (optional — e.g. an invoice)",
+    file: "Attach a file (optional – e.g. an invoice)",
     gdpr: "I agree that NV Power may process my data to answer this enquiry, per the privacy policy.",
     submit: "Send the enquiry",
     sending: "Sending…",
