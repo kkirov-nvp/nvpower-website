@@ -56,8 +56,15 @@ export const site = {
    * currency quoted anywhere on the site. Do not reintroduce lev pricing.
    */
   price: {
+    /**
+     * [PLACEHOLDER] Indicative rate the solar calculator computes with. It is
+     * NOT shown as a published tariff anywhere — `display` below is masked
+     * until a real price is agreed, so no invented figure can be read as a
+     * commitment. Set both together.
+     */
     eurPerKwh: 0.099,
-    display: { bg: "0.099 €/кВтч", en: "€0.099/kWh" },
+    /** [PLACEHOLDER] the publicly quoted price — masked until confirmed. */
+    display: { bg: "XXX €/кВтч", en: "€XXX/kWh" },
   },
 
   /** [PLACEHOLDER] §2 [TEAM] — at least founder/manager with a real photo */

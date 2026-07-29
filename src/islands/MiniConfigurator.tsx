@@ -28,7 +28,7 @@ const copy = {
     back: "Назад",
     recTok: {
       title: "Препоръчваме: смяна на доставчика",
-      text: "С цена 0.099 €/кВтч и без скрити такси смяната ще ти спести реални пари — а е безплатна и без прекъсване на тока.",
+      text: "С цена XXX €/кВтч и без скрити такси смяната ще ти спести реални пари — а е безплатна и без прекъсване на тока.",
       route: "tok",
       cta: "Виж плановете за ток",
     },
@@ -81,7 +81,7 @@ const copy = {
     back: "Back",
     recTok: {
       title: "We recommend: switching supplier",
-      text: "At €0.099/kWh with no hidden fees, switching saves you real money — and it's free, with no power interruption.",
+      text: "At €XXX/kWh with no hidden fees, switching saves you real money — and it's free, with no power interruption.",
       route: "tok",
       cta: "See electricity plans",
     },

@@ -57,7 +57,7 @@ const copy = {
     kwhPh: "напр. 1200",
     areaPh: "напр. 60",
     assumptions: [
-      `Цена на тока: ${PRICE_EUR.toFixed(3)} €/кВтч — публичната ни цена.`,
+      `Цена на тока: ${PRICE_EUR.toFixed(3)} €/кВтч — индикативна цена, използвана в изчислението.`,
       `1 kWp фотоволтаици произвежда ~${YIELD_KWH_PER_KWP} кВтч годишно в България.`,
       `1 kWp изисква ~${M2_PER_KWP} m² покривна площ.`,
       "Собствено потребление: 70% за дом (с батерия) и 80% за бизнес/индустрия — останалото се изкупува или губи и не го броим за икономия.",
@@ -98,7 +98,7 @@ const copy = {
     kwhPh: "e.g. 1200",
     areaPh: "e.g. 60",
     assumptions: [
-      `Electricity price: €${PRICE_EUR.toFixed(3)}/kWh — our published price.`,
+      `Electricity price: €${PRICE_EUR.toFixed(3)}/kWh — indicative rate used in this calculation.`,
       `1 kWp of photovoltaics produces ~${YIELD_KWH_PER_KWP} kWh per year in Bulgaria.`,
       `1 kWp needs ~${M2_PER_KWP} m² of roof area.`,
       "Self-consumption: 70% for a home (with battery) and 80% for business/industry — the rest is sold back or lost, and we don't count it as savings.",
