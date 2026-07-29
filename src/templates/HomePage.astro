@@ -19,11 +19,15 @@ const t = useUI(locale);
 const c = {
   bg: {
     title: "NV Power – Енергия за утрешния ден | Ток и соларни системи",
-    description:
-      "Ток на ясна цена – XXX €/кВтч – и соларни централи с батерии и гъвкаво финансиране. Вземи оферта за 2 минути.",
+    description: `Ток на ясна цена – ${site.price.display.bg} и фотоволтаични централи (ФЕЦ) с батерии (BESS), с гъвкаво финансиране. Две направления – един партньор.`,
     hero: {
       h1: "Енергия за утрешния ден",
-      sub: `Ток на ясна цена – ${site.price.display.bg} – и соларни централи с батерии, с гъвкаво финансиране. Двете решения, един партньор: NV Power.`,
+      /* Three deliberate lines; rendered with <br /> inside one paragraph. */
+      sub: [
+        `Ток на ясна цена – ${site.price.display.bg}`,
+        "Фотоволтаични централи (ФЕЦ) с батерии (BESS), с възможност за гъвкаво финансиране.",
+        "Две направления – един партньор: NV Power.",
+      ],
       ctaCalc: "Изчисли спестяванията",
       ctaOffer: "Вземи оферта",
       checks: [t.promises.noFees, t.promises.response, t.promises.financing],
@@ -94,11 +98,14 @@ const c = {
   },
   en: {
     title: "NV Power – Energy for tomorrow | Electricity & solar systems",
-    description:
-      "Electricity at a clear price – €XXX/kWh – and solar plants with batteries and flexible financing. Get a quote in 2 minutes.",
+    description: `Electricity at a clear price – ${site.price.display.en} and solar PV plants with battery storage (BESS), with flexible financing. Two business lines – one partner.`,
     hero: {
       h1: "Energy for tomorrow",
-      sub: `Electricity at a clear price – ${site.price.display.en} – and solar plants with batteries and flexible financing. Two solutions, one partner: NV Power.`,
+      sub: [
+        `Electricity at a clear price – ${site.price.display.en}`,
+        "Solar PV plants with battery storage (BESS), with flexible financing available.",
+        "Two business lines – one partner: NV Power.",
+      ],
       ctaCalc: "Calculate your savings",
       ctaOffer: "Get a quote",
       checks: [t.promises.noFees, t.promises.response, t.promises.financing],
@@ -187,7 +194,14 @@ const c = {
       <h1 class="mx-auto mt-4 max-w-3xl text-4xl font-bold text-white sm:text-5xl md:text-6xl md:leading-[1.08]">
         {c.hero.h1}
       </h1>
-      <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">{c.hero.sub}</p>
+      <p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
+        {c.hero.sub.map((line, i) => (
+          <>
+            {i > 0 && <br />}
+            {line}
+          </>
+        ))}
+      </p>
 
       <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <a href={r(locale, "kalkulator")} class="btn btn-primary !px-7 !py-4 text-base">
