@@ -17,6 +17,31 @@ with battery storage.
 цена за бизнеса и дома, изкупуване на ток от ВЕИ производители, проектиране и
 изграждане на фотоволтаични централи с батерии и гъвкаво финансиране.
 
+### TO-DO преди публикуване
+
+**Блокери** — сайтът не бива да се промотира преди това:
+
+- [ ] **Form endpoint.** `site.formEndpoint` е празен низ, затова формите не изпращат нищо — посетителят вижда телефон и имейл. Свържи form service или serverless функция (виж раздел „Форми" по-долу).
+- [ ] **Маскирани данни.** Телефон, ЕИК, ДДС №, КЕВР лиценз № и цената на тока са умишлено `XXX` / `XXXXXXX` в `src/config/site.ts` — замени с реалните стойности.
+- [ ] **Примерни проекти.** 4 записа в `src/data/projects.ts` са флагнати със `sample: true`.
+- [ ] **Останали placeholder-и.** Адрес, Google Maps embed, екип (име + реална снимка), социални профили, GA4 id.
+
+**Несъответствия след преориентирането на `/tok/`** — страницата вече е за ВЕИ производители (изкупуване), а не за консуматори:
+
+- [ ] Навигацията и футърът още пишат „Ток за бизнеса и дома" и водят към `/tok/`. Реши текста — `nav.tok` и `footer.links.tok` в `src/i18n/ui.ts`.
+- [ ] Началната страница все още е написана за консуматори (доставка), а `/tok/` продава изкупуване. Реши дали консуматорската оферта да се върне на отделна страница.
+- [ ] `0.099` се вижда още на 2 места, и двете като **индикативни**, не като тарифа: допусканията в `/kalkulator/` и „Примерни числа" в `/solar/za-biznesa/`. Ако трябва да се маскират, редът с бизнес случая изисква преписване, не find-and-replace (стойността е изчислена от цената).
+
+**Инфраструктура:**
+
+- [ ] Вторият Vercel проект (`nvpower-website.vercel.app`) не е свързан с `main` и отдава стар build. Линкът в About на repo-то сочи него — изтрий проекта или го насочи към `main`.
+- [ ] Клонът `en-slug-rename` е слят в `main` и може да се изтрие.
+
+**Приятно за имане:**
+
+- [ ] Истинско SVG лого — нужен е векторният оригинал; сегашното е оптимизиран растер (WebP + PNG).
+- [ ] Индикация за скролване (градиент отдясно) на широката сравнителна таблица в мобилен изглед.
+
 ### Стек
 
 - **Astro 7** — изцяло статичен изход, целият текст е в началния HTML (SEO)
@@ -128,6 +153,31 @@ A complete bilingual site (Bulgarian primary, English mirror) of **30 indexable 
 electricity supply at a clear price for business and home, electricity buy-back
 from renewable producers, and turnkey solar plants with battery storage and
 flexible financing.
+
+### TO-DO before launch
+
+**Blockers** — do not promote the site until these are done:
+
+- [ ] **Form endpoint.** `site.formEndpoint` is an empty string, so forms send nothing — visitors get the phone/email fallback. Wire a form service or serverless function (see the Forms section below).
+- [ ] **Masked data.** Phone, company ID (ЕИК), VAT number, EWRC licence number and the electricity price are deliberately `XXX` / `XXXXXXX` in `src/config/site.ts` — replace with the real values.
+- [ ] **Sample projects.** 4 entries in `src/data/projects.ts` are flagged `sample: true`.
+- [ ] **Remaining placeholders.** Address, Google Maps embed, team member (name + real photo), social profiles, GA4 id.
+
+**Inconsistencies after repositioning `/tok/`** — that page now targets renewable producers (buy-back), not consumers:
+
+- [ ] Nav and footer still read "Electricity for business & home" while linking to `/tok/`. Decide the wording — `nav.tok` and `footer.links.tok` in `src/i18n/ui.ts`.
+- [ ] The homepage is still written for consumers buying power, while `/tok/` sells buy-back. Decide whether the consumer offering returns on its own page.
+- [ ] `0.099` still appears in 2 places, both framed as **indicative** rather than quoted as a tariff: the `/kalkulator/` assumptions and the "Example numbers" block on `/solar/za-biznesa/`. Masking those needs a rewrite, not a find-and-replace — the business-case value is derived from the rate.
+
+**Infrastructure:**
+
+- [ ] The second Vercel project (`nvpower-website.vercel.app`) is not wired to `main` and serves a stale build. The repo's About link points at it — delete the project or point it at `main`.
+- [ ] Branch `en-slug-rename` is merged into `main` and can be deleted.
+
+**Nice to have:**
+
+- [ ] A real SVG logo — needs the vector original; the current one is an optimised raster (WebP + PNG).
+- [ ] A scroll affordance (right-edge gradient) on the wide comparison table in mobile view.
 
 ### Stack
 
