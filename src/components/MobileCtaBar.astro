@@ -11,14 +11,17 @@ const { locale } = Astro.props;
 const t = useUI(locale);
 ---
 
-<!-- Persistent mobile bottom CTA bar (§5): phone + оферта -->
+<!-- Persistent mobile bottom CTA bar (§5): phone + оферта.
+     These two keep whitespace-nowrap (the .btn utility no longer sets it): the
+     bar is fixed-height and #main reserves 80px for it, so a wrapped label
+     would grow the bar to ~87px and hide content behind it at 320-360px. -->
 <div
   class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-2 border-t border-white/10 bg-band/95 p-2.5 backdrop-blur-md md:hidden"
   style="padding-bottom: calc(0.625rem + env(safe-area-inset-bottom));"
 >
-  <a href={`tel:${site.phoneHref}`} class="btn btn-ghost-band !py-3 text-sm">
+  <a href={`tel:${site.phoneHref}`} class="btn btn-ghost-band !px-3 !py-3 text-sm whitespace-nowrap">
     <Phone class="size-4 text-[#4db8c4]" aria-hidden="true" />
     {t.a11y.call}
   </a>
-  <a href={r(locale, "oferta")} class="btn btn-primary !py-3 text-sm">{t.nav.oferta}</a>
+  <a href={r(locale, "oferta")} class="btn btn-primary !px-3 !py-3 text-sm whitespace-nowrap">{t.nav.oferta}</a>
 </div>

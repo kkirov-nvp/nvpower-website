@@ -78,10 +78,10 @@ const socials = [
       {columns.map((col) => (
         <nav aria-label={col.title}>
           <h2 class="mb-4 font-[family-name:var(--font-display)] text-sm font-bold tracking-wide text-white/90 uppercase">{col.title}</h2>
-          <ul class="flex flex-col gap-2.5">
+          <ul class="flex flex-col gap-1.5">
             {col.items.map((item) => (
               <li>
-                <a href={item.href} class="text-sm text-white/70 transition-colors hover:text-white">{item.label}</a>
+                <a href={item.href} class="block py-1 text-sm text-white/70 transition-colors hover:text-white">{item.label}</a>
               </li>
             ))}
           </ul>
